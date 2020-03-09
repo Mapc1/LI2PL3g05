@@ -2,4 +2,4 @@
 Jogo Rastros para projeto de LI2
 
 Desenvolvido por:
-  -Marco André Pereira da Costa a93283
+  Marco André Pereira da Costa a93283
