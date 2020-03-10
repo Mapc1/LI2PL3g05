@@ -18,9 +18,11 @@ return 1;
 
 
 void mostrar_tabuleiro(ESTADO *e) {
-    int i=0;
-    for (i = 0; i < BUF_SIZE; i++)
-    {
-        printf("%c",linha[i]);
-    } 
+    int i,j;
+    for (i = 0; i < 8; i++){
+        for (j = 0; j < 8; j++) {
+            printf("%c",e->tabela[i][j]);
+        }
+        printf("\n");
+    }
 }
