@@ -1,29 +1,36 @@
 #include "dados.h"
 
 void inicializa_jogadas(ESTADO *estado){
+    //Coloca os valores de jogador1 e jogador2 em todos os índices a (-1)
     for(int i = 0; i < 32; i++){
         estado->jogadas[i].jogador1 = (COORDENADA){.coluna = (-1), .linha = (-1)};
         estado->jogadas[i].jogador2 = (COORDENADA){.coluna = (-1), .linha = (-1)};
     }
 }
 
-ESTADO *inicializar_estado() {
-    ESTADO *e = (ESTADO *) malloc(sizeof(ESTADO));
-    e->jogador_atual = 1;
-    e->num_jogadas = 0;
-    e->tabela[8][8];
-    e->jogadas[32];
-    e->ultima_jogada = (COORDENADA){.coluna = (-1), .linha = (-1)};
-
-    inicializa_jogadas(e);
+void inicializa_tabela(ESTADO *estado){
+    //Coloca todas as peças a "VAZIA" menos a que está na posiçao 3x4 que e inciada a "BRANCA"
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 8; j++) {
             if (i == 3 && j == 4)
-                e->tabela[i][j] = BRANCA;
+                estado->tabela[i][j] = BRANCA;
             else
-                e->tabela[i][j] = VAZIA;
+                estado->tabela[i][j] = VAZIA;
         }
-    return e;
+}
+
+ESTADO *inicializar_estado() {
+    //Aloca memória para o estado
+    ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
+
+    estado->jogador_atual = 1;
+    estado->num_jogadas = 0;
+    estado->ultima_jogada = (COORDENADA){.coluna = (-1), .linha = (-1)};
+
+    inicializa_jogadas(estado);
+    inicializa_tabela(estado);
+
+    return estado;
 }
 
 int obter_jogador_atual(ESTADO *estado){
