@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "dados.h"
 #include "interface.h"
+#include "logica.h"
 
 
 int interpretador(ESTADO *e) {
@@ -19,9 +20,21 @@ return 1;
 
 void mostrar_tabuleiro(ESTADO *e) {
     int i,j;
-    for (i = 0; i < 8; i++){
-        for (j = 0; j < 8; j++) {
-            printf("%c",e->tabela[i][j]);
+    char col;
+    for (i = -1; i < 8; i++){
+        if (i==(-1)){
+                printf("   ");
+                for (j=0,col='A';j<8;j++,col++) printf ("%c ",col);
+        }
+        else {
+            printf("%d  ",(i+1));
+            for (j = 0; j < 8; j++) {
+                switch (e->tabela[i][j]){
+                case VAZIA: printf(". ");break;
+                case BRANCA: printf("B ");break;
+                case PRETA: printf("P ");break;
+                }
+            }
         }
         printf("\n");
     }
