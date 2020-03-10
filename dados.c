@@ -51,9 +51,3 @@ int obter_numero_jogadas(ESTADO *estado){
     for(; i < 32 && estado->jogadas[i].jogador1.coluna != (-1) ; i++);
     return i;
 }
-
-int jogar(ESTADO *e, COORDENADA c){
-    //Ainda não faz nada
-    printf("jogar %d %d\n", c.coluna, c.linha);
-    return 1;
-}
