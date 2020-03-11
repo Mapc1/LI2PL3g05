@@ -7,7 +7,7 @@
 //Substitui a peça BRANCA com uma peça PRETA
 void substitui_peca_branca(ESTADO *estado){
     for(int i = 0; i < 8; i++)
-        for(int j = 0; i < 8; i++)
+        for(int j = 0; i < 8; j++)
             if(estado->tabela[i][j] == BRANCA){
                 estado->tabela[i][j] = PRETA;
                 return;
