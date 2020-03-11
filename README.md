@@ -1,4 +1,4 @@
-# LI2-PL3-?
+# LI2-PL3-G5
 ## Jogo Rastros para projeto de LI2
 
 Desenvolvido por:
