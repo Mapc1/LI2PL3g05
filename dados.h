@@ -27,5 +27,7 @@ int obter_jogador_atual(ESTADO *estado);
 
 int obter_numero_jogadas(ESTADO *estado);
 
+int aux_jogar(ESTADO *estado, COORDENADA c);
+
 CASA obter_estado_casa(ESTADO *e, COORDENADA c);
 #endif //RASTROS_DADOS_H

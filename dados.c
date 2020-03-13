@@ -51,3 +51,26 @@ int obter_numero_jogadas(ESTADO *estado){
     for(; i < 32 && estado->jogadas[i].jogador1.coluna != (-1) ; i++);
     return i;
 }
+
+int aux_jogar(ESTADO *estado, COORDENADA c){
+    int bool = 0;
+    if(estado->tabela[c.linha][c.coluna] == VAZIA &&
+       c.linha >= 0   &&
+       c.linha <= 7   &&
+       c.coluna >= 0  &&
+       c.coluna <= 7){
+        substitui_peca_branca(estado);
+        estado->tabela[c.linha][c.coluna] = BRANCA;
+        bool = 1;
+    }
+}
+
+//Substitui a peça BRANCA com uma peça PRETA
+void substitui_peca_branca(ESTADO *estado){
+    for(int i = 0; i < 8; i++)
+        for(int j = 0; j < 8; j++)
+            if(estado->tabela[i][j] == BRANCA){
+                estado->tabela[i][j] = PRETA;
+                return;
+            }
+}
