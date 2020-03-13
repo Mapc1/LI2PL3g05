@@ -18,10 +18,11 @@ Neste módulo implementamos o interpretador e uma função que mostra o tabuleir
 ### Lógica:
 
 Aqui existe uma única função, a função "jogar", que através de uma função auxiliar presente nos **dados**, chama a função "substitui_peca_branca" coloca a peça **BRANCA** na **CASA** jogada. (Esta função ainda não verifica se a **COORDENADA** que recebe é adjacente ou não)
+
 A função "substitui_peca_branca", referida anteriormente, está presente nos **dados** e procura no tabuleiro a peça **BRANCA** substituindo o seu estado para **PRETA**
 
 ### Dados:
 
 Neste módulo estão funções que alteram o estado do jogo tal como as funções que inicializam o estado do jogo.
 
-***PS: O facto pelo qual o Alexandre só tem 3 commits deve-se ao facto que eu (Marco Costa) sem saber fiz a minha parte e a dele. Assim quando ele ia começar a trabalhar, na quarta-feira, já praticamente não havia nada para fazer.***
+***PS: O facto pelo qual o Alexandre só tem 5 commits deve-se ao facto que eu (Marco Costa) sem saber fiz a minha parte e a dele. Assim quando ele ia começar a trabalhar, na quarta-feira, já praticamente não havia nada para fazer.***
