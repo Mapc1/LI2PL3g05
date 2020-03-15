@@ -17,25 +17,34 @@ int interpretador(ESTADO *e) {
 return 1;
 }
 
-
 void mostrar_tabuleiro(ESTADO *e) {
     int i,j;
-    char col;
+    COORDENADA c;
     for (i = -1; i < 8; i++){
+        //Imprime a linha com as letras
         if (i==(-1)){
                 printf("   ");
-                for (j=0,col='A';j<8;j++,col++) printf ("%c ",col);
+                for (j = 0; j < 8; j++)
+                    printf ("%c ",(j + 'A'));
+                putchar('\n');
         }
         else {
+            //Imprime os números à esquerda
             printf("%d  ",(i+1));
+            //Imprime o tabuleiro
             for (j = 0; j < 8; j++) {
-                switch (e->tabela[i][j]){
-                case VAZIA: printf(". ");break;
-                case BRANCA: printf("B ");break;
-                case PRETA: printf("P ");break;
+                if(i == 0 && j == 7)
+                    printf("1 ");
+                else if(i == 7 && j == 0)
+                    printf("2 ");
+                else{
+                    c = (COORDENADA){.coluna = j, .linha = i};
+                    printf((obter_estado_casa(e, c) == VAZIA) ? ". " : (obter_estado_casa(e, c) == BRANCA) ? "* " : "# " );
                 }
             }
+            putchar('\n');
         }
-        printf("\n");
     }
+    printf("\n");
 }
+

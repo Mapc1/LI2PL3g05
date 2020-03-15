@@ -52,19 +52,6 @@ int obter_numero_jogadas(ESTADO *estado){
     return i;
 }
 
-int aux_jogar(ESTADO *estado, COORDENADA c){
-    int bool = 0;
-    if(estado->tabela[c.linha][c.coluna] == VAZIA &&
-       c.linha >= 0   &&
-       c.linha <= 7   &&
-       c.coluna >= 0  &&
-       c.coluna <= 7){
-        substitui_peca_branca(estado);
-        estado->tabela[c.linha][c.coluna] = BRANCA;
-        bool = 1;
-    }
-}
-
 //Substitui a peça BRANCA com uma peça PRETA
 void substitui_peca_branca(ESTADO *estado){
     for(int i = 0; i < 8; i++)
@@ -74,3 +61,10 @@ void substitui_peca_branca(ESTADO *estado){
                 return;
             }
 }
+
+int aux_jogar(ESTADO *estado, COORDENADA c){
+    substitui_peca_branca(estado);
+    estado->tabela[c.linha][c.coluna] = BRANCA;
+    return 1;
+}
+
