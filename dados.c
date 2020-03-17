@@ -34,15 +34,17 @@ ESTADO *inicializar_estado() {
 }
 
 int obter_jogador_atual(ESTADO *estado){
-    //Eu não sei se esta função é suposto mudar o jogador atual ou simplesmente devolver o atual
+    return estado->jogador_atual;
+}
+
+void muda_jogador (ESTADO *estado){
     if(estado->jogador_atual == 1)
         estado->jogador_atual = 2;
     else
         estado->jogador_atual = 1;
-    return estado->jogador_atual;
 }
 
-CASA obter_estado_casa(ESTADO *estado, COORDENADA c){
+CASA obter_estado_casa(ESTADO *estado, COORDENADA c) {
     return (estado->tabela[c.linha][c.coluna]);
 }
 
@@ -68,3 +70,15 @@ int aux_jogar(ESTADO *estado, COORDENADA c){
     return 1;
 }
 
+//Procura pela peça BRANCA
+COORDENADA obter_casa_atual (ESTADO *estado){
+    int i,o;
+    COORDENADA c;
+    for(i = 0; i < 8; i++){
+        for(o = 0; o < 8; o++){
+            c = (COORDENADA){ .coluna = o, .linha = i};
+            if(obter_estado_casa(estado, c) == BRANCA)
+                return c;
+        }
+    }
+}

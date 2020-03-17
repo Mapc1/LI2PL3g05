@@ -39,7 +39,7 @@ void mostrar_tabuleiro(ESTADO *e) {
                     printf("2 ");
                 else{
                     c = (COORDENADA){.coluna = j, .linha = i};
-                    printf((obter_estado_casa(e, c) == VAZIA) ? ". " : (obter_estado_casa(e, c) == BRANCA) ? "* " : "# " );
+                    printf("%c ", obter_estado_casa(e, c));
                 }
             }
             putchar('\n');

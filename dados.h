@@ -1,6 +1,10 @@
 #ifndef __RASTROS_DADOS_H__
 #define __RASTROS_DADOS_H__
-typedef enum {VAZIA, BRANCA, PRETA} CASA;
+typedef enum {
+    VAZIA = '.',
+    BRANCA = '*',
+    PRETA = '#'
+} CASA;
 
 typedef struct {
     int coluna, linha;
@@ -30,4 +34,8 @@ int obter_numero_jogadas(ESTADO *estado);
 int aux_jogar(ESTADO *estado, COORDENADA c);
 
 CASA obter_estado_casa(ESTADO *e, COORDENADA c);
+
+COORDENADA obter_casa_atual (ESTADO *estado);
+
+void muda_jogador(ESTADO *estado);
 #endif //RASTROS_DADOS_H

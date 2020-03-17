@@ -1,12 +1,24 @@
 #include "logica.h"
 #include "dados.h"
 
+int valida_jogada (ESTADO *estado, COORDENADA c){
+    int bool = 1;
+    COORDENADA a = obter_casa_atual(estado);
+    //Meti as 2 condiçoes em 2 ifs porque penso ser mais facil de ler
+    if(
+       abs (a.linha - c.linha) > 1 && abs (a.coluna - c.coluna) > 1 &&
+       obter_estado_casa(estado, c) != VAZIA
+       )
+        bool = 0;
+    return bool;
+}
+
 int jogar(ESTADO *estado, COORDENADA c){
     int bool = 0;
-    if(estado->tabela[c.linha][c.coluna] == VAZIA &&
-       c.linha >= 0   && c.linha <= 7 &&
-       c.coluna >= 0  && c.coluna <= 7)
-        bool = aux_jogar(estado,c);
+    if(valida_jogada(estado, c) == 1) {
+        bool = aux_jogar(estado, c);
+        muda_jogador(estado);
+    }
     printf("jogar %d %d\n", c.coluna, c.linha);
     return bool;
 }
