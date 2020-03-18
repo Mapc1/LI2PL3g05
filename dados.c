@@ -70,6 +70,11 @@ int aux_jogar(ESTADO *estado, COORDENADA c){
     return 1;
 }
 
+void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
+    int i = obter_numero_jogadas(estado);
+    estado->jogadas[i] = (JOGADA){.jogador1 = j1, .jogador2 = j2};
+}
+
 //Procura pela peça BRANCA
 COORDENADA obter_casa_atual (ESTADO *estado){
     int i,o;

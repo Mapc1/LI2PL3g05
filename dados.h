@@ -38,4 +38,6 @@ CASA obter_estado_casa(ESTADO *e, COORDENADA c);
 COORDENADA obter_casa_atual (ESTADO *estado);
 
 void muda_jogador(ESTADO *estado);
+
+void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2);
 #endif //RASTROS_DADOS_H
