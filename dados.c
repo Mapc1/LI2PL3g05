@@ -22,14 +22,11 @@ void inicializa_tabela(ESTADO *estado){
 ESTADO *inicializar_estado() {
     //Aloca memória para o estado
     ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
-
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
     estado->ultima_jogada = (COORDENADA){.coluna = (-1), .linha = (-1)};
-
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
-
     return estado;
 }
 

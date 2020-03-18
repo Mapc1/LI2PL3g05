@@ -4,9 +4,10 @@
 int valida_jogada (ESTADO *estado, COORDENADA c){
     int bool = 1;
     COORDENADA a = obter_casa_atual(estado);
-    //Meti as 2 condiçoes em 2 ifs porque penso ser mais facil de ler
+    putchar('\n');
+    printf("%d %d\n",a.coluna, a.linha);
     if(
-       abs (a.linha - c.linha) > 1 && abs (a.coluna - c.coluna) > 1 &&
+       abs (a.linha - c.linha) > 1 || abs (a.coluna - c.coluna) > 1 ||
        obter_estado_casa(estado, c) != VAZIA
        )
         bool = 0;
