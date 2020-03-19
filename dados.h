@@ -1,5 +1,6 @@
 #ifndef __RASTROS_DADOS_H__
 #define __RASTROS_DADOS_H__
+#include <stdio.h>
 typedef enum {
     VAZIA = '.',
     BRANCA = '*',
@@ -40,4 +41,8 @@ COORDENADA obter_casa_atual (ESTADO *estado);
 void muda_jogador(ESTADO *estado);
 
 void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2);
+
+ESTADO *le_ficheiro ();
+
+void escreve_ficheiro (ESTADO *estado);
 #endif //RASTROS_DADOS_H

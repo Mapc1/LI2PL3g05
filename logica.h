@@ -3,4 +3,5 @@
 #include "dados.h"
 
 int jogar(ESTADO *e, COORDENADA c);
+
 #endif //RASTROS_LOGICA_H

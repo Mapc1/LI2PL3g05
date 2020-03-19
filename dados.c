@@ -1,3 +1,5 @@
+#include <bits/types/FILE.h>
+#include <stdio.h>
 #include "dados.h"
 
 void inicializa_jogadas(ESTADO *estado){
@@ -83,4 +85,31 @@ COORDENADA obter_casa_atual (ESTADO *estado){
                 return c;
         }
     }
+}
+
+//escreve no ficheiro "Rastros" o tabuleiro
+void escreve_ficheiro (ESTADO *estado){
+    FILE *f = fopen("Rastros.txt", "w");
+
+        for(int i = 0; i < 8; i++){
+            for(int o = 0; o < 8; o++){
+                fputc(estado->tabela[i][o], f);
+            }
+            fputc('\n', f);
+        }
+
+    fclose(f);
+}
+
+ESTADO *le_ficheiro (){
+    FILE *f = fopen("Rastros.txt", "w+");
+    ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
+
+    for(int i = 0; i < 8; i++)
+        for(int o = 0; o < 8; o++){
+           if(fgetc(f) != '\n') {
+               estado->tabela[i][o] = fgetc(f);
+           }
+        }
+    return estado;
 }
