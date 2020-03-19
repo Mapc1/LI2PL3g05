@@ -36,13 +36,12 @@ int aux_jogar(ESTADO *estado, COORDENADA c);
 
 CASA obter_estado_casa(ESTADO *e, COORDENADA c);
 
-COORDENADA obter_casa_atual (ESTADO *estado);
 
 void muda_jogador(ESTADO *estado);
 
 void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2);
 
-ESTADO *ler_ficheiro ();
+ESTADO *ler_ficheiro (ESTADO *estado, char *s);
 
-void escreve_ficheiro (ESTADO *estado);
+void escreve_ficheiro (ESTADO *estado, char  *s);
 #endif //RASTROS_DADOS_H

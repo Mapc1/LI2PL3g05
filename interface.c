@@ -6,18 +6,31 @@
 #include <string.h>
 
 
-void comando(char linha[BUF_SIZE], ESTADO *estado){
-    if(strcmp(linha,"Q\n") == 0)  exit(0);
-
-    if(strcmp(linha,"GR\n") == 0) {
-        escreve_ficheiro(estado);
-        printf("\nEstado do jogo guardado em 'Rastros.txt'\n\n");
+int comando(char *linha, ESTADO *estado){
+    char *s;
+    int bool = 0;
+    s = strtok(linha, " \n");
+    //Aqui faltam elses para o caso do comando nao ter um argumento
+    if(strcmp(s, "q") == 0)  exit(0);
+    if(strcmp(s, "gr") == 0) {
+        s = strtok(NULL, "\n");
+        if (s != NULL) {
+            escreve_ficheiro(estado, s);
+            printf("\nEstado do jogo guardado em %s\n\n", s);
+            bool = 1;
+        }
     }
-
-    if(strcmp(linha, "LER\n") == 0) {
-        ler_ficheiro();
-        printf("\nRastros.txt importado.\n\n");
+    if(strcmp(s, "ler") == 0) {
+        s = strtok(NULL, "\n");
+        if(s != NULL) {
+            ler_ficheiro(estado, s);
+            printf("\n%s importado.\n\n", s);
+            bool = 1;
+        }
+        else
+            printf("MERDA");
     }
+    return bool;
 }
 
 int interpretador(ESTADO *e) {
@@ -30,6 +43,7 @@ int interpretador(ESTADO *e) {
     printf("Insira a posicao da sua jogada.\n");
 
     if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
+    int w;
     if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
         COORDENADA coord = {*col - 'a', *lin - '1'};
         prompt(e,*col,*lin);
@@ -38,8 +52,9 @@ int interpretador(ESTADO *e) {
             return 0;
         }
     }
-
-    comando(linha, e);
+    else
+        w = comando(linha, e);
+    printf("%d", w);
     interpretador(e);
 return 1;
 }
@@ -62,7 +77,7 @@ void mostrar_tabuleiro(ESTADO *e) {
                 else if(i == 7 && j == 0)
                     printf("2 ");
                 else{
-                    c = (COORDENADA){.coluna = j, .linha = i};
+                    c = (COORDENADA) { .coluna = j, .linha = i };
                     printf("%c ",(obter_estado_casa(e,c)));
                 }
             }

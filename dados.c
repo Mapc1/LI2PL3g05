@@ -4,8 +4,8 @@
 void inicializa_jogadas(ESTADO *estado){
     int i;
     for( i = 0; i < 32; i++){
-        estado->jogadas[i].jogador1 = (COORDENADA){.coluna = (-1), .linha = (-1)};
-        estado->jogadas[i].jogador2 = (COORDENADA){.coluna = (-1), .linha = (-1)};
+        estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+        estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
     }
 }
 
@@ -25,7 +25,7 @@ ESTADO *inicializar_estado() {
 
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
-    estado->ultima_jogada = (COORDENADA){.coluna = (4), .linha = (3)};
+    estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 3 };
 
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
@@ -65,8 +65,8 @@ void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
     estado->jogadas[i] = (JOGADA){.jogador1 = j1, .jogador2 = j2};
 }
 
-void escreve_ficheiro (ESTADO *estado){
-    FILE *f = fopen("Rastros.txt", "w");
+void escreve_ficheiro (ESTADO *estado, char *s){
+    FILE *f = fopen(s, "w");
     int i,o;
         for(i = 0; i < 8; i++){
             for(o = 0; o < 8; o++){
@@ -78,14 +78,24 @@ void escreve_ficheiro (ESTADO *estado){
     fclose(f);
 }
 
-ESTADO *ler_ficheiro (){
-    FILE *f = fopen("Rastros.txt", "w+");
-    ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
+ESTADO *ler_ficheiro (ESTADO *estado, char *s){
+    FILE *f;
+    char c;
     int i,o;
+
+    f = fopen(s, "r");
+
     for(i = 0; i < 8; i++)
-        for(o = 0; o < 8; o++){
-           if(fgetc(f) != '\n') {
-               estado->tabela[i][o] = fgetc(f);
+        for(o = 0; o < 8;){
+           c = fgetc(f);
+           if(c == '*'){
+               estado->ultima_jogada = (COORDENADA) { .coluna = o, .linha = i };
+               estado->tabela[i][o] = c;
+               o++;
+           }
+           else if(c != '\n') {
+               estado->tabela[i][o] = c;
+               o++;
            }
         }
 
