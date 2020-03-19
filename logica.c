@@ -3,7 +3,7 @@
 
 int jogada_impossivel (ESTADO *estado){
     int bool = 0;
-    COORDENADA a = obter_casa_atual(estado);
+    COORDENADA a = estado->ultima_jogada;
     COORDENADA cima=a, baixo=a, esquerda=a, direita=a;
     cima.linha = (a.linha +1);
     baixo.linha = (a.linha +1);
@@ -28,7 +28,7 @@ int jogada_impossivel (ESTADO *estado){
 
 int valida_jogada (ESTADO *estado, COORDENADA c){
     int bool = 1;
-    COORDENADA a = obter_casa_atual(estado);
+    COORDENADA a = estado->ultima_jogada;
     if(
        abs (a.linha - c.linha) > 1 || abs (a.coluna - c.coluna) > 1 ||
        obter_estado_casa(estado, c) != VAZIA
@@ -49,11 +49,11 @@ int jogar(ESTADO *estado, COORDENADA c){
 int fim_do_jogo (COORDENADA c){
     int bool = 0;
     if (c.linha == 0 && c.coluna == 7){ 
-        printf ("O jogador 1 ganhou!!!");
+        printf ("O jogador 1 ganhou!!!\n");
         bool = 1;
         }
     if (c.linha == 7 && c.coluna == 0){ 
-        printf ("O jogador 2 ganhou!!!");
+        printf ("O jogador 2 ganhou!!!\n");
         bool = 1;
         }
     return bool;

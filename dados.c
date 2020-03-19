@@ -25,7 +25,7 @@ ESTADO *inicializar_estado() {
 
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
-    estado->ultima_jogada = (COORDENADA){.coluna = (-1), .linha = (-1)};
+    estado->ultima_jogada = (COORDENADA){.coluna = (4), .linha = (3)};
 
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
@@ -53,39 +53,16 @@ int obter_numero_jogadas(ESTADO *estado){
     return i;
 }
 
-void substitui_peca_branca(ESTADO *estado){
-    int i,j;
-    for(i = 0; i < 8; i++)
-        for(j = 0; j < 8; j++)
-            if(estado->tabela[i][j] == BRANCA){
-                estado->tabela[i][j] = PRETA;
-                return;
-            }
-}
-
 int aux_jogar(ESTADO *estado, COORDENADA c){
-    substitui_peca_branca(estado);
+    estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     estado->tabela[c.linha][c.coluna] = BRANCA;
+    estado->ultima_jogada = c;
     return 1;
 }
 
 void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
     int i = obter_numero_jogadas(estado);
     estado->jogadas[i] = (JOGADA){.jogador1 = j1, .jogador2 = j2};
-}
-
-
-COORDENADA obter_casa_atual (ESTADO *estado){
-    int i,o;
-    COORDENADA c;
-
-    for(i = 0; i < 8; i++){
-        for(o = 0; o < 8; o++){
-            c = (COORDENADA){ .coluna = o, .linha = i};
-            if(obter_estado_casa(estado, c) == BRANCA)
-                return c;
-        }
-    }
 }
 
 void escreve_ficheiro (ESTADO *estado){
