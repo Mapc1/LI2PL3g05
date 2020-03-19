@@ -42,7 +42,7 @@ void muda_jogador(ESTADO *estado);
 
 void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2);
 
-ESTADO *le_ficheiro ();
+ESTADO *ler_ficheiro ();
 
 void escreve_ficheiro (ESTADO *estado);
 #endif //RASTROS_DADOS_H

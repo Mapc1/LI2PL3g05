@@ -10,12 +10,12 @@ void comando(char linha[BUF_SIZE], ESTADO *estado){
     if(strcmp(linha,"Q\n") == 0)  exit(0);
 
     if(strcmp(linha,"GR\n") == 0) {
-        le_ficheiro();
+        escreve_ficheiro(estado);
         printf("\nEstado do jogo guardado em 'Rastros.txt'\n\n");
     }
 
     if(strcmp(linha, "LER\n") == 0) {
-        escreve_ficheiro(estado);
+        ler_ficheiro();
         printf("\nRastros.txt importado.\n\n");
     }
 }

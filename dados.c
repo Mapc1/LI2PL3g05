@@ -24,9 +24,11 @@ void inicializa_tabela(ESTADO *estado){
 ESTADO *inicializar_estado() {
     //Aloca memória para o estado
     ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
+
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
     estado->ultima_jogada = (COORDENADA){.coluna = (-1), .linha = (-1)};
+
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
     return estado;
@@ -78,6 +80,7 @@ void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
 COORDENADA obter_casa_atual (ESTADO *estado){
     int i,o;
     COORDENADA c;
+
     for(i = 0; i < 8; i++){
         for(o = 0; o < 8; o++){
             c = (COORDENADA){ .coluna = o, .linha = i};
@@ -101,7 +104,7 @@ void escreve_ficheiro (ESTADO *estado){
     fclose(f);
 }
 
-ESTADO *le_ficheiro (){
+ESTADO *ler_ficheiro (){
     FILE *f = fopen("Rastros.txt", "w+");
     ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
 
@@ -111,5 +114,7 @@ ESTADO *le_ficheiro (){
                estado->tabela[i][o] = fgetc(f);
            }
         }
+
+    fclose(f);
     return estado;
 }
