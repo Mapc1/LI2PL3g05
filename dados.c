@@ -14,7 +14,11 @@ void inicializa_tabela(ESTADO *estado){
     //Coloca todas as peças a "VAZIA" menos a que está na posiçao 3x4 que e inciada a "BRANCA"
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 8; j++) {
-            if (i == 3 && j == 4)
+            if(i == 0 && j == 7)
+                estado->tabela[i][j] = UM;
+            else if(i == 7 && j == 0)
+                estado->tabela[i][j] = DOIS;
+            else if (i == 3 && j == 4)
                 estado->tabela[i][j] = BRANCA;
             else
                 estado->tabela[i][j] = VAZIA;

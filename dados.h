@@ -2,6 +2,8 @@
 #define __RASTROS_DADOS_H__
 #include <stdio.h>
 typedef enum {
+    UM = '1',
+    DOIS = '2',
     VAZIA = '.',
     BRANCA = '*',
     PRETA = '#'
