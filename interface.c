@@ -5,7 +5,7 @@
 #include "logica.h"
 #include <string.h>
 
-//Verifica se o input e um comando
+
 void comando(char linha[BUF_SIZE], ESTADO *estado){
     if(strcmp(linha,"Q\n") == 0)  exit(0);
 
@@ -23,15 +23,20 @@ void comando(char linha[BUF_SIZE], ESTADO *estado){
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
+    mostrar_tabuleiro(e);
+    if (jogada_impossivel(e)) {
+        return 0;
+    }
     printf("Insira a posicao da sua jogada.\n");
 
-    //Recebe o input e verifica se e uma jogada
     if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
     if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
         COORDENADA coord = {*col - 'a', *lin - '1'};
         prompt(e,*col,*lin);
         jogar(e, coord);
-        mostrar_tabuleiro(e);
+        if (fim_do_jogo(coord)) {
+            return 0;
+        }
     }
 
     comando(linha, e);
@@ -52,8 +57,14 @@ void mostrar_tabuleiro(ESTADO *e) {
         else {
             printf("%d  ",(i+1));
             for (j = 0; j < 8; j++) {
+                if(i == 0 && j == 7)
+                    printf("1 ");
+                else if(i == 7 && j == 0)
+                    printf("2 ");
+                else{
                     c = (COORDENADA){.coluna = j, .linha = i};
                     printf("%c ",(obter_estado_casa(e,c)));
+                }
             }
             putchar('\n');
         }

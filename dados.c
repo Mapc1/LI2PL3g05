@@ -1,24 +1,19 @@
-#include <bits/types/FILE.h>
 #include <stdio.h>
 #include "dados.h"
 
 void inicializa_jogadas(ESTADO *estado){
-    //Coloca os valores de jogador1 e jogador2 em todos os índices a (-1)
-    for(int i = 0; i < 32; i++){
+    int i;
+    for( i = 0; i < 32; i++){
         estado->jogadas[i].jogador1 = (COORDENADA){.coluna = (-1), .linha = (-1)};
         estado->jogadas[i].jogador2 = (COORDENADA){.coluna = (-1), .linha = (-1)};
     }
 }
 
 void inicializa_tabela(ESTADO *estado){
-    //Coloca todas as peças a "VAZIA" menos a que está na posiçao 3x4 que e inciada a "BRANCA"
-    for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 8; j++) {
-            if(i == 0 && j == 7)
-                estado->tabela[i][j] = UM;
-            else if(i == 7 && j == 0)
-                estado->tabela[i][j] = DOIS;
-            else if (i == 3 && j == 4)
+    int i,j;
+    for (i = 0; i < 8; i++)
+        for (j = 0; j < 8; j++) {
+            if (i == 3 && j == 4)
                 estado->tabela[i][j] = BRANCA;
             else
                 estado->tabela[i][j] = VAZIA;
@@ -26,7 +21,6 @@ void inicializa_tabela(ESTADO *estado){
 }
 
 ESTADO *inicializar_estado() {
-    //Aloca memória para o estado
     ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
 
     estado->jogador_atual = 1;
@@ -59,10 +53,10 @@ int obter_numero_jogadas(ESTADO *estado){
     return i;
 }
 
-//Substitui a peça BRANCA com uma peça PRETA
 void substitui_peca_branca(ESTADO *estado){
-    for(int i = 0; i < 8; i++)
-        for(int j = 0; j < 8; j++)
+    int i,j;
+    for(i = 0; i < 8; i++)
+        for(j = 0; j < 8; j++)
             if(estado->tabela[i][j] == BRANCA){
                 estado->tabela[i][j] = PRETA;
                 return;
@@ -80,7 +74,7 @@ void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
     estado->jogadas[i] = (JOGADA){.jogador1 = j1, .jogador2 = j2};
 }
 
-//Procura pela peça BRANCA
+
 COORDENADA obter_casa_atual (ESTADO *estado){
     int i,o;
     COORDENADA c;
@@ -94,12 +88,11 @@ COORDENADA obter_casa_atual (ESTADO *estado){
     }
 }
 
-//escreve no ficheiro "Rastros" o tabuleiro
 void escreve_ficheiro (ESTADO *estado){
     FILE *f = fopen("Rastros.txt", "w");
-
-        for(int i = 0; i < 8; i++){
-            for(int o = 0; o < 8; o++){
+    int i,o;
+        for(i = 0; i < 8; i++){
+            for(o = 0; o < 8; o++){
                 fputc(estado->tabela[i][o], f);
             }
             fputc('\n', f);
@@ -111,9 +104,9 @@ void escreve_ficheiro (ESTADO *estado){
 ESTADO *ler_ficheiro (){
     FILE *f = fopen("Rastros.txt", "w+");
     ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
-
-    for(int i = 0; i < 8; i++)
-        for(int o = 0; o < 8; o++){
+    int i,o;
+    for(i = 0; i < 8; i++)
+        for(o = 0; o < 8; o++){
            if(fgetc(f) != '\n') {
                estado->tabela[i][o] = fgetc(f);
            }
