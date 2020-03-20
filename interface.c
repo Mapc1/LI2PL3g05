@@ -16,19 +16,21 @@ int comando(char *linha, ESTADO *estado){
         s = strtok(NULL, "\n");
         if (s != NULL) {
             escreve_ficheiro(estado, s);
-            printf("\nEstado do jogo guardado em %s\n\n", s);
+            printf("\nEstado do jogo guardado em %s\n", s);
             bool = 1;
         }
+        else
+            printf("Ficheiro Invalido\n");
     }
     if(strcmp(s, "ler") == 0) {
         s = strtok(NULL, "\n");
         if(s != NULL) {
             ler_ficheiro(estado, s);
-            printf("\n%s importado.\n\n", s);
+            printf("\n%s importado.\n", s);
             bool = 1;
         }
         else
-            printf("MERDA");
+            printf("Ficheiro invalido\n");
     }
     return bool;
 }
