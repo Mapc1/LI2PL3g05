@@ -4,6 +4,6 @@
 
 int jogada_impossivel (ESTADO *estado);
 int valida_jogada (ESTADO *estado, COORDENADA c);
-int jogar(ESTADO *e, COORDENADA c);
+int jogar(ESTADO *estado, COORDENADA c,int *njogada);
 int fim_do_jogo (COORDENADA c);
 #endif //RASTROS_LOGICA_H

@@ -10,7 +10,6 @@ int comando(char *linha, ESTADO *estado){
     char *s;
     int bool = 0;
     s = strtok(linha, " \n");
-    //Aqui faltam elses para o caso do comando nao ter um argumento
     if(strcmp(s, "q") == 0)  exit(0);
     if(strcmp(s, "gr") == 0) {
         s = strtok(NULL, "\n");
@@ -38,27 +37,29 @@ int comando(char *linha, ESTADO *estado){
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
-    mostrar_tabuleiro(e);
-    if (jogada_impossivel(e)) {
-        return 0;
-    }
-    printf("Insira a posicao da sua jogada.\n");
-
-    if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
-    int w;
-    if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
-        COORDENADA coord = {*col - 'a', *lin - '1'};
-        prompt(e,*col,*lin);
-        jogar(e, coord);
-        if (fim_do_jogo(coord)) {
+    int njogada=0;
+    while (1){
+        mostrar_tabuleiro(e);
+        if (jogada_impossivel(e)) {
             return 0;
         }
-    }
-    else
+        printf("Insira a posicao da sua jogada.\n");
+
+        if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
+        int w;
+        if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
+            COORDENADA coord = {*col - 'a', *lin - '1'};
+            jogar(e, coord,&njogada);
+            prompt(e,njogada,*col,*lin);
+            if (fim_do_jogo(coord)) {
+            return 0;
+            }
+        }
+        else{
         w = comando(linha, e);
-    printf("%d", w);
-    interpretador(e);
-return 1;
+        printf("%d", w);
+        }
+    }
 }
 
 void mostrar_tabuleiro(ESTADO *e) {
@@ -90,9 +91,13 @@ void mostrar_tabuleiro(ESTADO *e) {
 }
 
 
-void prompt(ESTADO *e,char *col,char *lin){
-    int njogada,jogador;
-    njogada = obter_numero_jogadas(e);
+void prompt(ESTADO *e,int njogada,char *col,char *lin){
+    int jogador;
     jogador = obter_jogador_atual(e);
-    printf ("#Jogada numero %d, PLAYER %d jogou em %c%c\n",njogada,jogador,col,lin);
+    if (jogador == 1) {
+            printf ("#Jogada numero %d, PLAYER 2 jogou em %c%c\n",njogada,col,lin);
+    }
+    else{
+        printf ("#Jogada numero %d, PLAYER 1 jogou em %c%c\n",njogada,col,lin);
+    }
 }

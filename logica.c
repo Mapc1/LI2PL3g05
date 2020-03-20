@@ -37,11 +37,12 @@ int valida_jogada (ESTADO *estado, COORDENADA c){
     return bool;
 }
 
-int jogar(ESTADO *estado, COORDENADA c){
+int jogar(ESTADO *estado, COORDENADA c,int *njogada){
     int bool = 0;
     if(valida_jogada(estado, c) == 1) {
         bool = aux_jogar(estado, c);
         muda_jogador(estado);
+        *njogada=*njogada+1;     
     }
     return bool;
 }
