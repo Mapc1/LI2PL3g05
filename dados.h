@@ -32,6 +32,8 @@ int obter_jogador_atual(ESTADO *estado);
 
 int obter_numero_jogadas(ESTADO *estado);
 
+void aumentar_numero_jogadas(ESTADO *estado);
+
 int aux_jogar(ESTADO *estado, COORDENADA c);
 
 CASA obter_estado_casa(ESTADO *e, COORDENADA c);

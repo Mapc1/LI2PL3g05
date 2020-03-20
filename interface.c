@@ -37,7 +37,6 @@ int comando(char *linha, ESTADO *estado){
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
-    int njogada=0;
     while (1){
         mostrar_tabuleiro(e);
         if (jogada_impossivel(e)) {
@@ -49,8 +48,8 @@ int interpretador(ESTADO *e) {
         int w;
         if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
             COORDENADA coord = {*col - 'a', *lin - '1'};
-            jogar(e, coord,&njogada);
-            prompt(e,njogada,*col,*lin);
+            jogar(e, coord);
+            prompt(e,*col,*lin);
             if (fim_do_jogo(coord)) {
             return 0;
             }
@@ -91,8 +90,9 @@ void mostrar_tabuleiro(ESTADO *e) {
 }
 
 
-void prompt(ESTADO *e,int njogada,char *col,char *lin){
-    int jogador;
+void prompt(ESTADO *e,char *col,char *lin){
+    int njogada,jogador;
+    njogada = obter_numero_jogadas(e);
     jogador = obter_jogador_atual(e);
     if (jogador == 1) {
             printf ("#Jogada numero %d, PLAYER 2 jogou em %c%c\n",njogada,col,lin);

@@ -48,9 +48,11 @@ CASA obter_estado_casa(ESTADO *estado, COORDENADA c) {
 }
 
 int obter_numero_jogadas(ESTADO *estado){
-    int i = 0;
-    for(; i < 32 && estado->jogadas[i].jogador1.coluna != (-1) ; i++);
-    return i;
+    return (estado->num_jogadas);
+}
+
+void aumentar_numero_jogadas(ESTADO *estado){
+    estado->num_jogadas++;
 }
 
 int aux_jogar(ESTADO *estado, COORDENADA c){
