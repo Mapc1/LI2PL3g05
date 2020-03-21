@@ -1,0 +1,84 @@
+\hypertarget{logica_8h}{}\doxysection{logica.\+h File Reference}
+\label{logica_8h}\index{logica.h@{logica.h}}
+{\ttfamily \#include \char`\"{}dados.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{logica_8h_af80f7f0a1dc5fa28a2ec1a599b5aff3f}{jogada\+\_\+impossivel}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
+\begin{DoxyCompactList}\small\item\em Verifica a possibilidade de jogadas válidas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{logica_8h_a0fed7c0b8d2880cabc277683b72cdece}{valida\+\_\+jogada}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c)
+\begin{DoxyCompactList}\small\item\em Verifica se a jogada é válida. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{logica_8h_ac313d7e553b1e2b5f266acb9bfff8141}{jogar}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$e, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c)
+\begin{DoxyCompactList}\small\item\em Efetua a jogada. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{logica_8h_af770e0d8a1ffd3e676eac780a702cd60}{fim\+\_\+do\+\_\+jogo}} (\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c)
+\begin{DoxyCompactList}\small\item\em Anuncia vencedor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Definição do estado e das funções que o manipulam 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logica_8h_af770e0d8a1ffd3e676eac780a702cd60}\label{logica_8h_af770e0d8a1ffd3e676eac780a702cd60}} 
+\index{logica.h@{logica.h}!fim\_do\_jogo@{fim\_do\_jogo}}
+\index{fim\_do\_jogo@{fim\_do\_jogo}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{fim\_do\_jogo()}{fim\_do\_jogo()}}
+{\footnotesize\ttfamily int fim\+\_\+do\+\_\+jogo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{c }\end{DoxyParamCaption})}
+
+
+
+Anuncia vencedor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & Coordenada de um jogador Verifica se algum dos jogadores ganhou, e imprime a mensagem a anunciar o vencedor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logica_8h_af80f7f0a1dc5fa28a2ec1a599b5aff3f}\label{logica_8h_af80f7f0a1dc5fa28a2ec1a599b5aff3f}} 
+\index{logica.h@{logica.h}!jogada\_impossivel@{jogada\_impossivel}}
+\index{jogada\_impossivel@{jogada\_impossivel}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{jogada\_impossivel()}{jogada\_impossivel()}}
+{\footnotesize\ttfamily int jogada\+\_\+impossivel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado }\end{DoxyParamCaption})}
+
+
+
+Verifica a possibilidade de jogadas válidas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & Estado do jogo verifica a possibilidade de jogadas válidas que cada jogador tem, caso um deles não possua uma jogada valida, declara a vitoria do outro (verifica primeiro o jogador 1, ou seja, caso nenhum tenha jogadas possiveis, a vitória é atribuida ao jogador 2) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logica_8h_ac313d7e553b1e2b5f266acb9bfff8141}\label{logica_8h_ac313d7e553b1e2b5f266acb9bfff8141}} 
+\index{logica.h@{logica.h}!jogar@{jogar}}
+\index{jogar@{jogar}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{jogar()}{jogar()}}
+{\footnotesize\ttfamily int jogar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{e,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{c }\end{DoxyParamCaption})}
+
+
+
+Efetua a jogada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & estado do jogo \\
+\hline
+{\em c} & Coordenada de um jogador Com auxilio da \char`\"{}valida\+\_\+jogada\char`\"{} verifica se a jogada é válida e caso seja, utiliza a \char`\"{}aux\+\_\+jogar\char`\"{} e a \char`\"{}muda\+\_\+jogador\char`\"{} para alterar o estado do jogo \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logica_8h_a0fed7c0b8d2880cabc277683b72cdece}\label{logica_8h_a0fed7c0b8d2880cabc277683b72cdece}} 
+\index{logica.h@{logica.h}!valida\_jogada@{valida\_jogada}}
+\index{valida\_jogada@{valida\_jogada}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{valida\_jogada()}{valida\_jogada()}}
+{\footnotesize\ttfamily int valida\+\_\+jogada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{c }\end{DoxyParamCaption})}
+
+
+
+Verifica se a jogada é válida. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & estado do jogo \\
+\hline
+{\em c} & Coordenada de um jogador \\
+\hline
+\end{DoxyParams}
