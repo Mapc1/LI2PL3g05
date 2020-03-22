@@ -13,7 +13,11 @@ void inicializa_tabela(ESTADO *estado){
     int i,j;
     for (i = 0; i < 8; i++)
         for (j = 0; j < 8; j++) {
-            if (i == 3 && j == 4)
+            if(i == 0 && j == 7)
+                estado->tabela[i][j] = UM;
+            else if(i == 7 && j == 0)
+                estado->tabela[i][j] = DOIS;
+            else if(i == 3 && j == 4)
                 estado->tabela[i][j] = BRANCA;
             else
                 estado->tabela[i][j] = VAZIA;
@@ -84,7 +88,6 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     FILE *f;
     char c;
     int i,o;
-
     f = fopen(s, "r");
 
     for(i = 0; i < 8; i++)

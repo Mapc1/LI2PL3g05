@@ -11,6 +11,8 @@ Definição do estado e das funções que o manipulam
 \brief Tipo de dados para a casa
 */
 typedef enum {
+    UM = '1',
+    DOIS = '2',
     VAZIA = '.',
     BRANCA = '*',
     PRETA = '#'
@@ -40,7 +42,7 @@ typedef JOGADA JOGADAS[32];
 \brief Tipo de dados para o estado
 */
 typedef struct {
-    CASA tabela [8] [8];
+    CASA tabela[8][8];
     COORDENADA ultima_jogada;
     JOGADAS jogadas;
     int num_jogadas;

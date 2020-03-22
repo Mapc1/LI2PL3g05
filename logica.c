@@ -2,25 +2,24 @@
 #include "dados.h"
 
 int jogada_impossivel (ESTADO *estado){
-    int bool = 0;
+    int jogador, bool = 0, counter = 0;
     COORDENADA a = estado->ultima_jogada;
-    COORDENADA cima=a, baixo=a, esquerda=a, direita=a;
-    cima.linha = (a.linha +1);
-    baixo.linha = (a.linha +1);
-    esquerda.coluna = (a.coluna -1);
-    direita.coluna = (a.coluna +1);
-    if ( obter_estado_casa(estado, cima) != VAZIA &&
-         obter_estado_casa(estado, baixo) != VAZIA && 
-         obter_estado_casa(estado, esquerda) != VAZIA &&
-         obter_estado_casa(estado, direita) != VAZIA){
-        int jogador;
+
+    for(int i = a.linha - 1; i <= a.linha + 1; i++)
+        for(int o = a.coluna - 1; o <=a.coluna + 1; o++)
+            if(
+               estado->tabela[i][o] == PRETA ||
+               i == 8 || o == 8 ||
+               i == (-1) || o == (-1)
+               )
+                counter++;
+
+    if(counter == 8) {
         jogador = obter_jogador_atual(estado);
-        if (jogador == 1) {
-            printf ("O jogador 2 ganhou por empancamento");
-        }
-        else{
-            printf ("O jogador 1 ganhou por empancamento");
-        }
+        if (jogador == 1)
+            printf("O jogador 2 ganhou por empancamento.\nParabéns!!!\n");
+        if (jogador == 2)
+            printf("O jogador 1 ganhou por empancamento.\nParabéns!!!\n");
         bool = 1;
     }
     return bool;
@@ -47,13 +46,13 @@ int jogar(ESTADO *estado, COORDENADA c){
     return bool;
 }
 
-int fim_do_jogo (COORDENADA c){
+int fim_do_jogo (ESTADO *estado, COORDENADA c){
     int bool = 0;
-    if (c.linha == 0 && c.coluna == 7){ 
+    if (obter_estado_casa(estado, c) == UM){
         printf ("O jogador 1 ganhou!!!\n");
         bool = 1;
         }
-    if (c.linha == 7 && c.coluna == 0){ 
+    if (obter_estado_casa(estado, c) == DOIS){
         printf ("O jogador 2 ganhou!!!\n");
         bool = 1;
         }

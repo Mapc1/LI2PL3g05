@@ -35,5 +35,5 @@ int jogar(ESTADO *e, COORDENADA c);
 @param c Coordenada de um jogador
 Verifica se algum dos jogadores ganhou, e imprime a mensagem a anunciar o vencedor
 */
-int fim_do_jogo (COORDENADA c); 
+int fim_do_jogo (ESTADO *estado, COORDENADA c);
 #endif //RASTROS_LOGICA_H

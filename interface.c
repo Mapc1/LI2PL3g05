@@ -50,7 +50,7 @@ int interpretador(ESTADO *e) {
             COORDENADA coord = {*col - 'a', *lin - '1'};
             jogar(e, coord);
             prompt(e,*col,*lin);
-            if (fim_do_jogo(coord)) {
+            if (fim_do_jogo(e, coord)) {
             return 0;
             }
         }
@@ -74,14 +74,8 @@ void mostrar_tabuleiro(ESTADO *e) {
         else {
             printf("%d  ",(i+1));
             for (j = 0; j < 8; j++) {
-                if(i == 0 && j == 7)
-                    printf("1 ");
-                else if(i == 7 && j == 0)
-                    printf("2 ");
-                else{
                     c = (COORDENADA) { .coluna = j, .linha = i };
                     printf("%c ",(obter_estado_casa(e,c)));
-                }
             }
             putchar('\n');
         }
