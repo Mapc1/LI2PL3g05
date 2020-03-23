@@ -17,7 +17,7 @@ void inicializa_tabela(ESTADO *estado){
                 estado->tabela[i][j] = UM;
             else if(i == 7 && j == 0)
                 estado->tabela[i][j] = DOIS;
-            else if(i == 3 && j == 4)
+            else if(i == 4 && j == 4)
                 estado->tabela[i][j] = BRANCA;
             else
                 estado->tabela[i][j] = VAZIA;
