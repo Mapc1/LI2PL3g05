@@ -10,6 +10,7 @@ int comando(char *linha, ESTADO *estado){
     char *s;
     int bool = 0;
     s = strtok(linha, " \n");
+//    gr_movs(s); ------> dados.c (rascunhos)
     if(strcmp(s, "q") == 0)  exit(0);
     if(strcmp(s, "gr") == 0) {
         s = strtok(NULL, "\n");
@@ -31,6 +32,9 @@ int comando(char *linha, ESTADO *estado){
         else
             printf("Ficheiro invalido\n");
     }
+//    if(strcmp(s, "movs") == 0) { --> dados.c (rascunhos)
+//        impr_movs(estado);
+//    }
     return bool;
 }
 

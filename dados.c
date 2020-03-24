@@ -107,3 +107,20 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     fclose(f);
     return estado;
 }
+
+//Guarda os movimentos executados
+void gr_movs(char *s){
+    char *l;
+    if(strcmp(s, "movs") == 0){ // se o comando for movs, encerra a gravação e chama a impr_movs, caso não seja nem o movs nem uma coordenada ignora
+        if
+    }
+}
+
+//Imprime os movimentos anteriores
+void impr_movs(){
+    //...
+    for(int i=1;i<=l;i++){
+        if (l<10) printf("0%d:%c",i,s); // imprime as sucessivas linhas dos movs, caso a linha seja menor que 10 adiciona um 0 antes para ter 2 algarismos
+        else printf("%d:%c",l,s);
+    }
+}
