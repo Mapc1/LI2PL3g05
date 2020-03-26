@@ -40,8 +40,10 @@ int jogar(ESTADO *estado, COORDENADA c){
     int bool = 0;
     if(valida_jogada(estado, c) == 1) {
         bool = aux_jogar(estado, c);
+        insere_jogada(estado, c);
+        if(obter_jogador_atual(estado) == 2)
+            aumentar_numero_jogadas(estado);
         muda_jogador(estado);
-        aumentar_numero_jogadas(estado);
     }
     return bool;
 }
