@@ -98,7 +98,7 @@ void muda_jogador(ESTADO *estado);
 @param j1 Coordenada da casa do jogador 1
 @param j2 Coordenada da casa do jogador 2
 */
-void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2);
+void insere_jogada (ESTADO *estado, COORDENADA j);
 
 /**
 \brief Lê um ficheiro
@@ -115,4 +115,10 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s);
 Guarda o estado do jjogo num ficheiro
 */
 void escreve_ficheiro (ESTADO *estado, char  *s);
+
+void gr_movs(char *s);
+
+void impr_movs();
+
+COORDENADA obter_movs (ESTADO *estado, int i, int j);
 #endif //RASTROS_DADOS_H

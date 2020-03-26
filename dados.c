@@ -29,7 +29,7 @@ ESTADO *inicializar_estado() {
 
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
-    estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 3 };
+    estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 4 };
 
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
@@ -66,9 +66,12 @@ int aux_jogar(ESTADO *estado, COORDENADA c){
     return 1;
 }
 
-void insere_jogada (ESTADO *estado, COORDENADA j1, COORDENADA j2){
+void insere_jogada (ESTADO *estado, COORDENADA j){
     int i = obter_numero_jogadas(estado);
-    estado->jogadas[i] = (JOGADA){.jogador1 = j1, .jogador2 = j2};
+    if(estado->jogador_atual == 1)
+        estado->jogadas[i].jogador1 = j;
+    else
+        estado->jogadas[i].jogador2 = j;
 }
 
 void escreve_ficheiro (ESTADO *estado, char *s){
@@ -108,6 +111,14 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     return estado;
 }
 
+COORDENADA obter_movs (ESTADO *estado, int i, int j){
+    if(j == 1)
+        return estado->jogadas[i].jogador1;
+    else
+        return estado->jogadas[i].jogador2;
+}
+
+/*
 //Guarda os movimentos executados
 void gr_movs(char *s){
     char *l;
@@ -124,3 +135,4 @@ void impr_movs(){
         else printf("%d:%c",l,s);
     }
 }
+ */
