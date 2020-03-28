@@ -76,24 +76,38 @@ void insere_jogada (ESTADO *estado, COORDENADA j){
 
 void escreve_ficheiro (ESTADO *estado, char *s){
     FILE *f = fopen(s, "w");
-    int i,o;
+    int i,o,j;
+    char linhamovs[128];
         for(i = 0; i < 8; i++){
             for(o = 0; o < 8; o++){
                 fputc(estado->tabela[i][o], f);
             }
             fputc('\n', f);
         }
-
+        for(i = 0,o=0; i<32; i++) {
+            for (j = 1; j <= 2; j++,o=o+2) {
+                COORDENADA c = obter_movs(estado, i, j);
+                if (c.linha != (-1)){
+                    linhamovs[o] = (c.coluna +'0');
+                    linhamovs[o+1] = (c.linha+'0');
+                }
+                else {
+                    linhamovs[o] = '9';
+                    linhamovs[o+1] = '9';
+                }
+            }
+        }
+        for(i=0;i<128;i++) (fputc(linhamovs[i], f));
     fclose(f);
 }
 
 ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     FILE *f;
-    char c;
-    int i,o;
+    char c,l;
+    int i,o,j;
     f = fopen(s, "r");
-
-    for(i = 0; i < 8; i++)
+    estado->num_jogadas=0;
+    for(i = 0; i < 8; i++){
         for(o = 0; o < 8;){
            c = fgetc(f);
            if(c == '*'){
@@ -106,7 +120,27 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
                o++;
            }
         }
-
+    }
+    fgetc(f);
+    for(i=0;i<32;i++){
+        for (j = 1; j <= 2; j++){
+            c = fgetc(f);
+            l = fgetc(f);
+            if(c== ' ' && j==1 ) {
+                estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1)};
+            }
+            else if(c==' '){
+                estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1)};
+            }
+            else if(j==1){
+               estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = atoi(c), .linha = atoi(l)};
+            }
+            else {
+               estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = atoi(c), .linha = atoi(l)};
+               aumentar_numero_jogadas;
+           }
+        }
+    }
     fclose(f);
     return estado;
 }
