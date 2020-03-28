@@ -14,10 +14,10 @@ void inicializa_tabela(ESTADO *estado){
     for (i = 0; i < 8; i++)
         for (j = 0; j < 8; j++) {
             if(i == 0 && j == 7)
-                estado->tabela[i][j] = UM;
-            else if(i == 7 && j == 0)
                 estado->tabela[i][j] = DOIS;
-            else if(i == 4 && j == 4)
+            else if(i == 7 && j == 0)
+                estado->tabela[i][j] = UM;
+            else if(i == 3 && j == 4)
                 estado->tabela[i][j] = BRANCA;
             else
                 estado->tabela[i][j] = VAZIA;
@@ -29,7 +29,7 @@ ESTADO *inicializar_estado() {
 
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
-    estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 4 };
+    estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 3 };
 
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
@@ -92,8 +92,8 @@ void escreve_ficheiro (ESTADO *estado, char *s){
                     linhamovs[o+1] = (c.linha+'0');
                 }
                 else {
-                    linhamovs[o] = '9';
-                    linhamovs[o+1] = '9';
+                    linhamovs[o] = ' ';
+                    linhamovs[o+1] = ' ';
                 }
             }
         }
@@ -133,11 +133,11 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
                 estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1)};
             }
             else if(j==1){
-               estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = atoi(c), .linha = atoi(l)};
+               estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = c - '0', .linha = l - '0'};
             }
             else {
-               estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = atoi(c), .linha = atoi(l)};
-               aumentar_numero_jogadas;
+               estado->jogadas[i].jogador2 = (COORDENADA)  { .coluna = c - '0', .linha = l - '0'};
+               aumentar_numero_jogadas(estado);
            }
         }
     }
@@ -151,22 +151,3 @@ COORDENADA obter_movs (ESTADO *estado, int i, int j){
     else
         return estado->jogadas[i].jogador2;
 }
-
-/*
-//Guarda os movimentos executados
-void gr_movs(char *s){
-    char *l;
-    if(strcmp(s, "movs") == 0){ // se o comando for movs, encerra a gravação e chama a impr_movs, caso não seja nem o movs nem uma coordenada ignora
-        if
-    }
-}
-
-//Imprime os movimentos anteriores
-void impr_movs(){
-    //...
-    for(int i=1;i<=l;i++){
-        if (l<10) printf("0%d:%c",i,s); // imprime as sucessivas linhas dos movs, caso a linha seja menor que 10 adiciona um 0 antes para ter 2 algarismos
-        else printf("%d:%c",l,s);
-    }
-}
- */
