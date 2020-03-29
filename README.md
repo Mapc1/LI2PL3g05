@@ -20,4 +20,4 @@ Aqui houveram poucas alterações apenas mudamos a função **jogar** para apena
 
 ### Dados:
 
-Aqui foi implementada a leitura e escrita das jogadas
+Aqui foi implementada a leitura e escrita das jogadas.
