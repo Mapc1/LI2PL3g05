@@ -119,7 +119,7 @@ COORDENADA str_2_coordenada (char *s){
 
 void ler_movs (ESTADO *estado, FILE *f){
     char s1[2], s2[2];
-    int i, num = 0;
+    int i, num = 0, jog_incompleta = 0;
     for(i = 0; num != EOF; i++){
         num = fscanf(f,"%*d: %s %s\n", s1, s2);
         if(num == 2){
@@ -128,10 +128,17 @@ void ler_movs (ESTADO *estado, FILE *f){
         }
         else if(num == 1) {
             estado->jogadas[i].jogador1 = str_2_coordenada(s1);
-            estado->jogador_atual = 2;
+            jog_incompleta = 1;
         }
     }
-    estado->num_jogadas = i - 2;
+    if(jog_incompleta == 1) {
+        estado->num_jogadas = i - 2;
+        estado->jogador_atual = 2;
+    }
+    else {
+        estado->num_jogadas = i - 1;
+        estado->jogador_atual = 1;
+    }
 }
 
 void ler_tabuleiro (ESTADO *estado, FILE *f){

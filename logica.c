@@ -1,6 +1,44 @@
 #include "logica.h"
 #include "dados.h"
 
+int compara_comando (char *s){
+    int comando;
+
+    if (strcmp(s, "q") == 0) comando = 1;
+    else if (strcmp(s, "gr") == 0) comando = 2;
+    else if (strcmp(s, "ler") == 0) comando = 3;
+    else if (strcmp(s, "movs") == 0) comando = 4;
+
+    return comando;
+}
+
+int comando_gr (ESTADO *estado, char *s){
+    int bool = 0;
+
+    if (s != NULL) {
+        escreve_ficheiro(estado, s);
+        printf("\nEstado do jogo guardado em %s\n", s);
+        bool = 1;
+    }
+
+    return bool;
+}
+
+int comando_ler (ESTADO *estado, char *s){
+    int bool = 0;
+
+    if(s != NULL) {
+        ler_ficheiro(estado, s);
+        printf("\n%s importado.\n", s);
+        mostrar_tabuleiro(estado);
+        bool = 1;
+    }
+
+    return bool;
+}
+
+
+
 int jogada_impossivel (ESTADO *estado){
     int jogador, bool = 0, counter = 0;
     COORDENADA a = estado->ultima_jogada;
@@ -22,6 +60,7 @@ int jogada_impossivel (ESTADO *estado){
             printf("O jogador 1 ganhou por empancamento.\nParabéns!!!\n");
         bool = 1;
     }
+
     return bool;
 }
 

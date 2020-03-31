@@ -5,52 +5,52 @@
 #include "logica.h"
 #include <string.h>
 
-//será possível dividir esta função em outras mais pequenas?
-int comando(char *linha, ESTADO *estado){
-    char *s;
-    int bool = 0;
+
+void comando_movs (ESTADO *estado){
+    int i;
     JOGADA jogada;
     COORDENADA c1, c2;
+
+    for(i = 0; i < obter_numero_jogadas(estado); i++) {
+        jogada = obter_movs(estado, i);
+
+        c1 = jogada.jogador1;
+        c2 = jogada.jogador2;
+
+        printf("%d: %c%d %c%d\n", i + 1, c1.coluna + 'A', c1.linha + 1, c2.coluna + 'A', c2.linha + 1);
+    }
+
+    if(estado->jogador_atual == 2){
+        jogada = obter_movs(estado, i);
+        c1 = jogada.jogador1;
+        printf("%d: %c%d\n",i + 1, c1.coluna + 'A', c1.linha + 1);
+    }
+}
+
+int comando(char *linha, ESTADO *estado){
+    char *s;
+    int bool = 0, comando = 0;
+
     s = strtok(linha, " \n");
-//    gr_movs(s); ------> dados.c (rascunhos)
-    if(strcmp(s, "q") == 0)  exit(0);
-    else if(strcmp(s, "gr") == 0) {
-        s = strtok(NULL, "\n");
-        if (s != NULL) {
-            escreve_ficheiro(estado, s);
-            printf("\nEstado do jogo guardado em %s\n", s);
-            bool = 1;
-        }
-        else
-            printf("Ficheiro Invalido\n");
-    }
-    else if(strcmp(s, "ler") == 0) {
-        s = strtok(NULL, "\n");
-        if(s != NULL) {
-            ler_ficheiro(estado, s);
-            printf("\n%s importado.\n", s);
-            mostrar_tabuleiro(estado);
-            bool = 1;
-        }
-        else
-            printf("Ficheiro invalido\n");
-    }
-    else if(strcmp(s, "movs") == 0){
-        int i;
-        for(i = 0; i < obter_numero_jogadas(estado); i++) {
-            jogada = obter_movs(estado, i);
+    comando = compara_comando(s);
+    s = strtok(NULL, "\n");
 
-            c1 = jogada.jogador1;
-            c2 = jogada.jogador2;
+    switch(comando){
+        case (1): exit(0);
 
-            printf("%d: %c%d %c%d\n", i + 1, c1.coluna + 'A', c1.linha + 1, c2.coluna + 'A', c2.linha + 1);
-        }
-        if(estado->jogador_atual == 2){
-            jogada = obter_movs(estado, i);
-            c1 = jogada.jogador1;
-            printf("%d: %c%d\n",i + 1, c1.coluna + 'A', c1.linha + 1);
-        }
+        case (2):
+            bool = comando_gr(estado, s); break;
+
+        case (3):
+            bool = comando_ler(estado, s); break;
+
+        case (4):
+            comando_movs(estado);
+            bool = 1; break;
     }
+
+    if(bool == 0)
+        printf("Ficheiro Inválido!\n");
     return bool;
 }
 

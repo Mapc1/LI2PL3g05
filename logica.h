@@ -28,7 +28,7 @@ int valida_jogada (ESTADO *estado, COORDENADA c);
 @param c Coordenada de um jogador
 Com auxilio da "valida_jogada" verifica se a jogada é válida e caso seja, utiliza a "aux_jogar" e a "muda_jogador" para alterar o estado do jogo
 */
-int jogar(ESTADO *e, COORDENADA c); 
+int jogar (ESTADO *e, COORDENADA c);
 
 /**
 \brief Anuncia vencedor
@@ -36,4 +36,10 @@ int jogar(ESTADO *e, COORDENADA c);
 Verifica se algum dos jogadores ganhou, e imprime a mensagem a anunciar o vencedor
 */
 int fim_do_jogo (ESTADO *estado, COORDENADA c);
+
+int comando_gr (ESTADO *estado, char *linha);
+
+int comando_ler (ESTADO *estado, char *linha);
+
+int compara_comando (char *s);
 #endif //RASTROS_LOGICA_H
