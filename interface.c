@@ -38,15 +38,9 @@ int comando(char *linha, ESTADO *estado){
 
     switch(comando){
         case (1): exit(0);
-
-        case (2):
-            bool = comando_gr(estado, s); break;
-
-        case (3):
-            bool = comando_ler(estado, s); break;
-
-        case (4):
-            bool = comando_movs(estado); break;
+        case (2): bool = comando_gr(estado, s); break;
+        case (3): bool = comando_ler(estado, s); break;
+        case (4): bool = comando_movs(estado); break;
     }
 
     if(bool == 0)
