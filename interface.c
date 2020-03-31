@@ -9,6 +9,8 @@
 int comando(char *linha, ESTADO *estado){
     char *s;
     int bool = 0;
+    JOGADA jogada;
+    COORDENADA c1, c2;
     s = strtok(linha, " \n");
 //    gr_movs(s); ------> dados.c (rascunhos)
     if(strcmp(s, "q") == 0)  exit(0);
@@ -33,20 +35,20 @@ int comando(char *linha, ESTADO *estado){
         else
             printf("Ficheiro invalido\n");
     }
-    else if(strcmp(s, "movs") == 0){// { --> dados.c (rascunhos){
-        for(int i = 0; i <= obter_numero_jogadas(estado); i++) {
-            //O j e o jogador a imprimir em jogadas[i]
-            for (int j = 1; j <= 2; j++) {
-                COORDENADA c = obter_movs(estado, i, j);
-                /*c.linha != (-1) verifica se a jogada desse jogador esta preenchida
-                  isso so serve para o ultimo indice em que pode so ter jogado o jogador 1
-                */
-                if (j == 1 && c.linha != (-1))
-                    printf("%c%d  ", c.coluna + 'A', c.linha + 1);
-                else if(c.linha != (-1))
-                    printf("%c%d", c.coluna + 'A', c.linha + 1);
-            }
-            putchar('\n');
+    else if(strcmp(s, "movs") == 0){
+        int i;
+        for(i = 0; i < obter_numero_jogadas(estado); i++) {
+            jogada = obter_movs(estado, i);
+
+            c1 = jogada.jogador1;
+            c2 = jogada.jogador2;
+
+            printf("%d: %c%d %c%d\n", i + 1, c1.coluna + 'A', c1.linha + 1, c2.coluna + 'A', c2.linha + 1);
+        }
+        if(estado->jogador_atual == 2){
+            jogada = obter_movs(estado, i);
+            c1 = jogada.jogador1;
+            printf("%d: %c%d\n",i + 1, c1.coluna + 'A', c1.linha + 1);
         }
     }
     return bool;

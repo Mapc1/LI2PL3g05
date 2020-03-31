@@ -74,80 +74,101 @@ void insere_jogada (ESTADO *estado, COORDENADA j){
         estado->jogadas[i].jogador2 = j;
 }
 
+void escreve_tabuleiro (ESTADO *estado, FILE *f){
+    for(int i = 0; i < 8; i++){
+        for(int o = 0; o < 8; o++){
+            fputc(estado->tabela[i][o], f);
+        }
+        fputc('\n', f);
+    }
+}
+
+void escreve_movs (ESTADO *estado, FILE *f){
+    int i, colj1, linj1, colj2, linj2;
+    for(i = 0; i < estado->num_jogadas; i++) {
+        colj1 = estado->jogadas[i].jogador1.coluna + 'A';
+        linj1 = estado->jogadas[i].jogador1.linha + 1;
+
+        colj2 = estado->jogadas[i].jogador2.coluna + 'A';
+        linj2 = estado->jogadas[i].jogador2.linha + 1;
+
+        fprintf(f, i < 10 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
+    }
+    if(estado->jogador_atual == 2) {
+        colj1 = estado->jogadas[i].jogador1.coluna + 'A';
+        linj1 = estado->jogadas[i].jogador1.linha + 1;
+
+        fprintf(f, i < 10 ? "0%d: %c%d\n" : "%d: %c%d \n", i + 1, colj1, linj1);
+    }
+}
+
 void escreve_ficheiro (ESTADO *estado, char *s){
     FILE *f = fopen(s, "w");
-    int i,o,j;
-    char linhamovs[128];
-        for(i = 0; i < 8; i++){
-            for(o = 0; o < 8; o++){
-                fputc(estado->tabela[i][o], f);
-            }
-            fputc('\n', f);
-        }
-        for(i = 0,o=0; i<32; i++) {
-            for (j = 1; j <= 2; j++,o=o+2) {
-                COORDENADA c = obter_movs(estado, i, j);
-                if (c.linha != (-1)){
-                    linhamovs[o] = (c.coluna +'0');
-                    linhamovs[o+1] = (c.linha+'0');
-                }
-                else {
-                    linhamovs[o] = ' ';
-                    linhamovs[o+1] = ' ';
-                }
-            }
-        }
-        for(i=0;i<128;i++) (fputc(linhamovs[i], f));
+    escreve_tabuleiro(estado, f);
+    fputc('\n', f);
+    escreve_movs(estado, f);
     fclose(f);
+}
+
+COORDENADA str_2_coordenada (char *s){
+    COORDENADA c;
+    c.coluna = *s - 'A';
+    c.linha = *(s + 1) -'1';
+    return c;
+}
+
+void ler_movs (ESTADO *estado, FILE *f){
+    char s1[2], s2[2];
+    int i, num = 0;
+    for(i = 0; num != EOF; i++){
+        num = fscanf(f,"%*d: %s %s\n", s1, s2);
+        if(num == 2){
+            estado->jogadas[i].jogador1 = str_2_coordenada(s1);
+            estado->jogadas[i].jogador2 = str_2_coordenada(s2);
+        }
+        else if(num == 1) {
+            estado->jogadas[i].jogador1 = str_2_coordenada(s1);
+            estado->jogador_atual = 2;
+        }
+    }
+    estado->num_jogadas = i - 2;
+}
+
+void ler_tabuleiro (ESTADO *estado, FILE *f){
+    char c;
+    for(int i = 0; i < 8; i++)
+        for(int o = 0; o < 8;){
+            c = fgetc(f);
+
+            if(c == '*'){
+                estado->ultima_jogada = (COORDENADA) { .coluna = o, .linha = i };
+                estado->tabela[i][o] = c;
+                o++;
+            }
+
+            else if(c != '\n') {
+                estado->tabela[i][o] = c;
+                o++;
+            }
+        }
 }
 
 ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     FILE *f;
-    char c,l;
-    int i,o,j;
+
     f = fopen(s, "r");
-    estado->num_jogadas=0;
-    for(i = 0; i < 8; i++){
-        for(o = 0; o < 8;){
-           c = fgetc(f);
-           if(c == '*'){
-               estado->ultima_jogada = (COORDENADA) { .coluna = o, .linha = i };
-               estado->tabela[i][o] = c;
-               o++;
-           }
-           else if(c != '\n') {
-               estado->tabela[i][o] = c;
-               o++;
-           }
-        }
-    }
+    ler_tabuleiro(estado, f);
+
     fgetc(f);
-    for(i=0;i<32;i++){
-        for (j = 1; j <= 2; j++){
-            c = fgetc(f);
-            l = fgetc(f);
-            if(c== ' ' && j==1 ) {
-                estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1)};
-            }
-            else if(c==' '){
-                estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1)};
-            }
-            else if(j==1){
-               estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = c - '0', .linha = l - '0'};
-            }
-            else {
-               estado->jogadas[i].jogador2 = (COORDENADA)  { .coluna = c - '0', .linha = l - '0'};
-               aumentar_numero_jogadas(estado);
-           }
-        }
-    }
+    fgetc(f);
+
+    ler_movs(estado, f);
     fclose(f);
+
     return estado;
 }
 
-COORDENADA obter_movs (ESTADO *estado, int i, int j){
-    if(j == 1)
-        return estado->jogadas[i].jogador1;
-    else
-        return estado->jogadas[i].jogador2;
+JOGADA obter_movs (ESTADO *estado, int i){
+    JOGADA j = (JOGADA) { .jogador1 = estado->jogadas[i].jogador1, .jogador2 = estado->jogadas[i].jogador2};
+    return j;
 }

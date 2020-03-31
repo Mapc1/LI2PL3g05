@@ -120,5 +120,5 @@ void gr_movs(char *s);
 
 void impr_movs();
 
-COORDENADA obter_movs (ESTADO *estado, int i, int j);
+JOGADA obter_movs (ESTADO *estado, int i);
 #endif //RASTROS_DADOS_H
