@@ -37,8 +37,6 @@ int comando_ler (ESTADO *estado, char *s){
     return bool;
 }
 
-
-
 int jogada_impossivel (ESTADO *estado){
     int jogador, bool = 0, counter = 0;
     COORDENADA a = estado->ultima_jogada;

@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-void comando_movs (ESTADO *estado){
+int comando_movs (ESTADO *estado){
     int i;
     JOGADA jogada;
     COORDENADA c1, c2;
@@ -25,6 +25,7 @@ void comando_movs (ESTADO *estado){
         c1 = jogada.jogador1;
         printf("%d: %c%d\n",i + 1, c1.coluna + 'A', c1.linha + 1);
     }
+    return 1;
 }
 
 int comando(char *linha, ESTADO *estado){
@@ -45,8 +46,7 @@ int comando(char *linha, ESTADO *estado){
             bool = comando_ler(estado, s); break;
 
         case (4):
-            comando_movs(estado);
-            bool = 1; break;
+            bool = comando_movs(estado); break;
     }
 
     if(bool == 0)
