@@ -8,6 +8,8 @@ int compara_comando (char *s){
     else if (strcmp(s, "gr") == 0) comando = 2;
     else if (strcmp(s, "ler") == 0) comando = 3;
     else if (strcmp(s, "movs") == 0) comando = 4;
+    else if (strcmp(s, "pos") == 0) comando = 5;
+
 
     return comando;
 }

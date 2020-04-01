@@ -28,6 +28,18 @@ int comando_movs (ESTADO *estado){
     return 1;
 }
 
+int comando_pos(ESTADO *estado, char *s){
+    int total,num;
+    num = 0;
+    total = obter_numero_jogadas(estado);
+    for (int i=0; s[i]!='\0'; i++){
+        num = num * 10;                      // caso o numero da jogada tenha mais do que 1 dígito
+        num = num + s[i];
+    }
+    
+}
+
+
 int comando(char *linha, ESTADO *estado){
     char *s;
     int bool = 0, comando = 0;
@@ -41,6 +53,7 @@ int comando(char *linha, ESTADO *estado){
         case (2): bool = comando_gr(estado, s); break;
         case (3): bool = comando_ler(estado, s); break;
         case (4): bool = comando_movs(estado); break;
+        case (5): bool = comando_pos(estado, s); break;
     }
 
     if(bool == 0)
