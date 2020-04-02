@@ -29,11 +29,11 @@ int comando_movs (ESTADO *estado){
 }
 
 int comando_pos(ESTADO *estado, char *s){
-    int total,num;
+    int total,num,i;
     num = 0;
     total = obter_numero_jogadas(estado);
-    for (int i=0; s[i]!='\0'; i++){
-        num = num * 10;                      // caso o numero da jogada tenha mais do que 1 dígito
+    for (i=0; s[i]!='\0'; i++){
+        num = num * 10;                      
         num = num + s[i];
     }
     
@@ -73,7 +73,7 @@ int interpretador(ESTADO *e) {
         if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
         int w;
         if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
-            COORDENADA coord = {*col - 'a', *lin - '1'};
+            COORDENADA coord = {*col - 'a', '8' -*lin};
             prompt(e,*col,*lin);
             jogar(e, coord);
             mostrar_tabuleiro(e);
@@ -89,9 +89,9 @@ int interpretador(ESTADO *e) {
 }
 
 void mostrar_tabuleiro(ESTADO *e) {
-    int i,j;
+    int i,j,lin=9;
     COORDENADA c;
-    for (i = -1; i < 8; i++){
+    for (i = -1; i < 8; i++,lin--){
         if (i==(-1)){
                 printf("   ");
                 for (j = 0; j < 8; j++)
@@ -99,7 +99,7 @@ void mostrar_tabuleiro(ESTADO *e) {
                 putchar('\n');
         }
         else {
-            printf("%d  ",(i+1));
+            printf("%d  ",(lin));
             for (j = 0; j < 8; j++) {
                     c = (COORDENADA) { .coluna = j, .linha = i };
                     printf("%c ",(obter_estado_casa(e,c)));

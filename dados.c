@@ -75,8 +75,9 @@ void insere_jogada (ESTADO *estado, COORDENADA j){
 }
 
 void escreve_tabuleiro (ESTADO *estado, FILE *f){
-    for(int i = 0; i < 8; i++){
-        for(int o = 0; o < 8; o++){
+    int i,o;
+    for(i = 0; i < 8; i++){
+        for(o = 0; o < 8; o++){
             fputc(estado->tabela[i][o], f);
         }
         fputc('\n', f);
@@ -86,16 +87,16 @@ void escreve_tabuleiro (ESTADO *estado, FILE *f){
 void escreve_movs (ESTADO *estado, FILE *f){
     int i, colj1, linj1, colj2, linj2;
     for(i = 0; i < estado->num_jogadas; i++) {
-        colj1 = estado->jogadas[i].jogador1.coluna + 'A';
+        colj1 = estado->jogadas[i].jogador1.coluna + 'a';
         linj1 = estado->jogadas[i].jogador1.linha + 1;
 
-        colj2 = estado->jogadas[i].jogador2.coluna + 'A';
+        colj2 = estado->jogadas[i].jogador2.coluna + 'a';
         linj2 = estado->jogadas[i].jogador2.linha + 1;
 
         fprintf(f, i < 10 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
     }
     if(estado->jogador_atual == 2) {
-        colj1 = estado->jogadas[i].jogador1.coluna + 'A';
+        colj1 = estado->jogadas[i].jogador1.coluna + 'a';
         linj1 = estado->jogadas[i].jogador1.linha + 1;
 
         fprintf(f, i < 10 ? "0%d: %c%d\n" : "%d: %c%d \n", i + 1, colj1, linj1);
@@ -142,9 +143,9 @@ void ler_movs (ESTADO *estado, FILE *f){
 }
 
 void ler_tabuleiro (ESTADO *estado, FILE *f){
-    char c;
-    for(int i = 0; i < 8; i++)
-        for(int o = 0; o < 8;){
+    char c,i,o;
+    for(i = 0; i < 8; i++)
+        for(o = 0; o < 8;){
             c = fgetc(f);
 
             if(c == '*'){

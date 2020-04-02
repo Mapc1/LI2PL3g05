@@ -40,11 +40,11 @@ int comando_ler (ESTADO *estado, char *s){
 }
 
 int jogada_impossivel (ESTADO *estado){
-    int jogador, bool = 0, counter = 0;
+    int jogador, bool = 0, counter = 0,i,o;
     COORDENADA a = estado->ultima_jogada;
 
-    for(int i = a.linha - 1; i <= a.linha + 1; i++)
-        for(int o = a.coluna - 1; o <=a.coluna + 1; o++)
+    for(i = a.linha - 1; i <= a.linha + 1; i++)
+        for(o = a.coluna - 1; o <=a.coluna + 1; o++)
             if(
                estado->tabela[i][o] == PRETA ||
                i == 8 || o == 8 ||
@@ -55,9 +55,9 @@ int jogada_impossivel (ESTADO *estado){
     if(counter == 8) {
         jogador = obter_jogador_atual(estado);
         if (jogador == 1)
-            printf("O jogador 2 ganhou por empancamento.\nParabéns!!!\n");
+            printf("O jogador 2 ganhou por empancamento.\nParabens!!!\n");
         if (jogador == 2)
-            printf("O jogador 1 ganhou por empancamento.\nParabéns!!!\n");
+            printf("O jogador 1 ganhou por empancamento.\nParabens!!!\n");
         bool = 1;
     }
 
