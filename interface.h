@@ -23,4 +23,6 @@ Função que recebe comandos, quer seja para :
 -Sair (Q) do jogo
 */
 int interpretador(ESTADO *e);
+
+int comando_movs(ESTADO *estado);
 #endif //RASTROS_INTERFACE_H

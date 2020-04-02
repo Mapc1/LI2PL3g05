@@ -7,6 +7,8 @@ Definição do estado e das funções que o manipulam
 #define RASTROS_LOGICA_H
 #include "dados.h"
 
+int comando_pos (ESTADO *estado, char *arg);
+
 /**
 \brief Verifica a possibilidade de jogadas válidas
 @param estado Estado do jogo

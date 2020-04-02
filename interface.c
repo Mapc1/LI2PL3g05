@@ -5,7 +5,6 @@
 #include "logica.h"
 #include <string.h>
 
-
 int comando_movs (ESTADO *estado){
     int i;
     JOGADA jogada;
@@ -41,6 +40,7 @@ int comando(char *linha, ESTADO *estado){
         case (2): bool = comando_gr(estado, s); break;
         case (3): bool = comando_ler(estado, s); break;
         case (4): bool = comando_movs(estado); break;
+        case (5): bool = comando_pos(estado, s); break;
     }
 
     if(bool == 0)

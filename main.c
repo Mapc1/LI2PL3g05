@@ -6,8 +6,9 @@
 
 
 int main(){
-    ESTADO *e = inicializar_estado();
-    mostrar_tabuleiro(e);
-    interpretador(e);
+    ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));;
+    inicializar_estado(estado);
+    mostrar_tabuleiro(estado);
+    interpretador(estado);
 return 0;
 }
