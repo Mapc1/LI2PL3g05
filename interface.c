@@ -10,7 +10,6 @@ int comando_movs (ESTADO *estado){
     int i;
     JOGADA jogada;
     COORDENADA c1, c2;
-
     for(i = 0; i < obter_numero_jogadas(estado); i++) {
         jogada = obter_movs(estado, i);
 
@@ -29,15 +28,29 @@ int comando_movs (ESTADO *estado){
 }
 
 int comando_pos(ESTADO *estado, char *s){
-    int total,num,i;
-    num = 0;
-    total = obter_numero_jogadas(estado);
+    int total=0,num=0,i,jogadas_apagadas;
+    if (obter_jogador_atual(estado) == 2)
+        total = 1;
+    total = total + (obter_numero_jogadas(estado))*2;
     for (i=0; s[i]!='\0'; i++){
-        num = num * 10;                      
-        num = num + s[i];
+        if (isdigit (s[i])){
+            num = num * 10;
+            num = (num + s[i]) -48;
+        }
     }
-    
+    jogadas_apagadas = total - (num*2);
+    printf ("%d\n",jogadas_apagadas);
+    if (jogadas_apagadas<=0){
+        printf("Jogada superior a jogada atual.\n");
+    }
+    else{
+        for (i=0; i<jogadas_apagadas;i++){
+            apaga_ultima_jogada (estado);
+        }
+    }
+    mostrar_tabuleiro(estado);
 }
+
 
 
 int comando(char *linha, ESTADO *estado){
@@ -57,7 +70,7 @@ int comando(char *linha, ESTADO *estado){
     }
 
     if(bool == 0)
-        printf("Ficheiro Inválido!\n");
+        printf("Tente outra vez.\n");
     return bool;
 }
 

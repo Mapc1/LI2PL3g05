@@ -59,6 +59,10 @@ void aumentar_numero_jogadas(ESTADO *estado){
     estado->num_jogadas++;
 }
 
+void diminuir_numero_jogadas(ESTADO *estado){
+    estado->num_jogadas--;
+}
+
 int aux_jogar(ESTADO *estado, COORDENADA c){
     estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     estado->tabela[c.linha][c.coluna] = BRANCA;
@@ -73,6 +77,41 @@ void insere_jogada (ESTADO *estado, COORDENADA j){
     else
         estado->jogadas[i].jogador2 = j;
 }
+
+void apaga_ultima_jogada (ESTADO *estado){
+    int i = obter_numero_jogadas(estado),jogador = estado->jogador_atual;
+    COORDENADA ultima;
+    if(jogador==1){
+        COORDENADA ultima = estado->jogadas[i-1].jogador2;
+        retrocede_tabuleiro (estado,ultima);
+        retrocede_jogada (estado);
+    }
+    if(jogador==2){
+        COORDENADA ultima = estado->jogadas[i].jogador1;
+        retrocede_tabuleiro (estado,ultima);
+        retrocede_jogada (estado);
+        muda_jogador(estado);
+    }
+}
+
+void retrocede_tabuleiro (ESTADO *estado, COORDENADA c){
+    estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = VAZIA;
+    estado->tabela[c.linha][c.coluna] = BRANCA;
+    estado->ultima_jogada = c;
+}
+
+void retrocede_jogada (ESTADO *estado){
+    int i = obter_numero_jogadas(estado);
+    if(estado->jogador_atual == 1){
+        estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+        diminuir_numero_jogadas(estado);
+    }
+    else
+        estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+}
+
+    
+
 
 void escreve_tabuleiro (ESTADO *estado, FILE *f){
     int i,o;
