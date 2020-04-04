@@ -1,15 +1,42 @@
 #include "logica.h"
 #include "dados.h"
 
+int comando_pos (ESTADO *estado, char *arg){
+    ESTADO *tmp = (ESTADO *) malloc(sizeof(ESTADO));
+    JOGADA jogada;
+    int njogada = atoi(arg);
+
+    if(njogada < 0)
+        njogada = 0;
+    else if(njogada > obter_numero_jogadas(estado) + 1)
+        njogada = obter_numero_jogadas(estado) + 1;
+
+    inicializar_estado(tmp);
+
+    for(int i = 0; i < njogada; i++){
+        jogada = obter_movs(estado, i);
+
+        jogar(tmp, jogada.jogador1);
+        jogar(tmp, jogada.jogador2);
+    }
+
+    estado->undo = njogada;
+
+    mostrar_tabuleiro(tmp);
+    comando_movs(tmp);
+
+    free(tmp);
+    return 1;
+}
+
 int compara_comando (char *s){
-    int comando;
+    int comando = 0;
 
     if (strcmp(s, "q") == 0) comando = 1;
     else if (strcmp(s, "gr") == 0) comando = 2;
     else if (strcmp(s, "ler") == 0) comando = 3;
     else if (strcmp(s, "movs") == 0) comando = 4;
     else if (strcmp(s, "pos") == 0) comando = 5;
-
 
     return comando;
 }
@@ -77,8 +104,12 @@ int valida_jogada (ESTADO *estado, COORDENADA c){
 
 int jogar(ESTADO *estado, COORDENADA c){
     int bool = 0;
+    if(estado->undo != (-1)) {
+        reverte_estado(estado);
+    }
+
     if(valida_jogada(estado, c) == 1) {
-        bool = aux_jogar(estado, c);
+        bool = aux_jogar(estado, c, BRANCA, PRETA);
         insere_jogada(estado, c);
         if(obter_jogador_atual(estado) == 2)
             aumentar_numero_jogadas(estado);

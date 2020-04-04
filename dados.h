@@ -47,13 +47,14 @@ typedef struct {
     JOGADAS jogadas;
     int num_jogadas;
     int jogador_atual;
+    int undo;
 } ESTADO;
 
 /**
 \brief Inicializa o estado do jogo
 Esta função inicializa o valor do estado. Isso implica o tabuleiro ser colocado na posição inicial e todos os campos do estado estarem com o valor por omissão.
 */
-ESTADO *inicializar_estado();
+ESTADO *inicializar_estado(ESTADO *estado);
 
 /**
 \brief Devolve o estado de um jogador
@@ -77,7 +78,7 @@ void aumentar_numero_jogadas(ESTADO *estado);
 @param estado Estado do jogo
 @para c Coordenada atual do jogador
 */
-int aux_jogar(ESTADO *estado, COORDENADA c);
+int aux_jogar(ESTADO *estado, COORDENADA c, CASA casa1, CASA casa2);
 
 /**
 \brief Verifica se a casa está ocupada ou vazia
@@ -116,9 +117,7 @@ Guarda o estado do jjogo num ficheiro
 */
 void escreve_ficheiro (ESTADO *estado, char  *s);
 
-void gr_movs(char *s);
-
-void impr_movs();
-
 JOGADA obter_movs (ESTADO *estado, int i);
+
+void reverte_estado (ESTADO *estado);
 #endif //RASTROS_DADOS_H

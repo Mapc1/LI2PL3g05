@@ -5,7 +5,6 @@
 #include "logica.h"
 #include <string.h>
 
-
 int comando_movs (ESTADO *estado){
     int i;
     JOGADA jogada;

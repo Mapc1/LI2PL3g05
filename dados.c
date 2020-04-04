@@ -24,12 +24,11 @@ void inicializa_tabela(ESTADO *estado){
         }
 }
 
-ESTADO *inicializar_estado() {
-    ESTADO *estado = (ESTADO *) malloc(sizeof(ESTADO));
-
+ESTADO *inicializar_estado(ESTADO *estado) {
     estado->jogador_atual = 1;
     estado->num_jogadas = 0;
     estado->ultima_jogada = (COORDENADA) { .coluna = 4, .linha = 3 };
+    estado->undo = (-1);
 
     inicializa_jogadas(estado);
     inicializa_tabela(estado);
@@ -63,9 +62,9 @@ void diminuir_numero_jogadas(ESTADO *estado){
     estado->num_jogadas--;
 }
 
-int aux_jogar(ESTADO *estado, COORDENADA c){
-    estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
-    estado->tabela[c.linha][c.coluna] = BRANCA;
+int aux_jogar(ESTADO *estado, COORDENADA c, CASA casa1, CASA casa2){
+    estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = casa2;
+    estado->tabela[c.linha][c.coluna] = casa1;
     estado->ultima_jogada = c;
     return 1;
 }
@@ -218,4 +217,27 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
 JOGADA obter_movs (ESTADO *estado, int i){
     JOGADA j = (JOGADA) { .jogador1 = estado->jogadas[i].jogador1, .jogador2 = estado->jogadas[i].jogador2};
     return j;
+}
+
+void reverte_casa (ESTADO *estado, COORDENADA c){
+    estado->tabela[c.linha][c.coluna] = VAZIA;
+}
+
+void reverte_estado (ESTADO *estado){
+    int i;
+
+    for(i = estado->num_jogadas; i > estado->undo - 1; i--){
+        if (estado->jogadas[i].jogador2.linha != (-1))
+            aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
+
+        aux_jogar(estado, estado->jogadas[i].jogador1, BRANCA, VAZIA);
+
+        estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+        estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+    }
+    aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
+    estado->ultima_jogada = estado->jogadas[i].jogador2;
+    estado->num_jogadas = estado->undo;
+    estado->jogador_atual = 1;
+    estado->undo = (-1);
 }
