@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include "dados.h"
 
-COORDENADA str_2_coordenada (char *s){
-    COORDENADA c;
-    c.coluna = *s - 'a';
-    c.linha = '8' - *(s + 1);
-    return c;
-}
 ////////////////////////////INICIALIZAÇÃO DO JOGO/////////////////////////////
 void inicializa_jogadas(ESTADO *estado){
     int i;
@@ -115,7 +109,7 @@ void escreve_movs (ESTADO *estado, FILE *f){
     }
     if(estado->jogador_atual == 2) {
         colj1 = estado->jogadas[i].jogador1.coluna + 'a';
-        linj1 = estado->jogadas[i].jogador1.linha + 1;
+        linj1 = 8 - estado->jogadas[i].jogador1.linha;
 
         fprintf(f, i < 10 ? "0%d: %c%d\n" : "%d: %c%d \n", i + 1, colj1, linj1);
     }
@@ -130,7 +124,12 @@ void escreve_ficheiro (ESTADO *estado, char *s){
 }
 
 //////LEITURA//////
-
+COORDENADA str_2_coordenada (char *s){
+    COORDENADA c;
+    c.coluna = *s - 'a';
+    c.linha = '8' - *(s + 1);
+    return c;
+}
 
 void ler_movs (ESTADO *estado, FILE *f){
     char s1[3], s2[3];
@@ -191,21 +190,24 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
 }
 
 void reverte_estado (ESTADO *estado){
-    int i;
+    int i = 0;
+    if (estado->undo == 0)
+        inicializar_estado(estado);
+    else {
+        for (i = estado->num_jogadas; i > estado->undo - 1; i--) {
+            if (estado->jogadas[i].jogador2.linha != (-1))
+                aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
 
-    for(i = estado->num_jogadas; i > estado->undo - 1; i--){
-        if (estado->jogadas[i].jogador2.linha != (-1))
-            aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
+            aux_jogar(estado, estado->jogadas[i].jogador1, BRANCA, VAZIA);
 
-        aux_jogar(estado, estado->jogadas[i].jogador1, BRANCA, VAZIA);
+            estado->jogadas[i].jogador1 = (COORDENADA) {.coluna = (-1), .linha = (-1)};
+            estado->jogadas[i].jogador2 = (COORDENADA) {.coluna = (-1), .linha = (-1)};
+        }
 
-        estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
-        estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
+        aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
+        estado->ultima_jogada = estado->jogadas[i].jogador2;
+        estado->num_jogadas = estado->undo;
+        estado->jogador_atual = 1;
+        estado->undo = (-1);
     }
-
-    aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
-    estado->ultima_jogada = estado->jogadas[i].jogador2;
-    estado->num_jogadas = estado->undo;
-    estado->jogador_atual = 1;
-    estado->undo = (-1);
 }
