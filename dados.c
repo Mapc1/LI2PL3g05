@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include "dados.h"
 
+COORDENADA str_2_coordenada (char *s){
+    COORDENADA c;
+    c.coluna = *s - 'a';
+    c.linha = '8' - *(s + 1);
+    return c;
+}
 ////////////////////////////INICIALIZAÇÃO DO JOGO/////////////////////////////
 void inicializa_jogadas(ESTADO *estado){
     int i;
@@ -100,10 +106,10 @@ void escreve_movs (ESTADO *estado, FILE *f){
     int i, colj1, linj1, colj2, linj2;
     for(i = 0; i < estado->num_jogadas; i++) {
         colj1 = estado->jogadas[i].jogador1.coluna + 'a';
-        linj1 = estado->jogadas[i].jogador1.linha + 1;
+        linj1 = 8 - estado->jogadas[i].jogador1.linha;
 
         colj2 = estado->jogadas[i].jogador2.coluna + 'a';
-        linj2 = estado->jogadas[i].jogador2.linha + 1;
+        linj2 = 8 - estado->jogadas[i].jogador2.linha;
 
         fprintf(f, i < 10 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
     }
@@ -124,15 +130,10 @@ void escreve_ficheiro (ESTADO *estado, char *s){
 }
 
 //////LEITURA//////
-COORDENADA str_2_coordenada (char *s){
-    COORDENADA c;
-    c.coluna = *s - 'A';
-    c.linha = *(s + 1) -'1';
-    return c;
-}
+
 
 void ler_movs (ESTADO *estado, FILE *f){
-    char s1[2], s2[2];
+    char s1[3], s2[3];
     int i, num = 0, jog_incompleta = 0;
     for(i = 0; num != EOF; i++){
         num = fscanf(f,"%*d: %s %s\n", s1, s2);

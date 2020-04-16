@@ -15,13 +15,13 @@ int comando_movs (ESTADO *estado){
         c1 = jogada.jogador1;
         c2 = jogada.jogador2;
 
-        printf("%d: %c%d %c%d\n", i + 1,c1.coluna + 'A', 8 - c1.linha,c2.coluna + 'A', 8 - c2.linha);
+        printf("%d: %c%d %c%d\n", i + 1, c1.coluna + 'A', 8 - c1.linha,c2.coluna + 'A', 8 - c2.linha);
     }
 
     if(estado->jogador_atual == 2){
         jogada = obter_movs(estado, i);
         c1 = jogada.jogador1;
-        printf("%d: %c%d\n",i + 1, c1.coluna + 'A', c1.linha + 1);
+        printf("%d: %c%d\n",i + 1, c1.coluna + 'A', 8 - c1.linha);
     }
     return 1;
 }
