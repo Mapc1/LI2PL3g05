@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "dados.h"
 
+////////////////////////////INICIALIZAÇÃO DO JOGO/////////////////////////////
 void inicializa_jogadas(ESTADO *estado){
     int i;
     for( i = 0; i < 32; i++){
@@ -34,16 +35,11 @@ ESTADO *inicializar_estado(ESTADO *estado) {
     inicializa_tabela(estado);
     return estado;
 }
+///////////////////////////////////////////////////////////////7///////////////////
 
+////////////////////////////OBTENÇÃO DE VALORES////////////////////////////////////
 int obter_jogador_atual(ESTADO *estado){
     return estado->jogador_atual;
-}
-
-void muda_jogador (ESTADO *estado){
-    if(estado->jogador_atual == 1)
-        estado->jogador_atual = 2;
-    else
-        estado->jogador_atual = 1;
 }
 
 CASA obter_estado_casa(ESTADO *estado, COORDENADA c) {
@@ -54,12 +50,22 @@ int obter_numero_jogadas(ESTADO *estado){
     return (estado->num_jogadas);
 }
 
-void aumentar_numero_jogadas(ESTADO *estado){
-    estado->num_jogadas++;
+JOGADA obter_movs (ESTADO *estado, int i){
+    JOGADA j = (JOGADA) { .jogador1 = estado->jogadas[i].jogador1, .jogador2 = estado->jogadas[i].jogador2};
+    return j;
+}
+///////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////ALTERAÇÃO DO ESTADO///////////////////////////////////
+void muda_jogador (ESTADO *estado){
+    if(estado->jogador_atual == 1)
+        estado->jogador_atual = 2;
+    else
+        estado->jogador_atual = 1;
 }
 
-void diminuir_numero_jogadas(ESTADO *estado){
-    estado->num_jogadas--;
+void aumentar_numero_jogadas(ESTADO *estado){
+    estado->num_jogadas++;
 }
 
 int aux_jogar(ESTADO *estado, COORDENADA c, CASA casa1, CASA casa2){
@@ -76,42 +82,10 @@ void insere_jogada (ESTADO *estado, COORDENADA j){
     else
         estado->jogadas[i].jogador2 = j;
 }
+///////////////////////////////////////////////////////////////////////////////////
 
-void apaga_ultima_jogada (ESTADO *estado){
-    int i = obter_numero_jogadas(estado),jogador = estado->jogador_atual;
-    COORDENADA ultima;
-    if(jogador==1){
-        COORDENADA ultima = estado->jogadas[i-1].jogador2;
-        retrocede_tabuleiro (estado,ultima);
-        retrocede_jogada (estado);
-    }
-    if(jogador==2){
-        COORDENADA ultima = estado->jogadas[i].jogador1;
-        retrocede_tabuleiro (estado,ultima);
-        retrocede_jogada (estado);
-        muda_jogador(estado);
-    }
-}
-
-void retrocede_tabuleiro (ESTADO *estado, COORDENADA c){
-    estado->tabela[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = VAZIA;
-    estado->tabela[c.linha][c.coluna] = BRANCA;
-    estado->ultima_jogada = c;
-}
-
-void retrocede_jogada (ESTADO *estado){
-    int i = obter_numero_jogadas(estado);
-    if(estado->jogador_atual == 1){
-        estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
-        diminuir_numero_jogadas(estado);
-    }
-    else
-        estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
-}
-
-    
-
-
+//////////////////////////LEITURA E ESCRITA DE FICHEIROS///////////////////////////
+//////ESCRITA//////
 void escreve_tabuleiro (ESTADO *estado, FILE *f){
     int i,o;
     for(i = 0; i < 8; i++){
@@ -149,6 +123,7 @@ void escreve_ficheiro (ESTADO *estado, char *s){
     fclose(f);
 }
 
+//////LEITURA//////
 COORDENADA str_2_coordenada (char *s){
     COORDENADA c;
     c.coluna = *s - 'A';
@@ -214,15 +189,6 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s){
     return estado;
 }
 
-JOGADA obter_movs (ESTADO *estado, int i){
-    JOGADA j = (JOGADA) { .jogador1 = estado->jogadas[i].jogador1, .jogador2 = estado->jogadas[i].jogador2};
-    return j;
-}
-
-void reverte_casa (ESTADO *estado, COORDENADA c){
-    estado->tabela[c.linha][c.coluna] = VAZIA;
-}
-
 void reverte_estado (ESTADO *estado){
     int i;
 
@@ -235,6 +201,7 @@ void reverte_estado (ESTADO *estado){
         estado->jogadas[i].jogador1 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
         estado->jogadas[i].jogador2 = (COORDENADA) { .coluna = (-1), .linha = (-1) };
     }
+
     aux_jogar(estado, estado->jogadas[i].jogador2, BRANCA, VAZIA);
     estado->ultima_jogada = estado->jogadas[i].jogador2;
     estado->num_jogadas = estado->undo;

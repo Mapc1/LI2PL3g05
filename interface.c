@@ -15,7 +15,7 @@ int comando_movs (ESTADO *estado){
         c1 = jogada.jogador1;
         c2 = jogada.jogador2;
 
-        printf("%d: %c%d %c%d\n", i + 1, c1.coluna + 'A', c1.linha + 1, c2.coluna + 'A', c2.linha + 1);
+        printf("%d: %c%d %c%d\n", i + 1,c1.coluna + 'A', 8 - c1.linha,c2.coluna + 'A', 8 - c2.linha);
     }
 
     if(estado->jogador_atual == 2){
@@ -25,32 +25,6 @@ int comando_movs (ESTADO *estado){
     }
     return 1;
 }
-
-int comando_pos(ESTADO *estado, char *s){
-    int total=0,num=0,i,jogadas_apagadas;
-    if (obter_jogador_atual(estado) == 2)
-        total = 1;
-    total = total + (obter_numero_jogadas(estado))*2;
-    for (i=0; s[i]!='\0'; i++){
-        if (isdigit (s[i])){
-            num = num * 10;
-            num = (num + s[i]) -48;
-        }
-    }
-    jogadas_apagadas = total - (num*2);
-    printf ("%d\n",jogadas_apagadas);
-    if (jogadas_apagadas<=0){
-        printf("Jogada superior a jogada atual.\n");
-    }
-    else{
-        for (i=0; i<jogadas_apagadas;i++){
-            apaga_ultima_jogada (estado);
-        }
-    }
-    mostrar_tabuleiro(estado);
-}
-
-
 
 int comando(char *linha, ESTADO *estado){
     char *s;
