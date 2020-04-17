@@ -1,10 +1,11 @@
 #include "logica.h"
 #include "dados.h"
+#include <math.h>
 
 int comando_pos (ESTADO *estado, char *arg){
     ESTADO *tmp = (ESTADO *) malloc(sizeof(ESTADO));
     JOGADA jogada;
-    int njogada = atoi(arg);
+    int njogada = atoi(arg),i;
 
     if(njogada < 0)
         njogada = 0;
@@ -13,7 +14,7 @@ int comando_pos (ESTADO *estado, char *arg){
 
     inicializar_estado(tmp);
 
-    for(int i = 0; i < njogada; i++){
+    for(i = 0; i < njogada; i++){
         jogada = obter_movs(estado, i);
 
         jogar(tmp, jogada.jogador1);
@@ -37,6 +38,7 @@ int compara_comando (char *s){
     else if (strcmp(s, "ler") == 0) comando = 3;
     else if (strcmp(s, "movs") == 0) comando = 4;
     else if (strcmp(s, "pos") == 0) comando = 5;
+    else if (strcmp(s, "jog") == 0) comando = 6;
 
     return comando;
 }
@@ -66,9 +68,8 @@ int comando_ler (ESTADO *estado, char *s){
     return bool;
 }
 
-int jogada_impossivel (ESTADO *estado){
+int jogada_impossivel (ESTADO *estado, COORDENADA a){
     int jogador, bool = 0, counter = 0,i,o;
-    COORDENADA a = estado->ultima_jogada;
 
     for(i = a.linha - 1; i <= a.linha + 1; i++)
         for(o = a.coluna - 1; o <=a.coluna + 1; o++)
@@ -82,12 +83,10 @@ int jogada_impossivel (ESTADO *estado){
     if(counter == 8) {
         jogador = obter_jogador_atual(estado);
         if (jogador == 1)
-            printf("O jogador 2 ganhou por empancamento.\nParabens!!!\n");
+            bool = 1;
         if (jogador == 2)
-            printf("O jogador 1 ganhou por empancamento.\nParabens!!!\n");
-        bool = 1;
+            bool = 2;
     }
-
     return bool;
 }
 
@@ -121,12 +120,51 @@ int jogar(ESTADO *estado, COORDENADA c){
 int fim_do_jogo (ESTADO *estado, COORDENADA c){
     int bool = 0;
     if (obter_estado_casa(estado, c) == UM){
-        printf ("O jogador 1 ganhou!!!\n");
         bool = 1;
         }
     if (obter_estado_casa(estado, c) == DOIS){
-        printf ("O jogador 2 ganhou!!!\n");
-        bool = 1;
+        bool = 2;
         }
     return bool;
 }
+
+int vai_ganhar (ESTADO *estado, COORDENADA c){
+    int bool = 0;
+    if (fim_do_jogo (estado, c)) {
+        bool = 1;
+    }
+    if (jogada_impossivel (estado,c)){
+        bool = 1;
+    }
+    return bool;
+}
+
+double calcula_distancia (COORDENADA c,COORDENADA d){
+    double distancia = sqrt( pow((c.linha-d.linha),2) + pow((c.coluna-d.coluna),2));
+    return distancia;
+}
+
+double valor_da_peca (ESTADO *estado, COORDENADA c){
+    double valor=0;
+    if (vai_ganhar (estado,c));
+    else{
+        int jogador = obter_jogador_atual (estado);
+        COORDENADA d;
+        if (jogador == 1){
+            d = (COORDENADA) { .coluna = (0), .linha = (7) };
+        }
+        else d = (COORDENADA) { .coluna = (7), .linha = (0) };
+        valor = calcula_distancia (c,d);
+    }
+    return valor;
+}
+
+int comando_jog(ESTADO *estado){
+    COORDENADA c;
+    c = estado -> ultima_jogada;
+    c.coluna++;
+    double valor = valor_da_peca (estado,c);
+    printf("%f\n",valor);
+    return 0;
+}
+

@@ -40,6 +40,7 @@ int comando(char *linha, ESTADO *estado){
         case (3): bool = comando_ler(estado, s); break;
         case (4): bool = comando_movs(estado); break;
         case (5): bool = comando_pos(estado, s); break;
+        case (6): bool = comando_jog(estado); break;
     }
 
     if(bool == 0)
@@ -51,10 +52,7 @@ int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
     while (1){
-        if (jogada_impossivel(e)) {
-            return 0;
-        }
-        printf("Insira a posicao da sua jogada.\n");
+        printf("JOGADOR %d: Insira a posicao da sua jogada.\n", obter_jogador_atual(e));
 
         if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
         int w;
@@ -64,12 +62,16 @@ int interpretador(ESTADO *e) {
             jogar(e, coord);
             mostrar_tabuleiro(e);
             if (fim_do_jogo(e, coord)) {
+                printf("O jogador %d ganhou!!!\n",fim_do_jogo(e, coord));
+            return 0;
+            }
+            if (jogada_impossivel(e, coord)) {
+                printf("O jogador %d ganhou por empancamento!!!\n",jogada_impossivel(e, coord));
             return 0;
             }
         }
         else{
         w = comando(linha, e);
-        printf("%d", w);
         }
     }
 }
