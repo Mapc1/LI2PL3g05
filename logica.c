@@ -1,6 +1,5 @@
 #include "logica.h"
 #include "dados.h"
-#include <math.h>
 
 int comando_pos (ESTADO *estado, char *arg){
     ESTADO *tmp = (ESTADO *) malloc(sizeof(ESTADO));
@@ -83,9 +82,9 @@ int jogada_impossivel (ESTADO *estado, COORDENADA a){
     if(counter == 8) {
         jogador = obter_jogador_atual(estado);
         if (jogador == 1)
-            bool = 1;
-        if (jogador == 2)
             bool = 2;
+        if (jogador == 2)
+            bool = 1;
     }
     return bool;
 }
@@ -127,44 +126,3 @@ int fim_do_jogo (ESTADO *estado, COORDENADA c){
         }
     return bool;
 }
-
-int vai_ganhar (ESTADO *estado, COORDENADA c){
-    int bool = 0;
-    if (fim_do_jogo (estado, c)) {
-        bool = 1;
-    }
-    if (jogada_impossivel (estado,c)){
-        bool = 1;
-    }
-    return bool;
-}
-
-double calcula_distancia (COORDENADA c,COORDENADA d){
-    double distancia = sqrt( pow((c.linha-d.linha),2) + pow((c.coluna-d.coluna),2));
-    return distancia;
-}
-
-double valor_da_peca (ESTADO *estado, COORDENADA c){
-    double valor=0;
-    if (vai_ganhar (estado,c));
-    else{
-        int jogador = obter_jogador_atual (estado);
-        COORDENADA d;
-        if (jogador == 1){
-            d = (COORDENADA) { .coluna = (0), .linha = (7) };
-        }
-        else d = (COORDENADA) { .coluna = (7), .linha = (0) };
-        valor = calcula_distancia (c,d);
-    }
-    return valor;
-}
-
-int comando_jog(ESTADO *estado){
-    COORDENADA c;
-    c = estado -> ultima_jogada;
-    c.coluna++;
-    double valor = valor_da_peca (estado,c);
-    printf("%f\n",valor);
-    return 1;
-}
-

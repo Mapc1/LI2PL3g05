@@ -4,6 +4,7 @@
 #include "interface.h"
 #include "logica.h"
 #include <string.h>
+#include "bot.h"
 
 int comando_movs (ESTADO *estado){
     int i;
@@ -48,10 +49,21 @@ int comando(char *linha, ESTADO *estado){
     return bool;
 }
 
+int end_game(ESTADO *e, COORDENADA coord){
+    if (fim_do_jogo(e, coord)) {
+        printf("O jogador %d ganhou!!!\n",fim_do_jogo(e, coord));
+        return 2;
+        }
+    if (jogada_impossivel(e, coord)) {
+        printf("O jogador %d ganhou por empancamento!!!\n",jogada_impossivel(e,coord));
+        return 2;
+        }
+    return 0;
+}
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
-    while (1){
+    while (2){
         printf("JOGADOR %d: Insira a posicao da sua jogada.\n", obter_jogador_atual(e));
 
         if(fgets(linha, BUF_SIZE, stdin) == NULL) return 0;
@@ -61,20 +73,16 @@ int interpretador(ESTADO *e) {
             prompt(e,*col,*lin);
             jogar(e, coord);
             mostrar_tabuleiro(e);
-            if (fim_do_jogo(e, coord)) {
-                printf("O jogador %d ganhou!!!\n",fim_do_jogo(e, coord));
-            return 0;
-            }
-            if (jogada_impossivel(e, coord)) {
-                printf("O jogador %d ganhou por empancamento!!!\n",jogada_impossivel(e, coord));
-            return 0;
-            }
+            if(end_game(e,coord)) return 2;
         }
         else{
         w = comando(linha, e);
+        if (w==2) return 2;
         }
     }
 }
+
+
 
 void mostrar_tabuleiro(ESTADO *e) {
     int i,j,lin=9;
