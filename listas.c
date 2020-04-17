@@ -8,33 +8,24 @@ typedef struct nodo {
 
 
 ////////Funções para transformar arrays em listas/////
+LISTA insere_cabeca (void *x, LISTA xs){
+    LISTA r = malloc (sizeof (Nodo));
+    r->v = x; r->prox = xs;
+
+    return r;
+}
 LISTA fromArray (int v[], int N) {
     int i; LISTA r = NULL;
 
     for (i=N-1; i>=0; i--)
-        r = insere_cabeca (r, v[i]);
-    return r;
-}
-
-LISTA cons (int x, LISTA xs){
-    LISTA r = malloc (sizeof (Nodo));
-    r->v = x; r->prox = xs;
-
+        r = insere_cabeca (v[i], r);
     return r;
 }
 
 //////////LISTAS///////
 // Cria uma lista vazia
 LISTA criar_lista(){
-    LISTA l;
-    l -> v = NULL;
-}
-
-// Insere um valor na cabeça da lista
-LISTA insere_cabeca(LISTA L, void *valor){
-    LISTA r = malloc (sizeof (Nodo));
-    r -> v = valor; r -> prox = L;
-    return r;
+    LISTA l = NULL;
 }
 
 // Devolve a cabeça da lista
