@@ -15,7 +15,7 @@ int comando_pos (ESTADO *estado, char *arg);
 verifica a possibilidade de jogadas válidas que cada jogador tem, caso um deles não possua uma jogada valida, declara a vitoria do outro 
 (verifica primeiro o jogador 1, ou seja, caso nenhum tenha jogadas possiveis, a vitória é atribuida ao jogador 2)
 */
-int jogada_impossivel (ESTADO *estado); 
+int jogada_impossivel (ESTADO *estado, COORDENADA a);
 
 /**
 \brief Verifica se a jogada é válida
