@@ -165,6 +165,6 @@ int comando_jog(ESTADO *estado){
     c.coluna++;
     double valor = valor_da_peca (estado,c);
     printf("%f\n",valor);
-    return 0;
+    return 1;
 }
 
