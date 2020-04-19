@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['obter_5festado_5fcasa_43',['obter_estado_casa',['../dados_8h.html#a6faa68373203923729ed38657aa0f768',1,'dados.c']]],
-  ['obter_5fjogador_5fatual_44',['obter_jogador_atual',['../dados_8h.html#ad6e326e4ffa57ca1ae0c75377ecefc8c',1,'dados.c']]],
-  ['obter_5fnumero_5fjogadas_45',['obter_numero_jogadas',['../dados_8h.html#af0d5c47402da244ef5ce78bda12862a9',1,'dados.c']]]
+  ['ler_5fficheiro_72',['ler_ficheiro',['../dados_8h.html#a66311e0345f79d8d0a35ec8eb8e1af88',1,'dados.c']]],
+  ['lista_5festa_5fvazia_73',['lista_esta_vazia',['../listas_8h.html#a4c10928f7acaa4e3de3760cea0dfd9c0',1,'listas.c']]]
 ];

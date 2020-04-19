@@ -113,11 +113,23 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *s);
 \brief Guarda estado do jogo
 @param estado Estado do jogo
 @param s Nome do ficheiro
-Guarda o estado do jjogo num ficheiro
+Guarda o estado do jogo num ficheiro
 */
 void escreve_ficheiro (ESTADO *estado, char  *s);
 
+/**
+\brief Obtem os movimentos dos jogadores
+@param estado Estado do jogo
+@param i número da jogada
+Dado um número da jogada, esta função devolve as jogadas executadas
+*/
 JOGADA obter_movs (ESTADO *estado, int i);
 
+/**
+\brief Volta à jogada atual
+@param estado Estado do jogo
+Caso não seja efetuada nenhuma jogada após a utilização do comando pos, volta a posição atual
+*/
 void reverte_estado (ESTADO *estado);
+
 #endif //RASTROS_DADOS_H

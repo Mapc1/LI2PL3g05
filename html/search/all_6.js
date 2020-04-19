@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['jogada_12',['JOGADA',['../structJOGADA.html',1,'']]],
-  ['jogada_5fimpossivel_13',['jogada_impossivel',['../logica_8h.html#af80f7f0a1dc5fa28a2ec1a599b5aff3f',1,'logica.c']]],
-  ['jogadas_14',['JOGADAS',['../dados_8h.html#a94c221d29a1760f008b7834093259b7d',1,'dados.h']]],
-  ['jogar_15',['jogar',['../logica_8h.html#ac313d7e553b1e2b5f266acb9bfff8141',1,'logica.c']]]
+  ['inicializar_5festado_18',['inicializar_estado',['../dados_8h.html#ae25ccb0eebe834f78504d109dac8e3de',1,'dados.c']]],
+  ['insere_5fcabeca_19',['insere_cabeca',['../listas_8h.html#a1bce0ff56f44c602e7d4e8d65831c256',1,'listas.c']]],
+  ['insere_5fjogada_20',['insere_jogada',['../dados_8h.html#a37c992c772084735697c86b2efbe7ff0',1,'dados.c']]],
+  ['interface_2eh_21',['interface.h',['../interface_8h.html',1,'']]],
+  ['interpretador_22',['interpretador',['../interface_8h.html#a24da95ebeede4a540e37790ce8be359b',1,'interface.c']]]
 ];

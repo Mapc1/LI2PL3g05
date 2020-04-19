@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['ler_5fficheiro_16',['ler_ficheiro',['../dados_8h.html#a66311e0345f79d8d0a35ec8eb8e1af88',1,'dados.c']]],
-  ['logica_2eh_17',['logica.h',['../logica_8h.html',1,'']]],
-  ['li2_2dpl3_2dg5_18',['LI2-PL3-G5',['../md_README.html',1,'']]]
+  ['jogada_23',['JOGADA',['../structJOGADA.html',1,'']]],
+  ['jogada_5fimpossivel_24',['jogada_impossivel',['../logica_8h.html#a2bcf2112631e9a76f0dbd07ec86b981b',1,'logica.c']]],
+  ['jogadas_25',['JOGADAS',['../dados_8h.html#a94c221d29a1760f008b7834093259b7d',1,'dados.h']]],
+  ['jogar_26',['jogar',['../logica_8h.html#ac313d7e553b1e2b5f266acb9bfff8141',1,'logica.c']]]
 ];

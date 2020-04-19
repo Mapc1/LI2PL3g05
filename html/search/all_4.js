@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['fim_5fdo_5fjogo_7',['fim_do_jogo',['../logica_8h.html#af770e0d8a1ffd3e676eac780a702cd60',1,'logica.c']]]
+  ['escreve_5fficheiro_14',['escreve_ficheiro',['../dados_8h.html#aef659ce275d2834bd4e8624e2aae24aa',1,'dados.c']]],
+  ['estado_15',['ESTADO',['../structESTADO.html',1,'']]]
 ];

@@ -20,16 +20,20 @@ typedef \mbox{\hyperlink{structJOGADA}{J\+O\+G\+A\+DA}} \mbox{\hyperlink{dados_8
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{dados_8h_aba91601f16d4c485b2d9b8c429f27039}\label{dados_8h_aba91601f16d4c485b2d9b8c429f27039}} 
-enum \mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}} \{ {\bfseries V\+A\+Z\+IA} = \textquotesingle{}.\textquotesingle{}, 
+enum \mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}} \{ \newline
+{\bfseries UM} = \textquotesingle{}1\textquotesingle{}, 
+{\bfseries D\+O\+IS} = \textquotesingle{}2\textquotesingle{}, 
+{\bfseries V\+A\+Z\+IA} = \textquotesingle{}.\textquotesingle{}, 
 {\bfseries B\+R\+A\+N\+CA} = \textquotesingle{}$\ast$\textquotesingle{}, 
+\newline
 {\bfseries P\+R\+E\+TA} = \textquotesingle{}\#\textquotesingle{}
  \}
 \begin{DoxyCompactList}\small\item\em Tipo de dados para a casa. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{dados_8h_a7e0c7e26fb685d9ab501e19b05e6954f}\label{dados_8h_a7e0c7e26fb685d9ab501e19b05e6954f}} 
-\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$ \mbox{\hyperlink{dados_8h_a7e0c7e26fb685d9ab501e19b05e6954f}{inicializar\+\_\+estado}} ()
+\mbox{\Hypertarget{dados_8h_ae25ccb0eebe834f78504d109dac8e3de}\label{dados_8h_ae25ccb0eebe834f78504d109dac8e3de}} 
+\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$ \mbox{\hyperlink{dados_8h_ae25ccb0eebe834f78504d109dac8e3de}{inicializar\+\_\+estado}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
 \begin{DoxyCompactList}\small\item\em Inicializa o estado do jogo Esta função inicializa o valor do estado. Isso implica o tabuleiro ser colocado na posição inicial e todos os campos do estado estarem com o valor por omissão. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{dados_8h_ad6e326e4ffa57ca1ae0c75377ecefc8c}{obter\+\_\+jogador\+\_\+atual}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
 \begin{DoxyCompactList}\small\item\em Devolve o estado de um jogador. \end{DoxyCompactList}\item 
@@ -37,18 +41,22 @@ int \mbox{\hyperlink{dados_8h_af0d5c47402da244ef5ce78bda12862a9}{obter\+\_\+nume
 \begin{DoxyCompactList}\small\item\em Devolve o número de jogadas. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dados_8h_a4fddeca3f63f6575f223cb38ec40090f}{aumentar\+\_\+numero\+\_\+jogadas}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
 \begin{DoxyCompactList}\small\item\em Aumenta em um, o numero de jogadas. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{dados_8h_ae30b6d016500fecb2c4855bf77ec18fe}{aux\+\_\+jogar}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c)
+int \mbox{\hyperlink{dados_8h_a56e65b4dec0800d5443671d250a0b937}{aux\+\_\+jogar}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c, \mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}} casa1, \mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}} casa2)
 \item 
 \mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}} \mbox{\hyperlink{dados_8h_a6faa68373203923729ed38657aa0f768}{obter\+\_\+estado\+\_\+casa}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$e, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} c)
 \begin{DoxyCompactList}\small\item\em Verifica se a casa está ocupada ou vazia. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dados_8h_a83137cf8801f2342857b3984fd44f16e}{muda\+\_\+jogador}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
 \begin{DoxyCompactList}\small\item\em Muda o jogador de casa. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{dados_8h_a5a25533e80dea6726e9d80f4efcfc9b7}{insere\+\_\+jogada}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} j1, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} j2)
+void \mbox{\hyperlink{dados_8h_a37c992c772084735697c86b2efbe7ff0}{insere\+\_\+jogada}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} j)
 \begin{DoxyCompactList}\small\item\em Atualiza a posição dos jogadores. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$ \mbox{\hyperlink{dados_8h_a66311e0345f79d8d0a35ec8eb8e1af88}{ler\+\_\+ficheiro}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, char $\ast$s)
 \begin{DoxyCompactList}\small\item\em Lê um ficheiro. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{dados_8h_aef659ce275d2834bd4e8624e2aae24aa}{escreve\+\_\+ficheiro}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, char $\ast$s)
-\begin{DoxyCompactList}\small\item\em Guarda estado do jogo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Guarda estado do jogo. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structJOGADA}{J\+O\+G\+A\+DA}} \mbox{\hyperlink{dados_8h_a703a40e740b7f2689125184304fd4440}{obter\+\_\+movs}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, int i)
+\begin{DoxyCompactList}\small\item\em Obtem os movimentos dos jogadores. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{dados_8h_ad6c373c7cf112e4e6ebbf7ff0d4f4d20}{reverte\+\_\+estado}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado)
+\begin{DoxyCompactList}\small\item\em Volta à jogada atual. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -70,11 +78,11 @@ Aumenta em um, o numero de jogadas.
 {\em estado} & Estado do jogo \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{dados_8h_ae30b6d016500fecb2c4855bf77ec18fe}\label{dados_8h_ae30b6d016500fecb2c4855bf77ec18fe}} 
+\mbox{\Hypertarget{dados_8h_a56e65b4dec0800d5443671d250a0b937}\label{dados_8h_a56e65b4dec0800d5443671d250a0b937}} 
 \index{dados.h@{dados.h}!aux\_jogar@{aux\_jogar}}
 \index{aux\_jogar@{aux\_jogar}!dados.h@{dados.h}}
 \doxysubsubsection{\texorpdfstring{aux\_jogar()}{aux\_jogar()}}
-{\footnotesize\ttfamily int aux\+\_\+jogar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int aux\+\_\+jogar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{c,  }\item[{\mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}}}]{casa1,  }\item[{\mbox{\hyperlink{dados_8h_aba91601f16d4c485b2d9b8c429f27039}{C\+A\+SA}}}]{casa2 }\end{DoxyParamCaption})}
 
 
 \begin{DoxyParams}{Parameters}
@@ -95,14 +103,14 @@ Guarda estado do jogo.
 \begin{DoxyParams}{Parameters}
 {\em estado} & Estado do jogo \\
 \hline
-{\em s} & Nome do ficheiro Guarda o estado do jjogo num ficheiro \\
+{\em s} & Nome do ficheiro Guarda o estado do jogo num ficheiro \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{dados_8h_a5a25533e80dea6726e9d80f4efcfc9b7}\label{dados_8h_a5a25533e80dea6726e9d80f4efcfc9b7}} 
+\mbox{\Hypertarget{dados_8h_a37c992c772084735697c86b2efbe7ff0}\label{dados_8h_a37c992c772084735697c86b2efbe7ff0}} 
 \index{dados.h@{dados.h}!insere\_jogada@{insere\_jogada}}
 \index{insere\_jogada@{insere\_jogada}!dados.h@{dados.h}}
 \doxysubsubsection{\texorpdfstring{insere\_jogada()}{insere\_jogada()}}
-{\footnotesize\ttfamily void insere\+\_\+jogada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{j1,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{j2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void insere\+\_\+jogada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{j }\end{DoxyParamCaption})}
 
 
 
@@ -181,6 +189,23 @@ Devolve o estado de um jogador.
 {\em estado} & Estado do jogo \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{dados_8h_a703a40e740b7f2689125184304fd4440}\label{dados_8h_a703a40e740b7f2689125184304fd4440}} 
+\index{dados.h@{dados.h}!obter\_movs@{obter\_movs}}
+\index{obter\_movs@{obter\_movs}!dados.h@{dados.h}}
+\doxysubsubsection{\texorpdfstring{obter\_movs()}{obter\_movs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structJOGADA}{J\+O\+G\+A\+DA}} obter\+\_\+movs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+Obtem os movimentos dos jogadores. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & Estado do jogo \\
+\hline
+{\em i} & número da jogada Dado um número da jogada, esta função devolve as jogadas executadas \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{dados_8h_af0d5c47402da244ef5ce78bda12862a9}\label{dados_8h_af0d5c47402da244ef5ce78bda12862a9}} 
 \index{dados.h@{dados.h}!obter\_numero\_jogadas@{obter\_numero\_jogadas}}
 \index{obter\_numero\_jogadas@{obter\_numero\_jogadas}!dados.h@{dados.h}}
@@ -194,5 +219,20 @@ Devolve o número de jogadas.
 
 \begin{DoxyParams}{Parameters}
 {\em estado} & do jogo \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{dados_8h_ad6c373c7cf112e4e6ebbf7ff0d4f4d20}\label{dados_8h_ad6c373c7cf112e4e6ebbf7ff0d4f4d20}} 
+\index{dados.h@{dados.h}!reverte\_estado@{reverte\_estado}}
+\index{reverte\_estado@{reverte\_estado}!dados.h@{dados.h}}
+\doxysubsubsection{\texorpdfstring{reverte\_estado()}{reverte\_estado()}}
+{\footnotesize\ttfamily void reverte\+\_\+estado (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado }\end{DoxyParamCaption})}
+
+
+
+Volta à jogada atual. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & Estado do jogo Caso não seja efetuada nenhuma jogada após a utilização do comando pos, volta a posição atual \\
 \hline
 \end{DoxyParams}

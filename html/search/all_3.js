@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['escreve_5fficheiro_5',['escreve_ficheiro',['../dados_8h.html#aef659ce275d2834bd4e8624e2aae24aa',1,'dados.c']]],
-  ['estado_6',['ESTADO',['../structESTADO.html',1,'']]]
+  ['dados_2eh_12',['dados.h',['../dados_8h.html',1,'']]],
+  ['devolve_5fcabeca_13',['devolve_cabeca',['../listas_8h.html#abfcb205f3eb670157be0d1221021714b',1,'listas.c']]]
 ];

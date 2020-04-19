@@ -39,9 +39,25 @@ Verifica se algum dos jogadores ganhou, e imprime a mensagem a anunciar o venced
 */
 int fim_do_jogo (ESTADO *estado, COORDENADA c);
 
+/**
+\brief Guarda o tabuleiro atual
+@param estado Estado do jogo
+@param linha Nome do ficheiro
+*/
 int comando_gr (ESTADO *estado, char *linha);
 
+/**
+\brief Lê o tabuleiro escolhido
+@param estado Estado do jogo
+@param linha Nome do ficheiro
+*/
 int comando_ler (ESTADO *estado, char *linha);
 
+/**
+\brief Lê o comando a executar
+@param s Comando
+Dado uma string, esta função indica qual será o comando a utilizar
+*/
 int compara_comando (char *s);
+
 #endif //RASTROS_LOGICA_H

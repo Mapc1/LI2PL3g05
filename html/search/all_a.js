@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valida_5fjogada_24',['valida_jogada',['../logica_8h.html#a0fed7c0b8d2880cabc277683b72cdece',1,'logica.c']]]
+  ['nodo_34',['nodo',['../structnodo.html',1,'nodo'],['../listas_8h.html#a46556b0fd3be65be11d967516d9866f1',1,'Nodo():&#160;listas.h']]]
 ];
