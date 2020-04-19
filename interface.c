@@ -52,11 +52,11 @@ int comando(char *linha, ESTADO *estado){
 int end_game(ESTADO *e, COORDENADA coord){
     if (fim_do_jogo(e, coord)) {
         printf("O jogador %d ganhou!!!\n",fim_do_jogo(e, coord));
-        return 2;
+        return fim_do_jogo(e, coord);
         }
     if (jogada_impossivel(e, coord)) {
         printf("O jogador %d ganhou por empancamento!!!\n",jogada_impossivel(e,coord));
-        return 2;
+        return jogada_impossivel(e,coord);
         }
     return 0;
 }

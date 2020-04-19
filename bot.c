@@ -12,9 +12,9 @@ double calcula_distancia (COORDENADA c,COORDENADA d){
 
 double valor_da_peca (ESTADO *estado, COORDENADA c){
     double valor=0;
-    if (end_game (estado,c)) printf ("Vai ganhar\n");
+    int jogador = obter_jogador_atual (estado);
+    if (end_game (estado,c) == jogador);
     else{
-        int jogador = obter_jogador_atual (estado);
         COORDENADA d;
         if (jogador == 1){
             d = (COORDENADA) { .coluna = (0), .linha = (7) };
