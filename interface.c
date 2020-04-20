@@ -54,6 +54,8 @@ int end_game(ESTADO *e, COORDENADA coord){
         printf("O jogador %d ganhou!!!\n",fim_do_jogo(e, coord));
         return fim_do_jogo(e, coord);
         }
+    printf("%c%d\n",coord.coluna + 'A',8 - coord.linha);
+    printf("%d\n",jogada_impossivel(e,coord));
     if (jogada_impossivel(e, coord)) {
         printf("O jogador %d ganhou por empancamento!!!\n",jogada_impossivel(e,coord));
         return jogada_impossivel(e,coord);

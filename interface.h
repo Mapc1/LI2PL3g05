@@ -24,10 +24,5 @@ Função que recebe comandos, quer seja para :
 */
 int interpretador(ESTADO *e);
 
-/**
-\brief Devolve os movimentos dos jogadores
-@param estado Estado do jogo
-Após a utilização deste comando, são imprimidos todos os comandos utilizados pelos jogadores
-*/
 int comando_movs(ESTADO *estado);
 #endif //RASTROS_INTERFACE_H
