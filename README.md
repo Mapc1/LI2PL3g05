@@ -8,16 +8,10 @@ Desenvolvido por:
 - [**Luis Manuel Peixoto Silva**](https://github.com/LuisMPSilva01) a93293
 
 ## Resumo do trabalho
-Nesta terceira semana houveram poucas alterações sendo todas relacionadas com um novo comando o **movs**.
+Nesta semana implementamos o comando jog usando listas ligadas.
 
-### Interface:
+###Listas
+Neste módulo adicionamos várias funções relativas a listas ligadas.
 
-Neste módulo adicionamos o comando movs que dá print às jogadas já feitas.
-
-### Lógica:
-
-Aqui houveram poucas alterações apenas mudamos a função **jogar** para apenas incrementar **num_jogadas** quando o jogador 2 efetua a sua jogada. 
-
-### Dados:
-
-Aqui foi implementada a leitura e escrita das jogadas.
+###Bot
+Aqui está o comando jog que faz uma jogada baseada na distância euclidiana.
