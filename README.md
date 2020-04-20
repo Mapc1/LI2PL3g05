@@ -10,8 +10,8 @@ Desenvolvido por:
 ## Resumo do trabalho
 Nesta semana implementamos o comando jog usando listas ligadas.
 
-###Listas
+### Listas
 Neste módulo adicionamos várias funções relativas a listas ligadas.
 
-###Bot
+### Bot
 Aqui está o comando jog que faz uma jogada baseada na distância euclidiana.
