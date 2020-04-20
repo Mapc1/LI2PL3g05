@@ -7,6 +7,17 @@
 #include "interface.h"
 
 
+int vai_ganhar (ESTADO *estado, COORDENADA c){
+    int bool = 0;
+    if (fim_do_jogo (estado, c)) {
+        bool = 1;
+    }
+    if (jogada_impossivel (estado,c)){
+        bool = 1;
+    }
+    return bool;
+}
+
 double calcula_distancia (COORDENADA c,COORDENADA d){
     double distancia = sqrt( pow((c.linha-d.linha),2) + pow((c.coluna-d.coluna),2));
     return distancia;
@@ -14,9 +25,9 @@ double calcula_distancia (COORDENADA c,COORDENADA d){
 
 double valor_da_peca (ESTADO *estado, COORDENADA c){
     double valor=0;
-    int jogador = obter_jogador_atual (estado);
-    if (end_game (estado,c) == jogador);
+    if (vai_ganhar (estado,c));
     else{
+        int jogador = obter_jogador_atual (estado);
         COORDENADA d;
         if (jogador == 1){
             d = (COORDENADA) { .coluna = (0), .linha = (7) };
@@ -67,8 +78,7 @@ int comando_jog(ESTADO *estado){
         jogadas = remove_cabeca (jogadas);
     }
     jogar(estado,melhorJogada);
-    mostrar_tabuleiro(estado);
-    return end_game(estado,melhorJogada);
+    return 1;
 }
 
 
