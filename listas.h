@@ -11,7 +11,7 @@ Definição das listas e das funções que as alteram
 \brief Tipo de dados para as listas
 */
 typedef struct nodo {
-    int v;
+    void *v;
     struct nodo *prox;
 } Nodo, *LISTA;
 
@@ -28,7 +28,7 @@ LISTA insere_cabeca (void *x, LISTA xs);
 @param v Array a ser transformado
 @param N Tamanho do array
 */
-LISTA fromArray (int v[], int N);
+LISTA fromArray (void *v[], int N, int tamcel);
 
 /**
 \brief Cria uma lista vazia

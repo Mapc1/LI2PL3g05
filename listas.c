@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "listas.h"
 
 LISTA insere_cabeca (void *x, LISTA xs){
     LISTA r = malloc (sizeof (Nodo));
@@ -7,11 +8,14 @@ LISTA insere_cabeca (void *x, LISTA xs){
 
     return r;
 }
-LISTA fromArray (int v[], int N) {
+LISTA fromArray (void *v[], int N, int tamcel) {
     int i; LISTA r = NULL;
 
-    for (i=N-1; i>=0; i--)
-        r = insere_cabeca (v[i], r);
+    for (i=N-1; i>=0; i--){
+        void *cel = malloc(tamcel);
+        memcpy(cel,v[i],tamcel);
+        r = insere_cabeca (cel, r);
+    }
     return r;
 }
 
@@ -20,8 +24,9 @@ LISTA criar_lista(){
 }
 
 void *devolve_cabeca(LISTA L){
-    int head;
+    void *head;
     head = L -> v;
+    return head;
 }
 
 LISTA proximo(LISTA L){
@@ -38,6 +43,6 @@ LISTA remove_cabeca(LISTA L){
 
 int lista_esta_vazia(LISTA L){
     int x = 0;
-    if(L -> v == NULL) x = 1;
+    if(L == NULL) x = 1;
     return x;
 }

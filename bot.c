@@ -4,6 +4,8 @@
 #include "bot.h"
 #include "listas.h"
 #include "logica.h"
+#include "interface.h"
+
 
 double calcula_distancia (COORDENADA c,COORDENADA d){
     double distancia = sqrt( pow((c.linha-d.linha),2) + pow((c.coluna-d.coluna),2));
@@ -24,30 +26,45 @@ double valor_da_peca (ESTADO *estado, COORDENADA c){
     }
     return valor;
 }
-int comando_jog (ESTADO *estado){
-    int i,o,tam=0;
-    double melhorValor,valorAtual;
-    COORDENADA c = estado -> ultima_jogada,melhorJogada,jogadaAtual,jogadas[8];
+
+COORDENADA *copiar_coord(COORDENADA c){
+    COORDENADA *  copia = (COORDENADA * ) malloc(sizeof(COORDENADA));
+    *copia = c;
+    return copia;
+}
+
+LISTA jogadas_possiveis (ESTADO *estado, COORDENADA c){
+    int i,o;
+    LISTA jogadas = NULL;
+    COORDENADA X;
 
     for(i = c.linha - 1; i <= c.linha + 1; i++)
         for(o = c.coluna - 1; o <=c.coluna + 1; o++)
             if((estado->tabela[i][o] == VAZIA ||
-                estado->tabela[i][o] == UM ||
-                estado->tabela[i][o] == DOIS) 
-                && i<=7 && i>=0 && o<=7 && o>=0){
-                jogadas[tam] = (COORDENADA) {.coluna = o,.linha = i};
-                tam++;
+                  estado->tabela[i][o] == UM ||
+                  estado->tabela[i][o] == DOIS)
+                   && i<=7 && i>=0 && o<=7 && o>=0){
+                X = (COORDENADA) {.coluna = o,.linha = i};
+                jogadas = insere_cabeca (copiar_coord(X), jogadas);
             }
-    melhorJogada = jogadas[0];
+    return jogadas;
+}
+
+int comando_jog(ESTADO *estado){
+    double melhorValor,valorAtual;
+    COORDENADA c = estado -> ultima_jogada,melhorJogada,jogadaAtual;
+    LISTA jogadas = jogadas_possiveis (estado,c);
+    melhorJogada = *(COORDENADA *) devolve_cabeca(jogadas);
     melhorValor = valor_da_peca (estado,melhorJogada);
-    for(i=1;i<tam;i++){
-        printf("Melhor valor %f\n",melhorValor);
-        jogadaAtual = jogadas[i];
+    jogadas = remove_cabeca (jogadas);
+    while (lista_esta_vazia(jogadas) == 0){
+        jogadaAtual = * (COORDENADA *) devolve_cabeca(jogadas);
         valorAtual = valor_da_peca (estado,jogadaAtual);
         if (valorAtual<melhorValor){
             melhorValor = valorAtual;
             melhorJogada = jogadaAtual;
         }
+        jogadas = remove_cabeca (jogadas);
     }
     jogar(estado,melhorJogada);
     mostrar_tabuleiro(estado);
