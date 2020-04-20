@@ -78,6 +78,7 @@ int comando_jog(ESTADO *estado){
         jogadas = remove_cabeca (jogadas);
     }
     jogar(estado,melhorJogada);
+    mostrar_tabuleiro(estado);
     return 1;
 }
 
