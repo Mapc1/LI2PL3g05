@@ -29,47 +29,18 @@ typedef struct COORDENADA {
 } COORDENADA, *LISTAC;
 
 /**
-\brief Tipo de dados para a casa
-*/
-typedef enum {
-    UM = '1',
-    DOIS = '2',
-    VAZIA = '.',
-    BRANCA = '*',
-    PRETA = '#'
-} CASA;
-
-/**
 \brief Tipo de dados para as coordenadas
 */
 typedef struct {
     int coluna, linha;
 } COORDENADA;
 
-/**
-\brief Tipo de dados para a jogada
-*/
-typedef struct {
-    COORDENADA jogador1;
-    COORDENADA jogador2;
-} JOGADA;
+LISTA cloneL (LISTA l);
 
-/**
-\brief Tipo de dados para as jogadas
-*/
-typedef JOGADA JOGADAS[32];
+ARVORE inicializa_raiz (int x);
 
-/**
-\brief Tipo de dados para o estado
-*/
-typedef struct {
-    CASA tabela[8][8];
-    COORDENADA ultima_jogada;
-    JOGADAS jogadas;
-    int num_jogadas;
-    int jogador_atual;
-    int undo;
-} ESTADO;
+ARVORE inicializa_ramo (int x,ARVORE tree);
 
+ARVORE insere_elementos(ARVORE tree,COORDENADA coordenada_atual);
 
 #endif //RASTROS_DADOS_H
