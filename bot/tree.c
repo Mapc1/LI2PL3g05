@@ -1,18 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "trees.h"
+#include "tree.h"
 #include "listas.h"
+#include "dados.h"
 
-LISTA cloneL (LISTA l) {
-    if(!l) return NULL; 
-    LISTA new = malloc(sizeof(struct nodo));
-    new -> v = l -> v;
-    new -> prox = cloneL(l->prox);
-    return new;
-}
-
-
-ARVORE inicializa_raiz (int x){
+ARVORE inicializa_raiz (COORDENADA x){
     ARVORE tree = malloc (sizeof(Ramo));
     tree->valor = x;  
     tree->jogadas_passadas = malloc (sizeof(Nodo));
@@ -29,7 +21,7 @@ ARVORE inicializa_raiz (int x){
     return tree;
 }
 
-ARVORE inicializa_ramo (int x,ARVORE tree){
+ARVORE inicializa_ramo (COORDENADA x,ARVORE tree){
     ARVORE temp = malloc (sizeof(Ramo));
     temp->valor = x;  
     temp->jogadas_passadas = cloneL (tree->jogadas_passadas);
@@ -45,71 +37,60 @@ ARVORE inicializa_ramo (int x,ARVORE tree){
     return temp;
 }
 
-ARVORE insere_elementos(ARVORE tree,COORDENADA coordenada_atual){
-    int i;
+ARVORE insere_elementos(ARVORE tree,CASA tabuleiro[8][8]){
 
-            i = compara_coordenada(coordenadas_atual);
-            if (i==0)
-                tree -> SE = inicializa_ramo(coordenada_atual,tree);
-            if (i==1)
-                tree -> SM = inicializa_ramo(coordenada_atual,tree);
-            if (i==2)
-                tree -> SD = inicializa_ramo(coordenada_atual,tree);
-            if (i==3)
-                tree -> ME = inicializa_ramo(coordenada_atual,tree);
-            if (i==4)
-                tree -> MD = inicializa_ramo(coordenada_atual,tree);
-            if (i==5)
-                tree -> IE = inicializa_ramo(coordenada_atual,tree);
-            if (i==6)
-                tree -> IM = inicializa_ramo(coordenada_atual,tree);
-            if (i==7)
-                tree -> ID = inicializa_ramo(coordenada_atual,tree);
+    COORDENADA coordenada_atual = tree->valor;
 
-    return tree;
-}
+    if (coordenadas_iguais (coordenada_atual,(COORDENADA) {.coluna = 7,.linha = 0})||
+        coordenadas_iguais (coordenada_atual,(COORDENADA) {.coluna = 0,.linha = 7}))
+        return tree;
 
-// OU
+    int i,o,posicao;
+    COORDENADA cordNova;
 
-ARVORE insere_elementos(ARVORE tree,LISTA coordenadas){
+    for(i = coordenada_atual.linha - 1,posicao=0; i <= coordenada_atual.linha + 1; i++)
+        for(o = coordenada_atual.coluna - 1; o <=coordenada_atual.coluna + 1; o++,posicao++)
+            if((tabuleiro[i][o] == VAZIA ||
+                tabuleiro[i][o] == UM ||
+                tabuleiro[i][o] == DOIS)
+                && i<=7 && i>=0 && o<=7 && o>=0){
+                
+                cordNova = (COORDENADA) {.coluna = o,.linha = i};
+                if(nao_repete(tree->jogadas_passadas,cordNova)){
 
-            int i = compara_coordenada(coordenadas->v);
-
-            if (i==0){
-                tree -> SE = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->SE,coordenadas->prox);
-            }
-            if (i==1){
-                tree -> SM = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->SM,coordenadas->prox);
-            }
-            if (i==2){
-                tree -> SD = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->SD,coordenadas->prox);
-            }
-            if (i==3){
-                tree -> ME = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->ME,coordenadas->prox);
-            }
-            if (i==4){
-                tree -> MD = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->MD,coordenadas->prox);
-            }
-            if (i==5){
-                tree -> IE = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->IE,coordenadas->prox);
-            }
-            if (i==6){
-                tree -> IM = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->IM,coordenadas->prox);
-            }
-            if (i==7){
-                tree -> ID = inicializa_ramo(coordenadas,tree);
-                insere_elementos(tree->ID,coordenadas->prox);
+                    if (posicao==0){
+                        tree -> SE = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->SE,tabuleiro);
+                    }
+                    if (posicao==1){
+                        tree -> SM = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->SM,tabuleiro);
+                    }
+                    if (posicao==2){
+                        tree -> SD = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->SD,tabuleiro);
+                    }
+                    if (posicao==3){
+                        tree -> ME = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->ME,tabuleiro);
+                    }
+                    if (posicao==4){
+                        tree -> MD = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->MD,tabuleiro);
+                    }
+                    if (posicao==5){
+                        tree -> IE = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->IE,tabuleiro);
+                    }
+                    if (posicao==6){
+                        tree -> IM = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->IM,tabuleiro);
+                    }
+                    if (posicao==7){
+                        tree -> ID = inicializa_ramo(cordNova,tree);
+                        insere_elementos(tree->ID,tabuleiro);
+                    }
+                }
             }
     return tree;
-}
-
-int compara_coordenada(COORDENADA coordenada){
-    ...
 }

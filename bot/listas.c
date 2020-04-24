@@ -3,44 +3,12 @@
 #include "listas.h"
 #include "dados.h"
 
-LISTA insere_cabeca (void *x, LISTA xs){
+LISTA insere_cabeca (COORDENADA x, LISTA xs){
     LISTA r = malloc (sizeof (Nodo));
     r->v = x; r->prox = xs;
 
     return r;
 }
-LISTA fromArray (void *v[], int N, int tamcel) {
-    int i; LISTA r = NULL;
-
-    for (i=N-1; i>=0; i--){
-        void *cel = malloc(tamcel);
-        memcpy(cel,v[i],tamcel);
-        r = insere_cabeca (cel, r);
-    }
-    return r;
-}
-
-LISTA criar_lista(){
-    LISTA l = NULL;
-}
-
-void *devolve_cabeca(LISTA L){
-    void *head;
-    head = L -> v;
-    return head;
-}
-
-LISTA proximo(LISTA L){
-    LISTA r = L -> prox;
-    return r;
-}
-
-LISTA remove_cabeca(LISTA L){
-    LISTA r = L -> prox;
-    free(L);
-    return r;
-}
-
 
 int lista_esta_vazia(LISTA L){
     int x = 0;
@@ -48,53 +16,28 @@ int lista_esta_vazia(LISTA L){
     return x;
 }
 
-ARVORE inicializa_ramo (int x){
-    ARVORE tree = malloc (sizeof(Nodo));
-    tree->valor = x;
-    tree->SE = NULL;
-    tree->SM = NULL;
-    tree->SD = NULL;
-    tree->ME = NULL;
-    tree->MD = NULL;
-    tree->IE = NULL;
-    tree->IM = NULL;
-    tree->ID = NULL;
-    return tree;
+LISTA cloneL (LISTA l) {
+    if(!l) return NULL; 
+    LISTA new = malloc(sizeof(struct nodo));
+    new -> v = l -> v;
+    new -> prox = cloneL(l->prox);
+    return new;
 }
 
-ARVORE insere_elementos(ARVORE tree,int coordenadas[8]){
-    int i;
-
-    for (i=0;i<8;i++){
-        if (1){
-            if (i==0)
-                tree->SE = inicializa_ramo(coordenadas[i]);
-            if (i==1)
-                tree->SM = inicializa_ramo(coordenadas[i]);
-            if (i==2)
-                tree->SD = inicializa_ramo(coordenadas[i]);
-            if (i==3)
-                tree->ME = inicializa_ramo(coordenadas[i]);
-            if (i==4)
-                tree->MD = inicializa_ramo(coordenadas[i]);
-            if (i==5)
-                tree->IE = inicializa_ramo(coordenadas[i]);
-            if (i==6)
-                tree->IM = inicializa_ramo(coordenadas[i]);
-            if (i==7)
-                tree->ID = inicializa_ramo(coordenadas[i]);
-            }
-        }
-    return tree;
+int coordenadas_iguais (COORDENADA x,COORDENADA y){
+    if (x.coluna == y.coluna &&
+        x.linha == y.linha)
+        return 1;
+    return 0;
 }
 
-LISTA insere_cabeca (void *x, LISTA xs){
-    LISTA r = malloc (sizeof (Nodo));
-    r->v = x; r->prox = xs;
-
-    return r;
+int nao_repete(LISTA l,COORDENADA x){
+  int i;
+  
+  for(i=0;l!=NULL;i++,l=l->prox){
+    if (coordenadas_iguais(l->v,x))
+      return 0;
+  }
+  return 1;
 }
 
-int coordenada_valida (COORDENADA x){
-    return 1;
-}

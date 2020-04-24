@@ -8,10 +8,12 @@ Definição de árvore e das funções que a manipulam
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "dados.h"
+#include "listas.h"
 
 
 typedef struct ramo {
-    int valor;
+    COORDENADA valor;
     LISTA jogadas_passadas;
     struct ramo *SE;
     struct ramo *SM;
@@ -23,24 +25,12 @@ typedef struct ramo {
     struct ramo *ID;
 } Ramo, *ARVORE;
 
-typedef struct COORDENADA {
-    int v;
-    struct COORDENADA *prox;
-} COORDENADA, *LISTAC;
 
-/**
-\brief Tipo de dados para as coordenadas
-*/
-typedef struct {
-    int coluna, linha;
-} COORDENADA;
 
-LISTA cloneL (LISTA l);
+ARVORE inicializa_raiz (COORDENADA x);
 
-ARVORE inicializa_raiz (int x);
+ARVORE inicializa_ramo (COORDENADA x,ARVORE tree);
 
-ARVORE inicializa_ramo (int x,ARVORE tree);
-
-ARVORE insere_elementos(ARVORE tree,COORDENADA coordenada_atual);
+ARVORE insere_elementos(ARVORE tree,CASA tabuleiro[8][8]);
 
 #endif //RASTROS_DADOS_H
