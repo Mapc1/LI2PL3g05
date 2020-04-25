@@ -9,14 +9,6 @@ Definição das listas e das funções que as alteram
 #include "dados.h"
 
 /**
-\brief Tipo de dados para as listas
-*/
-typedef struct nodo {
-    COORDENADA v;
-    struct nodo *prox;
-} Nodo, *LISTA;
-
-/**
 \brief Insere uma nova cabeça na lista
 @param x nova cabeça da lista
 @param xs lista

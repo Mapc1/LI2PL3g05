@@ -10,9 +10,9 @@ int quem_joga (ESTADO *estado, Ramo R){
         counter++;
 
     if(counter % 2 == 0)
-        return estado->jogador;
+        return obter_bot(estado);
 
-    else if(estado->jogador == 1)
+    else if(obter_bot(estado) == 1)
         return 2;
 
     else return 1;
@@ -20,45 +20,43 @@ int quem_joga (ESTADO *estado, Ramo R){
 
 int ja_percorreu (COORDENADA coord, LISTA jogadas_passadas){
     while(jogadas_passadas->prox != NULL)
-        if(coord.linha == jogadas_passadas->v.linha &&
-           coord.coluna == jogadas_passadas->v.coluna)
+        if(coord.linha == jogadas_passadas->coord.linha &&
+           coord.coluna == jogadas_passadas->coord.coluna)
             return 1;
     return 0;
 }
 
 int quem_ganha (ESTADO *estado,Ramo R){
     int counter = 0;
-    for(int i = -1; i <= 1; i++)
-        for(int o = -1; o<= 1; o++){
-            COORDENADA coord = (COORDENADA) { R.valor.coluna, R.valor.linha };
-
-            if(obter_casa(estado, coord) == UM) {
-                if (estado->jogador == 1) {
-                    if (quem_joga(estado, R) == estado->jogador)
-                        return 1;
-                    else return 0;
-                }
-                else if (quem_joga(estado, R) == estado->jogador)
-                    return 0;
-                else return -1;
-            }
-
-            else if(obter_casa(estado, coord) == DOIS) {
-                if (estado->jogador == 2) {
-                    if (quem_joga(estado, R) == estado->jogador)
-                        return 1;
-                    else return 0;
-                }
-                else if (quem_joga(estado, R) == estado->jogador)
-                    return 0;
-                else return -1;
-            }
-            else if(obter_casa(estado, coord) == PRETA || obter_casa(estado, coord) == BRANCA || ja_percorreu(coord, R.jogadas_passadas))
-                counter++;
-        }
-    if (counter == 8){
-        if(quem_joga(estado, R) == estado->jogador)
+    if(obter_casa(estado, R.valor) == UM) {
+        if (obter_bot(estado) == 1)
             return 1;
         else return -1;
     }
+    else if(obter_casa(estado, R.valor) == DOIS) {
+        if (obter_bot(estado) == 2)
+            return 1;
+        else return -1;
+    }
+
+    else if (quem_joga(estado, R) == obter_bot(estado))
+        return -1;
+
+    else return 1;
+}
+
+ESTADO *joga(ESTADO *estado){
+    COORDENADA c = obter_ultima_jogada(estado);
+
+    if(obter_bot(estado) == 1) {
+        estado->tabuleiro[c.linha][c.coluna] = PRETA;
+        estado->tabuleiro[c.linha + 1][c.coluna - 1] = BRANCA;
+        estado->jogadas[estado->num_jogadas].jogador1 = (COORDENADA) { c.coluna, c.linha };
+    }
+    else{
+        estado->tabuleiro[c.linha][c.coluna] = PRETA;
+        estado->tabuleiro[c.linha - 1][c.coluna + 1] = BRANCA;
+        estado->jogadas[estado->num_jogadas].jogador2 = (COORDENADA) { c.coluna, c.linha };
+    }
+    return estado;
 }

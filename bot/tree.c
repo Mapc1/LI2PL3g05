@@ -8,16 +8,13 @@ ARVORE inicializa_raiz (COORDENADA x){
     ARVORE tree = malloc (sizeof(Ramo));
     tree->valor = x;  
     tree->jogadas_passadas = malloc (sizeof(Nodo));
-    tree->jogadas_passadas -> v=x;
-    tree->jogadas_passadas -> prox = NULL;
-    tree->SE = NULL;
-    tree->SM = NULL;
-    tree->SD = NULL;
-    tree->ME = NULL;
-    tree->MD = NULL;
-    tree->IE = NULL;
-    tree->IM = NULL;
-    tree->ID = NULL;
+    tree->jogadas_passadas->coord = x;
+    tree->jogadas_passadas->prox = NULL;
+
+    tree->SE = tree->SM = tree->SD =
+    tree->ME =            tree->MD =
+    tree->IE = tree->IM = tree->ID = NULL;
+
     return tree;
 }
 
@@ -26,14 +23,11 @@ ARVORE inicializa_ramo (COORDENADA x,ARVORE tree){
     temp->valor = x;  
     temp->jogadas_passadas = cloneL (tree->jogadas_passadas);
     temp->jogadas_passadas = insere_cabeca(x,temp->jogadas_passadas);
-    temp->SE = NULL;
-    temp->SM = NULL;
-    temp->SD = NULL;
-    temp->ME = NULL;
-    temp->MD = NULL;
-    temp->IE = NULL;
-    temp->IM = NULL;
-    temp->ID = NULL;
+
+    temp->SE = temp->SM = temp->SD =
+    temp->ME =            temp->MD =
+    temp->IE = temp->IM = temp->ID = NULL;
+
     return temp;
 }
 

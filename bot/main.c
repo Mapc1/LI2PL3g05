@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dados.h"
+#include "logica.h"
 
 int main(int argc, char **argv) {
     if(argc < 3) {
@@ -12,6 +13,7 @@ int main(int argc, char **argv) {
     inicializa_jogadas(estado);
 
     ler_ficheiro(estado, argv[1]);
+    estado = joga(estado);
     escreve_ficheiro(estado, argv[2]);
 
     return 0;

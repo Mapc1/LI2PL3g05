@@ -5,7 +5,7 @@
 
 LISTA insere_cabeca (COORDENADA x, LISTA xs){
     LISTA r = malloc (sizeof (Nodo));
-    r->v = x; r->prox = xs;
+    r->coord = x; r->prox = xs;
 
     return r;
 }
@@ -18,9 +18,11 @@ int lista_esta_vazia(LISTA L){
 
 LISTA cloneL (LISTA l) {
     if(!l) return NULL; 
+
     LISTA new = malloc(sizeof(struct nodo));
-    new -> v = l -> v;
-    new -> prox = cloneL(l->prox);
+    new->coord = l -> coord;
+    new->prox = cloneL(l->prox);
+
     return new;
 }
 
@@ -35,7 +37,7 @@ int nao_repete(LISTA l,COORDENADA x){
   int i;
   
   for(i=0;l!=NULL;i++,l=l->prox){
-    if (coordenadas_iguais(l->v,x))
+    if (coordenadas_iguais(l->coord, x))
       return 0;
   }
   return 1;
