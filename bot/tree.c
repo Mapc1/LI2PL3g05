@@ -56,31 +56,31 @@ ARVORE insere_elementos(ARVORE tree,CASA tabuleiro[8][8]){
                         tree -> SE = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->SE,tabuleiro);
                     }
-                    if (posicao==1){
+                    else if (posicao==1){
                         tree -> SM = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->SM,tabuleiro);
                     }
-                    if (posicao==2){
+                    else if (posicao==2){
                         tree -> SD = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->SD,tabuleiro);
                     }
-                    if (posicao==3){
+                    else if (posicao==3){
                         tree -> ME = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->ME,tabuleiro);
                     }
-                    if (posicao==4){
+                    else if (posicao==4){
                         tree -> MD = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->MD,tabuleiro);
                     }
-                    if (posicao==5){
+                    else if (posicao==5){
                         tree -> IE = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->IE,tabuleiro);
                     }
-                    if (posicao==6){
+                    else if (posicao==6){
                         tree -> IM = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->IM,tabuleiro);
                     }
-                    if (posicao==7){
+                    else if (posicao==7){
                         tree -> ID = inicializa_ramo(cordNova,tree);
                         insere_elementos(tree->ID,tabuleiro);
                     }
