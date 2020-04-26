@@ -112,6 +112,11 @@ ARVORE cria_folhas(ESTADO *estado, ARVORE tree){
     return tree;
 }
 
+int ramos_esta_vazio(ARVORE tree){
+    int i=0;
+    if (tree -> v == NULL) i =1;
+    return i;
+}
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
     if(repeticoes <1){
