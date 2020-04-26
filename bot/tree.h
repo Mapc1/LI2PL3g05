@@ -8,8 +8,8 @@ Definição de árvore e das funções que a manipulam
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "dados.h"
 #include "listas.h"
+
 
 ARVORE inicializa_raiz (COORDENADA x);
 

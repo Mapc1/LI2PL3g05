@@ -4,5 +4,4 @@
 
 int quem_ganha (ESTADO *estado, Ramo R);
 
-ESTADO *joga(ESTADO *estado);
 #endif //BOT_LOGICA_H

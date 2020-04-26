@@ -33,11 +33,11 @@ void ler_movs (ESTADO *estado, FILE *f){
     }
     if(jog_incompleta == 1) {
         estado->num_jogadas = i - 2;
-        estado->bot = 2;
+        estado->jogador = 2;
     }
     else {
         estado->num_jogadas = i - 1;
-        estado->bot = 1;
+        estado->jogador = 1;
     }
 }
 
@@ -48,11 +48,6 @@ void ler_tabuleiro (ESTADO *estado, FILE *f){
         for(o = 0; o < 8;){
             c = fgetc(f);
 
-            if (c == '*'){
-                estado->tabuleiro[i][o] = c;
-                estado->ultima_jogada = (COORDENADA) { .coluna = o, .linha = i };
-                o++;
-            }
             if(c != '\n') {
                 estado->tabuleiro[i][o] = c;
                 o++;
@@ -75,7 +70,7 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *nome){
     return estado;
 }
 
-void escreve_tabuleiro (ESTADO *estado, FILE *f){
+ escreve_tabuleiro (ESTADO *estado, FILE *f){
     int i,o;
     for(i = 0; i < 8; i++){
         for(o = 0; o < 8; o++){
@@ -96,7 +91,7 @@ void escreve_movs (ESTADO *estado, FILE *f){
 
         fprintf(f, i < 10 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
     }
-    if(estado->bot == 1) {
+    if(estado->jogador == 1) {
         colj1 = estado->jogadas[i].jogador1.coluna + 'a';
         linj1 = 8 - estado->jogadas[i].jogador1.linha;
 
@@ -110,14 +105,6 @@ void escreve_ficheiro (ESTADO *estado, char *s){
     fputc('\n', f);
     escreve_movs(estado, f);
     fclose(f);
-}
-
-int obter_bot (ESTADO *estado){
-    return estado->bot;
-}
-
-COORDENADA obter_ultima_jogada (ESTADO *estado){
-    return estado->ultima_jogada;
 }
 
 CASA obter_casa (ESTADO *estado, COORDENADA c){

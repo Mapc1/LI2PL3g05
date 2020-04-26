@@ -9,39 +9,45 @@ typedef enum{
     PRETA = '#'
 } CASA;
 
+
 typedef struct{
     int coluna, linha;
 } COORDENADA;
 
 typedef struct {
-    COORDENADA jogador1, jogador2;
+    COORDENADA jogador1;
+    COORDENADA jogador2;
 } JOGADA;
-
-/**
-\brief Tipo de dados para as listas
-*/
-typedef struct nodo {
-    COORDENADA coord;
-    struct nodo *prox;
-} Nodo, *LISTA;
 
 typedef JOGADA JOGADAS[32];
 
 typedef struct {
     CASA tabuleiro[8][8];
     JOGADAS jogadas;
-    COORDENADA ultima_jogada;
-    int num_jogadas, bot;
+    int num_jogadas;
+    int jogador;
 } ESTADO;
 
-typedef struct ramo {
-    COORDENADA valor;
-    LISTA jogadas_passadas;
-    struct ramo *SE, *SM, *SD,
-                *ME,      *MD,
-                *IE, *IM, *ID;
-} Ramo, *ARVORE;
+typedef struct nodo {
+    COORDENADA v;
+    struct nodo *prox;
+} Nodo, *LISTA;
 
+typedef struct ramo {
+    COORDENADA coord;
+    LISTA jogadas_passadas;
+    double valor;
+    double passagens;
+    int fim;
+    struct ramo *SE;
+    struct ramo *SM;
+    struct ramo *SD;
+    struct ramo *ME;
+    struct ramo *MD;
+    struct ramo *IE;
+    struct ramo *IM;
+    struct ramo *ID;
+} Ramo, *ARVORE;
 
 ESTADO *inicializa_jogadas (ESTADO *estado);
 
@@ -50,8 +56,4 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *nome);
 void escreve_ficheiro (ESTADO *estado, char *nome);
 
 CASA obter_casa (ESTADO *estado, COORDENADA c);
-
-int obter_bot (ESTADO *estado);
-
-COORDENADA obter_ultima_jogada (ESTADO *estado);
 #endif //BOT_DADOS_H
