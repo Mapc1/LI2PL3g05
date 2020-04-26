@@ -10,11 +10,9 @@ Definição de árvore e das funções que a manipulam
 #include <stdlib.h>
 #include "listas.h"
 
-
 ARVORE inicializa_raiz (COORDENADA x);
 
 ARVORE inicializa_ramo (ESTADO *estado, COORDENADA x, ARVORE tree);
 
-ARVORE insere_elementos(ARVORE tree,CASA tabuleiro[8][8]);
-
+ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes);
 #endif //RASTROS_DADOS_H

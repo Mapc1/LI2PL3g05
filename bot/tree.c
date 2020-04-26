@@ -112,21 +112,29 @@ ARVORE cria_folhas(ESTADO *estado, ARVORE tree){
     return tree;
 }
 
-int ramos_esta_vazio(ARVORE tree){
+int ramo_esta_vazio(ARVORE tree){
     int i=0;
-    if (tree -> v == NULL) i =1;
+    if (tree->SE == NULL||
+        tree->SM == NULL||
+        tree->SD == NULL||
+        tree->ME == NULL||
+        tree->MD == NULL||
+        tree->IE == NULL||
+        tree->IM == NULL||
+        tree->ID == NULL) i = 1;
+
     return i;
 }
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
-    if(repeticoes <1){
+    if(repeticoes < 1){
         return tree;
     }
     int i,j;
     ARVORE temp = tree;
-    double value = 0,bestvalue=0;
+    double value = 0, bestvalue = 0;
     tree->passagens++;
-    for (i=0,j=0;i<8;i++,temp = tree){
+    for (i = 0, j = 0; i < 8; i++, temp = tree){
         if (i==0) temp = temp -> SE;
         if (i==1) temp = temp -> SM;
         if (i==2) temp = temp -> SD;
@@ -143,7 +151,7 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
     }
     if (j==1) {
         temp = tree -> SE;
-        if (temp->passagens >0){
+        if (temp->passagens > 0){
             if(ramo_esta_vazio(temp)){
                 temp = cria_folhas(estado, temp);
                 if (ramo_esta_vazio(temp)){
@@ -157,6 +165,6 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
             temp->passagens++; 
         }
     }
-    melhorjogadarecursiva(tree);
+    tree = valor_jogada_recursiva(tree);
     tsm_Carlo(tree, estado, repeticoes--);
 }
