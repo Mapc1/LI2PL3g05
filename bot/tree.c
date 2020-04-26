@@ -99,31 +99,14 @@ ARVORE cria_folhas(ESTADO *estado, ARVORE tree){
                 
                 cordNova = (COORDENADA) {.coluna = o,.linha = i};
                 if(nao_repete(tree->jogadas_passadas,cordNova)){
-
-                    if (posicao==0){
-                        tree -> SE = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==1){
-                        tree -> SM = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==2){
-                        tree -> SD = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==3){
-                        tree -> ME = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==4){
-                        tree -> MD = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==5){
-                        tree -> IE = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==6){
-                        tree -> IM = inicializa_ramo(estado, cordNova,tree);
-                    }
-                    if (posicao==7){
-                        tree -> ID = inicializa_ramo(estado, cordNova,tree);
-                    }
+                    if (posicao==0) tree -> SE = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==1) tree -> SM = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==2) tree -> SD = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==3) tree -> ME = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==4) tree -> MD = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==5) tree -> IE = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==6) tree -> IM = inicializa_ramo(estado, cordNova,tree);
+                    if (posicao==7) tree -> ID = inicializa_ramo(estado, cordNova,tree);
                 }
             }
     return tree;
@@ -139,69 +122,18 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
     double value = 0,bestvalue=0;
     tree->passagens++;
     for (i=0,j=0;i<8;i++,temp = tree){
-        if (i==0){
-            temp = temp->SE;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==1){
-            temp = temp->SM;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==2){
-            temp = temp -> SD;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==3){
-            temp = temp -> ME;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==4){
-            temp = temp -> MD;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==5){
-            temp = temp -> IE;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==6){
-            temp = temp -> IM;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
-        }
-        if (i==7){
-            temp = temp -> ID;
-            value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
-            if(value>bestvalue){
-                bestvalue = value;
-                i = j;
-            }
+        if (i==0) temp = temp -> SE;
+        if (i==1) temp = temp -> SM;
+        if (i==2) temp = temp -> SD;
+        if (i==3) temp = temp -> ME;
+        if (i==4) temp = temp -> MD;
+        if (i==5) temp = temp -> IE;
+        if (i==6) temp = temp -> IM;
+        if (i==7) temp = temp -> ID;
+        value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
+        if(value>bestvalue){
+            bestvalue = value;
+            i = j;
         }
     }
     if (j==1) {
