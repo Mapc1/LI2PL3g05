@@ -93,8 +93,6 @@ double valor_jogada (ARVORE tree) {
 
 ARVORE valor_jogada_recursiva (ARVORE tree){
     if(tree != NULL) {
-        tree->valor = valor_jogada(tree);
-
         valor_jogada_recursiva(tree->SE);
         valor_jogada_recursiva(tree->SM);
         valor_jogada_recursiva(tree->SD);
@@ -103,6 +101,8 @@ ARVORE valor_jogada_recursiva (ARVORE tree){
         valor_jogada_recursiva(tree->IE);
         valor_jogada_recursiva(tree->IM);
         valor_jogada_recursiva(tree->ID);
+
+        tree->valor = valor_jogada(tree);
     }
     return tree;
 }
