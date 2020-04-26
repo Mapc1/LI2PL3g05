@@ -13,7 +13,7 @@ Definição de árvore e das funções que a manipulam
 
 ARVORE inicializa_raiz (COORDENADA x);
 
-ARVORE inicializa_ramo (COORDENADA x,ARVORE tree);
+ARVORE inicializa_ramo (ESTADO *estado, COORDENADA x, ARVORE tree);
 
 ARVORE insere_elementos(ARVORE tree,CASA tabuleiro[8][8]);
 

@@ -24,12 +24,13 @@ typedef JOGADA JOGADAS[32];
 typedef struct {
     CASA tabuleiro[8][8];
     JOGADAS jogadas;
+    COORDENADA ultima_jogada;
     int num_jogadas;
-    int jogador;
+    int bot;
 } ESTADO;
 
 typedef struct nodo {
-    COORDENADA v;
+    COORDENADA coord;
     struct nodo *prox;
 } Nodo, *LISTA;
 
@@ -56,4 +57,8 @@ ESTADO *ler_ficheiro (ESTADO *estado, char *nome);
 void escreve_ficheiro (ESTADO *estado, char *nome);
 
 CASA obter_casa (ESTADO *estado, COORDENADA c);
+
+int obter_bot(ESTADO *estado);
+
+COORDENADA obter_ultima_jogada(ESTADO *estado);
 #endif //BOT_DADOS_H

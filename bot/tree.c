@@ -13,7 +13,7 @@ ARVORE inicializa_raiz (COORDENADA x){
     tree->passagens = 0;
     tree->fim = 0;
     tree->jogadas_passadas = malloc (sizeof(Nodo));
-    tree->jogadas_passadas -> v=x;
+    tree->jogadas_passadas -> coord=x;
     tree->jogadas_passadas -> prox = NULL;
     tree->SE = NULL;
     tree->SM = NULL;
@@ -45,13 +45,13 @@ ARVORE inicializa_ramo (ESTADO* estado, COORDENADA x,ARVORE tree){
     return temp;
 }
 
-int rollout(ARVORE tree,ESTADO estado){
+int rollout(ARVORE tree,ESTADO *estado){
 
-    COORDENADA coordenada_atual = tree->valor;
+    COORDENADA coordenada_atual = tree->coord;
 
     if (coordenadas_iguais (coordenada_atual,(COORDENADA) {.coluna = 7,.linha = 0})||
         coordenadas_iguais (coordenada_atual,(COORDENADA) {.coluna = 0,.linha = 7}))
-        return quem_ganha(tree);
+        return quem_ganha(estado, tree);
 
     int i,o,posicao,indicernd=0,qualidadedajogada;
     COORDENADA cordNova;
@@ -72,17 +72,17 @@ int rollout(ARVORE tree,ESTADO estado){
             }
     if(indicernd!=0){
         indicernd = rand() % indicernd-1;
-        tree -> SE = inicializa_ramo(cordNova,tree);
+        tree -> SE = inicializa_ramo(estado, cordNova,tree);
         qualidadedajogada = rollout(tree->SE,estado);
     }
 
-    return quem_ganha(tree);
+    return quem_ganha(estado, tree);
 }
 
 
-ARVORE cria_folhas(ARVORE tree,CASA tabuleiro[8][8]){
+ARVORE cria_folhas(ESTADO *estado, ARVORE tree){
 
-    COORDENADA coordenada_atual = tree->valor;
+    COORDENADA coordenada_atual = tree->coord;
 
     if(tree->fim!=0)
         return tree;
@@ -92,37 +92,37 @@ ARVORE cria_folhas(ARVORE tree,CASA tabuleiro[8][8]){
 
     for(i = coordenada_atual.linha - 1,posicao=0; i <= coordenada_atual.linha + 1; i++)
         for(o = coordenada_atual.coluna - 1; o <=coordenada_atual.coluna + 1; o++,posicao++)
-            if((tabuleiro[i][o] == VAZIA ||
-                tabuleiro[i][o] == UM ||
-                tabuleiro[i][o] == DOIS)
+            if((estado->tabuleiro[i][o] == VAZIA ||
+                estado->tabuleiro[i][o] == UM ||
+                estado->tabuleiro[i][o] == DOIS)
                 && i<=7 && i>=0 && o<=7 && o>=0){
                 
                 cordNova = (COORDENADA) {.coluna = o,.linha = i};
                 if(nao_repete(tree->jogadas_passadas,cordNova)){
 
                     if (posicao==0){
-                        tree -> SE = inicializa_ramo(cordNova,tree);
+                        tree -> SE = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==1){
-                        tree -> SM = inicializa_ramo(cordNova,tree);
+                        tree -> SM = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==2){
-                        tree -> SD = inicializa_ramo(cordNova,tree);
+                        tree -> SD = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==3){
-                        tree -> ME = inicializa_ramo(cordNova,tree);
+                        tree -> ME = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==4){
-                        tree -> MD = inicializa_ramo(cordNova,tree);
+                        tree -> MD = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==5){
-                        tree -> IE = inicializa_ramo(cordNova,tree);
+                        tree -> IE = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==6){
-                        tree -> IM = inicializa_ramo(cordNova,tree);
+                        tree -> IM = inicializa_ramo(estado, cordNova,tree);
                     }
                     if (posicao==7){
-                        tree -> ID = inicializa_ramo(cordNova,tree);
+                        tree -> ID = inicializa_ramo(estado, cordNova,tree);
                     }
                 }
             }
@@ -130,7 +130,7 @@ ARVORE cria_folhas(ARVORE tree,CASA tabuleiro[8][8]){
 }
 
 
-ARVORE tsm_Carlo(ARVORE tree,CASA tabuleiro[8][8],int repeticoes){
+ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
     if(repeticoes <1){
         return tree;
     }
@@ -204,22 +204,22 @@ ARVORE tsm_Carlo(ARVORE tree,CASA tabuleiro[8][8],int repeticoes){
             }
         }
     }
-    if (j=1) {
+    if (j==1) {
         temp = tree -> SE;
         if (temp->passagens >0){
             if(ramo_esta_vazio(temp)){
-                temp = cria_folhas(temp);
+                temp = cria_folhas(estado, temp);
                 if (ramo_esta_vazio(temp)){
                     temp->passagens++;
                 }
-                else tsm_Carlo(temp,tabuleiro,1);
+                else tsm_Carlo(temp,estado,1);
             }
         }
         else {
-            temp->value = rollout (temp);
+            temp->valor = rollout (temp, estado);
             temp->passagens++; 
         }
     }
-    melhorjogadarecursiva(tree...);
-    tsm_Carlo(tree,tabuleiro,repeticoes--);
+    melhorjogadarecursiva(tree);
+    tsm_Carlo(tree, estado, repeticoes--);
 }

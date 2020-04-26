@@ -13,7 +13,8 @@ int main(int argc, char **argv) {
     inicializa_jogadas(estado);
 
     ler_ficheiro(estado, argv[1]);
-    estado = joga(estado);
+    ARVORE tree = inicializa_raiz(obter_ultima_jogada(estado));
+    estado = joga(estado, tree);
     escreve_ficheiro(estado, argv[2]);
 
     return 0;

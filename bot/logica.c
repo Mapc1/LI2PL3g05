@@ -3,10 +3,10 @@
 #include "listas.h"
 #include "tree.h"
 
-int quem_joga (ESTADO *estado, Ramo R){
+int quem_joga (ESTADO *estado, ARVORE tree){
     int counter = 0;
 
-    while(R.jogadas_passadas != NULL)
+    while(tree->jogadas_passadas != NULL)
         counter++;
 
     if(counter % 2 == 0)
@@ -26,45 +26,45 @@ int ja_percorreu (COORDENADA coord, LISTA jogadas_passadas){
     return 0;
 }
 
-int quem_ganha (ESTADO *estado,Ramo R){
+int quem_ganha (ESTADO *estado,ARVORE tree) {
     int counter = 0;
 
-    COORDENADA coord = (COORDENADA) { R.valor.coluna, R.valor.linha };
+    COORDENADA coord = (COORDENADA) {tree->coord.coluna, tree->coord.linha};
 
-    if(obter_casa(estado, coord) == UM) {
+    if (obter_casa(estado, coord) == UM) {
         if (estado->bot == 1) {
-            if (quem_joga(estado, R) == estado->bot)
+            if (quem_joga(estado, tree) == estado->bot)
                 return 1;
             else return 0;
-        }
-        else if (quem_joga(estado, R) == estado->bot)
+        } else if (quem_joga(estado, tree) == estado->bot)
+            return 0;
+        else return -1;
+    } else if (obter_casa(estado, coord) == DOIS) {
+        if (estado->bot == 2) {
+            if (quem_joga(estado, tree) == estado->bot)
+                return 1;
+            else return 0;
+        } else if (quem_joga(estado, tree) == estado->bot)
             return 0;
         else return -1;
     }
 
-    else if(obter_casa(estado, coord) == DOIS) {
-        if (estado->bot == 2) {
-            if (quem_joga(estado, R) == estado->bot)
-                return 1;
-            else return 0;
-        }
-        else if (quem_joga(estado, R) == estado->bot)
-            return 0;
-        else return -1;
-    }
-    for(int i = -1; i <= 1; i++)
-        for(int o = -1; o<= 1; o++){
-            else if(obter_casa(estado, coord) == PRETA || obter_casa(estado, coord) == BRANCA || ja_percorreu(coord, R.jogadas_passadas))
+    for (int i = -1; i <= 1; i++)
+        for (int o = -1; o <= 1; o++)
+            if (obter_casa(estado, coord) == PRETA || obter_casa(estado, coord) == BRANCA ||
+                ja_percorreu(coord, tree->jogadas_passadas))
                 counter++;
-        }
-    if (counter == 8){
-        if(quem_joga(estado, R) == estado->bot)
+
+    if (counter == 8) {
+        if (quem_joga(estado, tree) == estado->bot)
             return 1;
         else return -1;
     }
-} 
+    else return 0;
+}
 
-int max(int vse, int vsm, int vsd, int vme, int vmd, int vie, int vim, int vid){
+
+double max(double vse, double vsm, double vsd, double vme, double vmd, double vie,double vim, double vid){
     if(vse > vsm && vse > vsd && vse > vme && vse > vmd && vse > vie && vse > vim && vse > vid){
         return vse;
     }
@@ -94,73 +94,80 @@ int max(int vse, int vsm, int vsd, int vme, int vmd, int vie, int vim, int vid){
     }
 }
 
-int melhor_jogada (ARVORE tree) {
-    int vse, vsm, vsd, vme, vmd, vie, vim, vid;
-    vse = vsm = vsd = vme = vmd = vie = vim = vid = 0;
+double valor_jogada (ARVORE tree) {
+    tree->SE->valor = 0;
+    tree->SM->valor = 0;
+    tree->SD->valor = 0;
+    tree->ME->valor = 0;
+    tree->MD->valor = 0;
+    tree->IE->valor = 0;
+    tree->IM->valor = 0;
+    tree->ID->valor = 0;
 
     if (tree == NULL)
         return 0;
+
     if (tree->ID == NULL && tree->IE == NULL && tree->IM == NULL && tree->MD == NULL && tree->ME == NULL &&
         tree->SD == NULL && tree->SE == NULL && tree->SM == NULL)
-        return tree->valor.coluna - 7 + tree->valor.linha;
+        return tree->valor;
 
-    if (tree->SE != NULL)vse = melhor_jogada(tree->SE);
-    if (tree->SM != NULL)vsm = melhor_jogada(tree->SM);
-    if (tree->SD != NULL)vsd = melhor_jogada(tree->SD);
-    if (tree->ME != NULL)vme = melhor_jogada(tree->ME);
-    if (tree->MD != NULL)vmd = melhor_jogada(tree->MD);
-    if (tree->IE != NULL)vie = melhor_jogada(tree->IE);
-    if (tree->ID != NULL)vid = melhor_jogada(tree->ID);
-    if (tree->IM != NULL)vim = melhor_jogada(tree->IM);
+    if (tree->SE != NULL)tree->SE->valor += valor_jogada(tree->SE);
+    if (tree->SM != NULL)tree->SM->valor += valor_jogada(tree->SM);
+    if (tree->SD != NULL)tree->SD->valor += valor_jogada(tree->SD);
+    if (tree->ME != NULL)tree->ME->valor += valor_jogada(tree->ME);
+    if (tree->MD != NULL)tree->MD->valor += valor_jogada(tree->MD);
+    if (tree->IE != NULL)tree->IE->valor += valor_jogada(tree->IE);
+    if (tree->ID != NULL)tree->ID->valor += valor_jogada(tree->ID);
+    if (tree->IM != NULL)tree->IM->valor += valor_jogada(tree->IM);
 
-    return vse + vsm + vsd + vme + vmd + vie + vim + vid;
+    return tree->SE->valor + tree->SM->valor + tree->SD->valor + tree->ME->valor + tree->MD->valor + tree->IE->valor + tree->IM->valor + tree->ID->valor;
 }
 
 ESTADO *joga(ESTADO *estado,ARVORE tree){
-    int vse, vsm, vsd, vme, vmd, vie, vim, vid;
-    ARVORE tree = inicializa_raiz(obter_ultima_jogada(estado));
+    double vse, vsm, vsd, vme, vmd, vie, vim, vid;
+    tree = inicializa_raiz(obter_ultima_jogada(estado));
 
-    tree = insere_elementos(tree, estado->tabuleiro, 0);
+    tree = insere_elementos(tree, estado->tabuleiro);
 
-    vse = melhor_jogada(tree->SE);
-    vsm = melhor_jogada(tree->SM);
-    vsd = melhor_jogada(tree->SD);
-    vme = melhor_jogada(tree->ME);
-    vmd = melhor_jogada(tree->MD);
-    vie = melhor_jogada(tree->IE);
-    vid = melhor_jogada(tree->ID);
-    vim = melhor_jogada(tree->IM);
+    vse = valor_jogada(tree->SE);
+    vsm = valor_jogada(tree->SM);
+    vsd = valor_jogada(tree->SD);
+    vme = valor_jogada(tree->ME);
+    vmd = valor_jogada(tree->MD);
+    vie = valor_jogada(tree->IE);
+    vid = valor_jogada(tree->ID);
+    vim = valor_jogada(tree->IM);
 
     if(vse == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->SE->valor.linha][tree->SE->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->SE->coord.linha][tree->SE->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vsm == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->SM->valor.linha][tree->SM->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->SM->coord.linha][tree->SM->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vsd == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->SD->valor.linha][tree->SD->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->SD->coord.linha][tree->SD->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vie == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->IE->valor.linha][tree->IE->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->IE->coord.linha][tree->IE->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vim == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->IM->valor.linha][tree->IM->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->IM->coord.linha][tree->IM->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vid == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->ID->valor.linha][tree->ID->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->ID->coord.linha][tree->ID->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vme == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->ME->valor.linha][tree->ME->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->ME->coord.linha][tree->ME->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     if(vmd == max(vse, vsm, vsd, vme, vmd, vie, vim, vid)){
-        estado->tabuleiro[tree->MD->valor.linha][tree->MD->valor.coluna] = BRANCA;
+        estado->tabuleiro[tree->MD->coord.linha][tree->MD->coord.coluna] = BRANCA;
         estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
     }
     return estado;
