@@ -31,4 +31,11 @@ int lista_esta_vazia(LISTA L);
 LISTA cloneL (LISTA l);
 int coordenadas_iguais (COORDENADA x,COORDENADA y);
 int nao_repete(LISTA l,COORDENADA x);
+
+LISTA insere_cabeca (COORDENADA x, LISTA xs);
+COORDENADA indice_lista(LISTA lista, int indice);
+
+int tamanhodalista (LISTA lista);
+COORDENADA devolve_cabeca(LISTA L);
+void freeL(LISTA l);
 #endif //RASTROS_LISTAS_H

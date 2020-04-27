@@ -39,7 +39,6 @@ typedef struct ramo {
     LISTA jogadas_passadas;
     double valor;
     double passagens;
-    int fim;
     struct ramo *SE;
     struct ramo *SM;
     struct ramo *SD;
@@ -61,4 +60,6 @@ CASA obter_casa (ESTADO *estado, COORDENADA c);
 int obter_bot(ESTADO *estado);
 
 COORDENADA obter_ultima_jogada(ESTADO *estado);
+
+ESTADO *joga(ESTADO *estado, COORDENADA coord);
 #endif //BOT_DADOS_H

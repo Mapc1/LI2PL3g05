@@ -40,3 +40,34 @@ for(;l!=NULL;l=l->prox){
   return 1;
 }
 
+
+COORDENADA indice_lista(LISTA lista, int indice){
+    int i;
+    for(i=0;i<indice;i++) lista=lista->prox;
+    COORDENADA coord;
+    coord=lista->coord;
+    return coord;
+}
+
+int tamanhodalista (LISTA lista){
+    if (lista == NULL) return 0;
+    LISTA temp = lista;
+    int tamanho;
+    for (tamanho = 0;temp!=NULL;temp = temp->prox,tamanho++);
+    return tamanho;
+}
+
+COORDENADA devolve_cabeca(LISTA L){
+    COORDENADA head;
+    head = L -> coord;
+    return head;
+}
+
+void freeL(LISTA l) {
+    while(l) {
+        LISTA temp = l;
+        l = l->prox;
+        free(temp);
+    }
+}
+

@@ -15,4 +15,6 @@ ARVORE inicializa_raiz (COORDENADA x);
 ARVORE inicializa_ramo (ESTADO *estado, COORDENADA x, ARVORE tree);
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes);
+
+ARVORE cria_folhas(ESTADO *estado, ARVORE tree);
 #endif //RASTROS_DADOS_H

@@ -1,10 +1,11 @@
 #ifndef BOT_LOGICA_H
 #define BOT_LOGICA_H
 #include "tree.h"
+#include "dados.h"
 
-int quem_ganha (ESTADO *estado, ARVORE tree);
+double quem_ganha (ESTADO *estado, LISTA jogadas_passadas);
 
-ESTADO *joga(ESTADO *estado, ARVORE tree);
+ESTADO *escolhe_coord(ESTADO *estado, ARVORE tree);
 
 double valor_jogada(ARVORE tree);
 

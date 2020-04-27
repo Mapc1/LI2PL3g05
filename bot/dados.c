@@ -59,6 +59,11 @@ void ler_tabuleiro (ESTADO *estado, FILE *f){
     for(i = 0; i < 8; i++)
         for(o = 0; o < 8;){
             c = fgetc(f);
+            if(c == '*'){
+                estado->ultima_jogada = (COORDENADA) { .linha = i, .coluna = o};
+                estado->tabuleiro[i][o] = c;
+                o++;
+            }
 
             if(c != '\n') {
                 estado->tabuleiro[i][o] = c;
@@ -117,4 +122,16 @@ void escreve_ficheiro (ESTADO *estado, char *s){
     fputc('\n', f);
     escreve_movs(estado, f);
     fclose(f);
+}
+
+ESTADO *joga(ESTADO *estado, COORDENADA coord){
+    estado->tabuleiro[estado->ultima_jogada.linha][estado->ultima_jogada.coluna] = PRETA;
+    estado->tabuleiro[coord.linha][coord.coluna] = BRANCA;
+
+    if(obter_bot(estado) == 1)
+        estado->jogadas[estado->num_jogadas].jogador1 = coord;
+    else
+        estado->jogadas[estado->num_jogadas].jogador2 = coord;
+
+    return estado;
 }
