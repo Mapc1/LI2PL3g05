@@ -1,128 +1,108 @@
 #include "logica.h"
 #include "dados.h"
+#include "tree.h"
 
-int comando_pos (ESTADO *estado, char *arg){
-    ESTADO *tmp = (ESTADO *) malloc(sizeof(ESTADO));
-    JOGADA jogada;
-    int njogada = atoi(arg),i;
+int quem_joga (ESTADO *estado, ARVORE tree){
+    int counter = 0;
 
-    if(njogada < 0)
-        njogada = 0;
-    else if(njogada > obter_numero_jogadas(estado) + 1)
-        njogada = obter_numero_jogadas(estado) + 1;
+    while(tree->jogadas_passadas != NULL)
+        counter++;
 
-    inicializar_estado(tmp);
+    if(counter % 2 == 0)
+        return obter_bot(estado);
 
-    for(i = 0; i < njogada; i++){
-        jogada = obter_movs(estado, i);
+    else if(obter_bot(estado) == 1)
+        return 2;
 
-        jogar(tmp, jogada.jogador1);
-        jogar(tmp, jogada.jogador2);
+    else return 1;
+}
+
+int ja_percorreu (COORDENADA coord, LISTA jogadas_passadas){
+    while(jogadas_passadas->prox != NULL)
+        if(coord.linha == jogadas_passadas->coord.linha &&
+           coord.coluna == jogadas_passadas->coord.coluna)
+            return 1;
+    return 0;
+}
+
+double quem_ganha (ESTADO *estado,ARVORE tree) {
+    int counter = 0;
+
+    COORDENADA coord = (COORDENADA) {tree->coord.coluna, tree->coord.linha};
+    double valor_da_jogada = 63 / tamanhodalista (tree->jogadas_passadas);
+    int i,o;
+
+    if (obter_casa(estado, coord) == UM) {
+        if (estado->bot == 1) return valor_da_jogada;
+        else return -valor_da_jogada;
+    }
+    if (obter_casa(estado, coord) == DOIS) {
+        if (estado->bot == 2) return valor_da_jogada;
+        else return -valor_da_jogada;
     }
 
-    estado->undo = njogada;
-
-    mostrar_tabuleiro(tmp);
-    comando_movs(tmp);
-
-    free(tmp);
-    return 1;
-}
-
-int compara_comando (char *s){
-    int comando = 0;
-
-    if (strcmp(s, "q") == 0) comando = 1;
-    else if (strcmp(s, "gr") == 0) comando = 2;
-    else if (strcmp(s, "ler") == 0) comando = 3;
-    else if (strcmp(s, "movs") == 0) comando = 4;
-    else if (strcmp(s, "pos") == 0) comando = 5;
-    else if (strcmp(s, "jog") == 0) comando = 6;
-
-    return comando;
-}
-
-int comando_gr (ESTADO *estado, char *s){
-    int bool = 0;
-
-    if (s != NULL) {
-        escreve_ficheiro(estado, s);
-        printf("\nEstado do jogo guardado em %s\n", s);
-        bool = 1;
-    }
-
-    return bool;
-}
-
-int comando_ler (ESTADO *estado, char *s){
-    int bool = 0;
-
-    if(s != NULL) {
-        ler_ficheiro(estado, s);
-        printf("\n%s importado.\n", s);
-        mostrar_tabuleiro(estado);
-        bool = 1;
-    }
-
-    return bool;
-}
-
-int jogada_impossivel (ESTADO *estado, COORDENADA a){
-    int jogador, bool = 0, counter = 0,i,o;
-
-    for(i = a.linha - 1; i <= a.linha + 1; i++)
-        for(o = a.coluna - 1; o <=a.coluna + 1; o++)
-            if(
-               estado->tabela[i][o] == PRETA ||
-               i == 8 || o == 8 ||
-               i == (-1) || o == (-1)
-               )
+    for (i = -1; i <= 1; i++)
+        for (o = -1; o <= 1; o++)
+            if (obter_casa(estado, coord) == PRETA || obter_casa(estado, coord) == BRANCA ||
+                ja_percorreu(coord, tree->jogadas_passadas))
                 counter++;
 
-    if(counter == 8) {
-        jogador = obter_jogador_atual(estado);
-        if (jogador == 1)
-            bool = 2;
-        if (jogador == 2)
-            bool = 1;
+    if (counter == 8) {
+        if (quem_joga(estado, tree) == estado->bot)
+            return valor_da_jogada;
+        else return -valor_da_jogada;
     }
-    return bool;
 }
 
-int valida_jogada (ESTADO *estado, COORDENADA c){
-    int bool = 1;
-    COORDENADA a = estado->ultima_jogada;
-    if(
-       abs (a.linha - c.linha) > 1 || abs (a.coluna - c.coluna) > 1 ||
-       obter_estado_casa(estado, c) != VAZIA
-       )
-        bool = 0;
-    return bool;
+double valor_jogada (ARVORE tree) {
+    tree->SE->valor = 0;
+    tree->SM->valor = 0;
+    tree->SD->valor = 0;
+    tree->ME->valor = 0;
+    tree->MD->valor = 0;
+    tree->IE->valor = 0;
+    tree->IM->valor = 0;
+    tree->ID->valor = 0;
+
+    if (tree == NULL)
+        return 0;
+
+    if (tree->ID == NULL && tree->IE == NULL && tree->IM == NULL && tree->MD == NULL && tree->ME == NULL &&
+        tree->SD == NULL && tree->SE == NULL && tree->SM == NULL)
+        return tree->valor;
+
+    if (tree->SE != NULL)tree->SE->valor += valor_jogada(tree->SE);
+    if (tree->SM != NULL)tree->SM->valor += valor_jogada(tree->SM);
+    if (tree->SD != NULL)tree->SD->valor += valor_jogada(tree->SD);
+    if (tree->ME != NULL)tree->ME->valor += valor_jogada(tree->ME);
+    if (tree->MD != NULL)tree->MD->valor += valor_jogada(tree->MD);
+    if (tree->IE != NULL)tree->IE->valor += valor_jogada(tree->IE);
+    if (tree->ID != NULL)tree->ID->valor += valor_jogada(tree->ID);
+    if (tree->IM != NULL)tree->IM->valor += valor_jogada(tree->IM);
+
+    return tree->SE->valor + tree->SM->valor + tree->SD->valor + tree->ME->valor + tree->MD->valor + tree->IE->valor + tree->IM->valor + tree->ID->valor;
 }
 
-int jogar(ESTADO *estado, COORDENADA c){
-    int bool = 0;
-    if(estado->undo != (-1)) {
-        reverte_estado(estado);
-    }
+ARVORE valor_jogada_recursiva (ARVORE tree){
+    if(tree != NULL) {
+        valor_jogada_recursiva(tree->SE);
+        valor_jogada_recursiva(tree->SM);
+        valor_jogada_recursiva(tree->SD);
+        valor_jogada_recursiva(tree->ME);
+        valor_jogada_recursiva(tree->MD);
+        valor_jogada_recursiva(tree->IE);
+        valor_jogada_recursiva(tree->IM);
+        valor_jogada_recursiva(tree->ID);
 
-    if(valida_jogada(estado, c) == 1) {
-        bool = aux_jogar(estado, c, BRANCA, PRETA);
-        insere_jogada(estado, c);
-        if(obter_jogador_atual(estado) == 2)
-            aumentar_numero_jogadas(estado);
-        muda_jogador(estado);
+        tree->valor = valor_jogada(tree);
     }
-    return bool;
+    return tree;
 }
 
-int fim_do_jogo (ESTADO *estado, COORDENADA c){
-    int bool = 0;
-    if (obter_estado_casa(estado, c) == UM){
-        bool = 1;
-        }
-    if (obter_estado_casa(estado, c) == DOIS){
-        bool = 2;
-        }
-    return bool;
+ESTADO *joga(ESTADO *estado,ARVORE tree){
+    tree = tsm_Carlo(tree,estado, 10);
+//  .
+//  .
+//  .
+    return estado;
 }
