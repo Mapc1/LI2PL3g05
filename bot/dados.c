@@ -65,7 +65,7 @@ void ler_tabuleiro (ESTADO *estado, FILE *f){
                 o++;
             }
 
-            if(c != '\n') {
+            else if(c != '\n') {
                 estado->tabuleiro[i][o] = c;
                 o++;
             }

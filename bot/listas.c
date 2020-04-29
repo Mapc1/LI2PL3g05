@@ -43,7 +43,9 @@ for(;l!=NULL;l=l->prox){
 
 COORDENADA indice_lista(LISTA lista, int indice){
     int i;
-    for(i=0;i<indice;i++) lista=lista->prox;
+    if (lista != NULL)
+        for(i=0;i<indice;i++)
+            lista=lista->prox;
     COORDENADA coord;
     coord=lista->coord;
     return coord;
@@ -63,11 +65,12 @@ COORDENADA devolve_cabeca(LISTA L){
     return head;
 }
 
-void freeL(LISTA l) {
-    while(l) {
+LISTA freeL(LISTA l) {
+    while(l != NULL) {
         LISTA temp = l;
         l = l->prox;
         free(temp);
     }
+    return l;
 }
 

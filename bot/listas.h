@@ -37,5 +37,5 @@ COORDENADA indice_lista(LISTA lista, int indice);
 
 int tamanhodalista (LISTA lista);
 COORDENADA devolve_cabeca(LISTA L);
-void freeL(LISTA l);
+LISTA freeL(LISTA l);
 #endif //RASTROS_LISTAS_H

@@ -32,28 +32,37 @@ double quem_ganha (ESTADO *estado,LISTA jogadas_passadas) {
     int counter = 0;
 
     COORDENADA coord = devolve_cabeca(jogadas_passadas);
+    COORDENADA coordNova
+    ;
     double valor_da_jogada = 63 / tamanhodalista(jogadas_passadas);
     int i, o;
     if (obter_casa(estado, coord) == UM) {
         if (estado->bot == 1) return valor_da_jogada;
-        else return -valor_da_jogada;
+        else return (valor_da_jogada * (-1));
     }
     if (obter_casa(estado, coord) == DOIS) {
         if (estado->bot == 2) return valor_da_jogada;
-        else return -valor_da_jogada;
+        else return (valor_da_jogada * (-1));
     }
 
 
-    for (i = -1; i <= 1; i++)
-        for (o = -1; o <= 1; o++)
-            if (obter_casa(estado, coord) == PRETA || obter_casa(estado, coord) == BRANCA ||
-                ja_percorreu(coord, jogadas_passadas))
+    for(i = coord.linha - 1; i <= coord.linha + 1; i++)
+        for(o = coord.coluna - 1; o <= coord.coluna + 1; o++) {
+            coordNova = (COORDENADA) {.coluna = i, .linha = o};
+            if (
+                    estado->tabuleiro[coordNova.linha][coordNova.coluna] == PRETA ||
+                    estado->tabuleiro[coordNova.linha][coordNova.coluna] == BRANCA ||
+                    nao_repete(jogadas_passadas, coordNova) ||
+                    i > 7 || o > 7 ||
+                    i < 0 || o < 0
+                    )
                 counter++;
+        }
 
     if (counter == 8) {
         if (quem_joga(estado, jogadas_passadas) == estado->bot)
             return valor_da_jogada;
-        else return -valor_da_jogada;
+        else return valor_da_jogada;
     }
     else return 0;
 }
@@ -65,7 +74,7 @@ double max (int num_count, ...){
 
     max = va_arg(va, double);
 
-    for(int i = 2; i <= num_count; i++){
+    for(int i = 0; i <= num_count; i++){
         num = va_arg(va, double);
         if(num > max)
             max = num;
@@ -75,14 +84,25 @@ double max (int num_count, ...){
 }
 
 double valor_jogada (ARVORE tree) {
-    tree->SE->valor = 0;
-    tree->SM->valor = 0;
-    tree->SD->valor = 0;
-    tree->ME->valor = 0;
-    tree->MD->valor = 0;
-    tree->IE->valor = 0;
-    tree->IM->valor = 0;
-    tree->ID->valor = 0;
+    int vse, vsm, vsd, vme, vmd, vie, vim, vid;
+
+    vse = 0;
+    vsm = 0;
+    vsd = 0;
+    vme = 0;
+    vmd = 0;
+    vie = 0;
+    vim = 0;
+    vid = 0;
+
+    if(tree->SE != NULL) vse = tree->SE->valor;
+    if(tree->SM != NULL) vse = tree->SM->valor;
+    if(tree->SD != NULL) vse = tree->SD->valor;
+    if(tree->ME != NULL) vse = tree->ME->valor;
+    if(tree->MD != NULL) vse = tree->MD->valor;
+    if(tree->IE != NULL) vse = tree->IE->valor;
+    if(tree->IM != NULL) vse = tree->IM->valor;
+    if(tree->ID != NULL) vse = tree->ID->valor;
 
     if (tree == NULL)
         return 0;
@@ -100,7 +120,7 @@ double valor_jogada (ARVORE tree) {
     if (tree->ID != NULL)tree->ID->valor += valor_jogada(tree->ID);
     if (tree->IM != NULL)tree->IM->valor += valor_jogada(tree->IM);
 
-    return tree->SE->valor + tree->SM->valor + tree->SD->valor + tree->ME->valor + tree->MD->valor + tree->IE->valor + tree->IM->valor + tree->ID->valor;
+    return vse + vsm + vsd + vme + vmd + vie + vim + vid;
 }
 
 ARVORE valor_jogada_recursiva (ARVORE tree){
@@ -121,7 +141,7 @@ ARVORE valor_jogada_recursiva (ARVORE tree){
 
 ESTADO *escolhe_coord(ESTADO *estado,ARVORE tree){
     double maior_valor;
-    tree = tsm_Carlo(tree,estado, 5);
+    tree = tsm_Carlo(tree,estado, 4);
 
     maior_valor = max(8, tree->SE->valor,
                                    tree->SM->valor,
