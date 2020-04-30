@@ -44,7 +44,7 @@ void ler_movs (ESTADO *estado, FILE *f){
         }
     }
     if(jog_incompleta == 1) {
-        estado->num_jogadas = i - 2;
+        estado->num_jogadas = i - 1;
         estado->bot = 2;
     }
     else {
@@ -131,7 +131,7 @@ ESTADO *joga(ESTADO *estado, COORDENADA coord){
     if(obter_bot(estado) == 1)
         estado->jogadas[estado->num_jogadas].jogador1 = coord;
     else
-        estado->jogadas[estado->num_jogadas].jogador2 = coord;
+        estado->jogadas[estado->num_jogadas - 1].jogador2 = coord;
 
     return estado;
 }

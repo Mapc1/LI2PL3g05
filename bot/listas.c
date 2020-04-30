@@ -26,7 +26,7 @@ LISTA cloneL (LISTA l) {
 
 int coordenadas_iguais (COORDENADA x,COORDENADA y){
     if (x.coluna == y.coluna &&
-        x.linha == y.linha)
+        x.linha  == y.linha)
         return 1;
     return 0;
 }
@@ -34,7 +34,7 @@ int coordenadas_iguais (COORDENADA x,COORDENADA y){
 int nao_repete(LISTA l,COORDENADA x){
 
 for(;l!=NULL;l=l->prox){
-    if (coordenadas_iguais(l->coord,x))
+    if (coordenadas_iguais(l->coord,x) == 1)
       return 0;
   }
   return 1;

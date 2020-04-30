@@ -12,6 +12,8 @@ Definição de árvore e das funções que a manipulam
 
 ARVORE inicializa_raiz (COORDENADA x);
 
+int ramo_esta_vazio(ARVORE tree);
+
 ARVORE inicializa_ramo (ESTADO *estado, COORDENADA x, ARVORE tree);
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes);
