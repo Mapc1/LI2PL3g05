@@ -111,7 +111,7 @@ double valor_jogada (ARVORE tree){
 
 ESTADO *escolhe_coord(ESTADO *estado,ARVORE tree){
     double maior_valor, vse, vsm, vsd, vme, vmd, vie, vim, vid;
-    tree = tsm_Carlo(tree,estado, 100000);
+    tree = tsm_Carlo(tree,estado, 10000);
 
     if(tree->SE == NULL) vse = LONG_MIN; else vse = tree->SE->valor;
     if(tree->SM == NULL) vsm = LONG_MIN; else vsm = tree->SM->valor;
