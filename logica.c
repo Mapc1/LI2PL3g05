@@ -1,5 +1,8 @@
 #include "logica.h"
 #include "dados.h"
+#include "interface.h"
+#include <stdlib.h>
+#include <string.h>
 
 int comando_pos (ESTADO *estado, char *arg){
     ESTADO *tmp = (ESTADO *) malloc(sizeof(ESTADO));

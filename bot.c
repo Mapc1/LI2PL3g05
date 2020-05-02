@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "dados.h"
 #include <math.h>
 #include "bot.h"

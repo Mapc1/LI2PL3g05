@@ -60,6 +60,19 @@ int end_game(ESTADO *e, COORDENADA coord){
         }
     return 0;
 }
+
+void prompt(ESTADO *e,char *col,char *lin){
+    int njogada,jogador;
+    njogada = obter_numero_jogadas(e);
+    jogador = obter_jogador_atual(e);
+    if (jogador == 1) {
+        printf ("#Jogada numero %d, PLAYER 1 jogou em %c%c\n",njogada,*col,*lin);
+    }
+    else{
+        printf ("#Jogada numero %d, PLAYER 2 jogou em %c%c\n",njogada,*col,*lin);
+    }
+}
+
 int interpretador(ESTADO *e) {
     char linha[BUF_SIZE];
     char col[2], lin[2];
@@ -70,7 +83,7 @@ int interpretador(ESTADO *e) {
         int w;
         if(strlen(linha) == 3 && sscanf(linha, "%[a-h]%[1-8]", col, lin) == 2) {
             COORDENADA coord = {*col - 'a', '8' -*lin};
-            prompt(e,*col,*lin);
+            prompt(e,col,lin);
             jogar(e, coord);
             mostrar_tabuleiro(e);
             if(end_game(e,coord)) return 2;
@@ -107,14 +120,4 @@ void mostrar_tabuleiro(ESTADO *e) {
 }
 
 
-void prompt(ESTADO *e,char *col,char *lin){
-    int njogada,jogador;
-    njogada = obter_numero_jogadas(e);
-    jogador = obter_jogador_atual(e);
-    if (jogador == 1) {
-            printf ("#Jogada numero %d, PLAYER 1 jogou em %c%c\n",njogada,col,lin);
-    }
-    else{
-        printf ("#Jogada numero %d, PLAYER 2 jogou em %c%c\n",njogada,col,lin);
-    }
-}
+

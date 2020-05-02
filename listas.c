@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listas.h"
+#include <string.h>
 
 LISTA insere_cabeca (void *x, LISTA xs){
     LISTA r = malloc (sizeof (Nodo));
