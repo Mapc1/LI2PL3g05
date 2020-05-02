@@ -7,6 +7,12 @@ Definição do estado e das funções que o manipulam
 #define RASTROS_LOGICA_H
 #include "dados.h"
 
+/**
+\brief Comando que permite voltar para uma jogada anterior
+@param estado Estado do jogo
+@param arg Número da jogada a que queremos voltar
+A utilização deste comando permite que o jogador volte para o número da jogada pertendida
+*/
 int comando_pos (ESTADO *estado, char *arg);
 
 /**

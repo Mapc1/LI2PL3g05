@@ -1,6 +1,6 @@
 /**
-@file dados.h
-Definição de árvore e das funções que a manipulam
+@file tree.h
+Funções que manipulam a árvore
 */
 
 #ifndef __RASTROS_TREES_H__
@@ -10,10 +10,23 @@ Definição de árvore e das funções que a manipulam
 #include <stdlib.h>
 #include "listas.h"
 
+/**
+\brief Inicializa árvore de coordenadas
+@param x Coordenada atual
+Insere a coordenada atual na lista de jogadas passadas, e inicializa os restantes parâmetros com NULL
+*/
 ARVORE inicializa_raiz (COORDENADA x);
 
+/**
+\brief Verifica se a Árvore está vazia
+*/
 int ramo_esta_vazio(ARVORE tree);
 
+/**
+\brief Inicializa árvore de coordenadas
+@param x Coordenada atual
+Insere a coordenada atual na lista de jogadas passadas, e inicializa os restantes parâmetros com NULL
+*/
 ARVORE inicializa_ramo (ESTADO *estado, COORDENADA x, ARVORE tree);
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes);
