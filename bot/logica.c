@@ -21,31 +21,20 @@ int quem_joga (ESTADO *estado, LISTA jogadas_passadas){
     else return 1;
 }
 
-int ja_percorreu (COORDENADA coord, LISTA jogadas_passadas){
-    while(jogadas_passadas->prox != NULL)
-        if(coord.linha == jogadas_passadas->coord.linha &&
-           coord.coluna == jogadas_passadas->coord.coluna)
-            return 1;
-    return 0;
-}
-
 double quem_ganha (ESTADO *estado,LISTA jogadas_passadas) {
     int counter = 0, i, o, indicernd = 0;;
 
     COORDENADA coord = devolve_cabeca(jogadas_passadas);
     COORDENADA coordNova;
 
-    double valor_da_jogada = 63 / (tamanhodalista(jogadas_passadas));
-
     if (obter_casa(estado, coord) == UM) {
-        if (estado->bot == 1) return valor_da_jogada;
-        else return (valor_da_jogada * (-1));
+        if (estado->bot == 1) return 1;
+        else return 0;
     }
     if (obter_casa(estado, coord) == DOIS) {
-        if (estado->bot == 2) return valor_da_jogada;
-        else return (valor_da_jogada * (-1));
+        if (estado->bot == 2) return 1;
+        else return 0;
     }
-
 
     LISTA coordsrandom = NULL, listaclone = cloneL(jogadas_passadas);
 
@@ -58,12 +47,12 @@ double quem_ganha (ESTADO *estado,LISTA jogadas_passadas) {
                 ) {
                     coordNova = (COORDENADA) {.coluna = o, .linha = i};
                     if (nao_repete(listaclone, coordNova)) {
-                        return 0;
+                        return -1;
                     }
                 }
     if (quem_joga(estado, jogadas_passadas) == estado->bot)
-        return (valor_da_jogada);
-    else return (valor_da_jogada * (-1));
+        return 0;
+    else return 1;
 }
 
 double max (int num_count, ...){
@@ -95,14 +84,14 @@ double valor_jogada (ARVORE tree){
     if (tree->ID != NULL)diff7 = valor_jogada(tree->ID);
     if (tree->IM != NULL)diff8 = valor_jogada(tree->IM);
 
-    if(ramo_esta_vazio(tree) == 1 && tree->passagens == 0) {
-        if (tree->valor != 0) {
-            tree->passagens++;
-            return tree->valor;
+    if(tree->nova_folha == 1) {
+            tree->nova_folha = 0;
+            if(tree->valor)
+                return 1;
+
+            else return 0;
         }
-        else
-            return 0;
-    }
+
     diff1 = diff1 + diff2 + diff3 + diff4 + diff5 + diff6 + diff7 + diff8;
     tree->valor += diff1;
 
@@ -111,7 +100,9 @@ double valor_jogada (ARVORE tree){
 
 ESTADO *escolhe_coord(ESTADO *estado,ARVORE tree){
     double maior_valor, vse, vsm, vsd, vme, vmd, vie, vim, vid;
-    tree = tsm_Carlo(tree,estado, 100000);
+    vse = vsm = vsd = vme = vmd = vie = vim = vid = INT_MIN;
+
+    tree = tsm_Carlo(tree,estado,10000);
 
     if(tree->SE == NULL) vse = LONG_MIN; else vse = tree->SE->valor;
     if(tree->SM == NULL) vsm = LONG_MIN; else vsm = tree->SM->valor;
