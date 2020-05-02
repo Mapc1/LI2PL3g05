@@ -24,7 +24,18 @@ Função que recebe comandos, quer seja para :
 */
 int interpretador(ESTADO *e);
 
+/**
+\brief Comando que devolve os movimentos dos jogadores
+@param estado Estado do jogo
+A utilização deste comando devolve todas as movimentações feitas pelos jogadores
+*/
 int comando_movs(ESTADO *estado);
 
+/**
+\brief Função utilizada para verificar se o jogo chegou ao fim
+@param estado Estado do jogo
+@param cord Coordenada do jogador
+Esta função verifica se o jogo chegou no seu final, e caso isso aconteça, imprime uma mensagem a anunciar o vencedor
+*/
 int end_game(ESTADO *e, COORDENADA coord);
 #endif //RASTROS_INTERFACE_H
