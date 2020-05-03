@@ -31,9 +31,9 @@ ARVORE inicializa_raiz (COORDENADA x){
 ARVORE inicializa_ramo (ESTADO* estado, COORDENADA x,ARVORE tree){
     ARVORE temp = malloc (sizeof(Ramo));
     temp->coord = x;  
-    tree->valor = 0;
-    tree->passagens = 0;
-    tree->nova_folha = 0;
+    temp->valor = 0;
+    temp->passagens = 0;
+    temp->nova_folha = 0;
     temp->jogadas_passadas = cloneL (tree->jogadas_passadas);
     temp->jogadas_passadas = insere_cabeca(x,temp->jogadas_passadas);
     temp->SE = NULL;
@@ -146,7 +146,7 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
     ARVORE temp = tree;
     double value = -DBL_MAX, bestvalue = -DBL_MAX;
     tree->passagens++;
-    for (i = 0, j = 0; i < 8; i++, temp = tree){
+    for (i = 0, j = 0; i < 8; i++){
         if (i==0) temp = tree -> SE;
         else if (i==1) temp = tree -> SM;
         else if (i==2) temp = tree -> SD;

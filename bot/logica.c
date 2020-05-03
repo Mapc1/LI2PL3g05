@@ -51,8 +51,8 @@ double quem_ganha (ESTADO *estado,LISTA jogadas_passadas) {
                     }
                 }
     if (quem_joga(estado, jogadas_passadas) == estado->bot)
-        return 0;
-    else return 1;
+        return 1;
+    else return 0;
 }
 
 double max (int num_count, ...){
@@ -72,8 +72,7 @@ double max (int num_count, ...){
 }
 
 double valor_jogada (ARVORE tree){
-    double diff1, diff2, diff3, diff4, diff5, diff6, diff7, diff8;
-    diff1 = diff2 = diff3 = diff4 = diff5 = diff6 = diff7 = diff8 = 0;
+    double diff1=0, diff2=0, diff3=0, diff4=0, diff5=0, diff6=0, diff7=0, diff8=0;
 
     if (tree->SE != NULL)diff1 = valor_jogada(tree->SE);
     if (tree->SM != NULL)diff2 = valor_jogada(tree->SM);
@@ -100,9 +99,7 @@ double valor_jogada (ARVORE tree){
 
 ESTADO *escolhe_coord(ESTADO *estado,ARVORE tree){
     double maior_valor, vse, vsm, vsd, vme, vmd, vie, vim, vid;
-    vse = vsm = vsd = vme = vmd = vie = vim = vid = INT_MIN;
-
-    tree = tsm_Carlo(tree,estado,10000);
+    tree = tsm_Carlo(tree,estado,25000);
 
     if(tree->SE == NULL) vse = LONG_MIN; else vse = tree->SE->valor;
     if(tree->SM == NULL) vsm = LONG_MIN; else vsm = tree->SM->valor;
