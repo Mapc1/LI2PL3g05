@@ -14,7 +14,7 @@ Funções auxiliares à jogada do bot
 @param jogadas_passadas Lista de jogadas passadas
 Devolve um double que atribui valor a essa jogada
 */
-double quem_ganha (ESTADO *estado, LISTA jogadas_passadas);
+double quem_ganha (ESTADO *estado,LISTA l);
 
 /**
 \brief Escolhe a melhor jogada
@@ -28,6 +28,6 @@ ESTADO *escolhe_coord(ESTADO *estado, ARVORE tree);
 \brief Atribui um valor à jogada
 @param tree Árvore de coordenadas
 */
-double valor_jogada(ARVORE tree);
+void valor_jogada(ARVORE tree);
 
 #endif //BOT_LOGICA_H

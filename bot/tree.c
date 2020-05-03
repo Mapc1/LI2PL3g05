@@ -13,9 +13,7 @@ ARVORE inicializa_raiz (COORDENADA x){
     tree->coord = x;  
     tree->valor = 0;
     tree->passagens = 0;
-    tree->jogadas_passadas = malloc (sizeof(Nodo));
-    tree->jogadas_passadas -> coord=x;
-    tree->jogadas_passadas -> prox = NULL;
+    tree->passadas = NULL;
     tree->SE = NULL;
     tree->SM = NULL;
     tree->SD = NULL;
@@ -30,10 +28,9 @@ ARVORE inicializa_raiz (COORDENADA x){
 ARVORE inicializa_ramo (ESTADO* estado, COORDENADA x,ARVORE tree){
     ARVORE temp = malloc (sizeof(Ramo));
     temp->coord = x;  
-    tree->valor = 0;
-    tree->passagens = 0;
-    temp->jogadas_passadas = cloneL (tree->jogadas_passadas);
-    temp->jogadas_passadas = insere_cabeca(x,temp->jogadas_passadas);
+    temp->valor = 0;
+    temp->passagens = 0;
+    temp->passadas = tree;
     temp->SE = NULL;
     temp->SM = NULL;
     temp->SD = NULL;
@@ -45,34 +42,43 @@ ARVORE inicializa_ramo (ESTADO* estado, COORDENADA x,ARVORE tree){
     return temp;
 }
 
-double rollout(LISTA jogadas_passadas,ESTADO *estado){
+int nao_repete(ARVORE tree,COORDENADA x){
+    if(tree==NULL){
+        return 1;
+    }
+    for(;tree!=NULL;tree=tree->passadas){
+        if (coordenadas_iguais(tree->coord,x) == 1)
+            return 0;
+    }
+    return 1;
+}
 
-    COORDENADA coordenada_atual = devolve_cabeca(jogadas_passadas);
+double rollout(ARVORE tree,ESTADO *estado){
 
-    if (quem_ganha(estado,jogadas_passadas) != 0)
-        return quem_ganha(estado,jogadas_passadas);
+    COORDENADA coordenada_atual = tree->coord;
+    LISTA listaclone = criaLista(tree);
+    if (quem_ganha(estado,listaclone) != -1)
+        return quem_ganha(estado,listaclone);
 
     int i,o,indicernd=0;
     COORDENADA cordNova;
 
-    LISTA coordsrandom = NULL,listaclone = cloneL(jogadas_passadas);
+    LISTA coordsrandom = NULL;
 
-    while (quem_ganha(estado,listaclone)==0){
+    while (quem_ganha(estado,listaclone)==-1){
         for(i = coordenada_atual.linha - 1,indicernd=0; i <= coordenada_atual.linha + 1; i++)
             for(o = coordenada_atual.coluna - 1; o <=coordenada_atual.coluna + 1; o++)
                 if((estado->tabuleiro[i][o] == VAZIA ||
-                    estado->tabuleiro[i][o] == UM ||
+                    estado->tabuleiro[i][o] == UM    ||
                     estado->tabuleiro[i][o] == DOIS)
                    && i<=7 && i>=0 && o<=7 && o>=0){
 
                     cordNova = (COORDENADA) {.coluna = o,.linha = i};
-                    if(nao_repete(listaclone,cordNova) == 1){
+                    if(nao_repeteLista(listaclone,cordNova) == 1){
                         coordsrandom = insere_cabeca(cordNova,coordsrandom);
                         indicernd++;
                     }
                 }
-        if(indicernd == 0)
-            printf("deu merda\n");
         if(indicernd == 1){
             cordNova = indice_lista(coordsrandom, 0);
             listaclone = insere_cabeca(cordNova,listaclone);
@@ -111,7 +117,7 @@ ARVORE cria_folhas(ESTADO *estado, ARVORE tree){
                 && i<=7 && i>=0 && o<=7 && o>=0){
 
                 cordNova = (COORDENADA) {.coluna = o,.linha = i};
-                if(nao_repete(tree->jogadas_passadas,cordNova)){
+                if(nao_repete(tree,cordNova)){
                     if (posicao==0) tree -> SE = inicializa_ramo(estado, cordNova,tree);
                     else if (posicao==1) tree -> SM = inicializa_ramo(estado, cordNova,tree);
                     else if (posicao==2) tree -> SD = inicializa_ramo(estado, cordNova,tree);
@@ -140,11 +146,11 @@ int ramo_esta_vazio(ARVORE tree){
 }
 
 ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
-    int i,j;
+    int i,j,vai_somar=0;
     ARVORE temp = tree;
     double value = -DBL_MAX, bestvalue = -DBL_MAX;
     tree->passagens++;
-    for (i = 0, j = 0; i < 8; i++, temp = tree){
+    for (i = 0, j = 0; i < 8; i++){
         if (i==0) temp = tree -> SE;
         else if (i==1) temp = tree -> SM;
         else if (i==2) temp = tree -> SD;
@@ -156,7 +162,7 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
         if (temp!=NULL){
             if (temp->passagens == 0)
                 value = DBL_MAX;
-            else value = temp->valor + 2*sqrt(log(tree->passagens)/temp->passagens);
+            else value = (temp->valor/temp->passagens) + (sqrt(2) * 2*sqrt(log(tree->passagens)/temp->passagens));
 
             if(value>bestvalue){
                 bestvalue = value;
@@ -177,17 +183,24 @@ ARVORE tsm_Carlo(ARVORE tree,ESTADO *estado,int repeticoes){
             temp = cria_folhas(estado, temp);
             if (ramo_esta_vazio(temp)) {
                 temp->passagens++;
-                temp->valor *= 2;
+                if (temp->valor) {
+                    temp->valor++;
+                    vai_somar = 1;
+                }
             }
             else temp = tsm_Carlo(temp,estado,-1);
         }
         else temp = tsm_Carlo(temp, estado, -1);
     }
     else {
-        temp->valor = rollout (temp->jogadas_passadas, estado);
+        temp->passagens++;
+        temp->valor = rollout (temp, estado);
+        if(temp->valor){
+            vai_somar=1;
+        }
     }
-    if(repeticoes != -1)
-        valor_jogada(tree);
+    if(vai_somar)
+        valor_jogada(temp);
 
     if(repeticoes != 1 && repeticoes != -1)
         tree = tsm_Carlo(tree, estado, --repeticoes);

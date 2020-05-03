@@ -106,13 +106,13 @@ void escreve_movs (ESTADO *estado, FILE *f){
         colj2 = estado->jogadas[i].jogador2.coluna + 'a';
         linj2 = 8 - estado->jogadas[i].jogador2.linha;
 
-        fprintf(f, i < 10 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
+        fprintf(f, i < 9 ? "0%d: %c%d %c%d\n" : "%d: %c%d %c%d\n", i + 1, colj1, linj1, colj2, linj2);
     }
     if(obter_bot(estado) == 1) {
         colj1 = estado->jogadas[i].jogador1.coluna + 'a';
         linj1 = 8 - estado->jogadas[i].jogador1.linha;
 
-        fprintf(f, i < 10 ? "0%d: %c%d\n" : "%d: %c%d \n", i + 1, colj1, linj1);
+        fprintf(f, i < 9 ? "0%d: %c%d\n" : "%d: %c%d \n", i + 1, colj1, linj1);
     }
 }
 

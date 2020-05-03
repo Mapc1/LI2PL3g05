@@ -61,9 +61,9 @@ typedef struct nodo {
 */
 typedef struct ramo {
     COORDENADA coord;
-    LISTA jogadas_passadas;
     double valor;
     double passagens;
+    struct ramo *passadas;
     struct ramo *SE;
     struct ramo *SM;
     struct ramo *SD;

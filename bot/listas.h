@@ -46,7 +46,7 @@ int coordenadas_iguais (COORDENADA x,COORDENADA y);
 @param l Lista de coordenadas
 @param x Coordenada
 */
-int nao_repete(LISTA l,COORDENADA x);
+int nao_repeteLista(LISTA l,COORDENADA x);
 
 /**
 \brief Insere uma nova cabeça na lista
@@ -79,4 +79,6 @@ COORDENADA devolve_cabeca(LISTA L);
 @param L Lista
 */
 LISTA freeL(LISTA l);
+
+LISTA criaLista (ARVORE tree);
 #endif //RASTROS_LISTAS_H

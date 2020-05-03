@@ -31,7 +31,7 @@ int coordenadas_iguais (COORDENADA x,COORDENADA y){
     return 0;
 }
 
-int nao_repete(LISTA l,COORDENADA x){
+int nao_repeteLista(LISTA l,COORDENADA x){
 
 for(;l!=NULL;l=l->prox){
     if (coordenadas_iguais(l->coord,x) == 1)
@@ -71,6 +71,15 @@ LISTA freeL(LISTA l) {
         l = l->prox;
         free(temp);
     }
+    return l;
+}
+
+
+LISTA criaLista (ARVORE tree){
+    if(!tree) return NULL;
+    LISTA l = malloc(sizeof(Nodo));
+    l -> coord = tree ->coord;
+    l -> prox = criaLista(tree->passadas);
     return l;
 }
 

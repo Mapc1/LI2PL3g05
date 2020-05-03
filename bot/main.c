@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "dados.h"
 #include "logica.h"
+#include "tree.h"
 #include <time.h>
 
 int main(int argc, char **argv) {
