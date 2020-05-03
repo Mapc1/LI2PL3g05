@@ -1,0 +1,87 @@
+\hypertarget{tree_8h}{}\doxysection{tree.\+h File Reference}
+\label{tree_8h}\index{tree.h@{tree.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}listas.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} \mbox{\hyperlink{tree_8h_a91ff9a8606dee21935cf792210665a46}{inicializa\+\_\+raiz}} (\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} x)
+\begin{DoxyCompactList}\small\item\em Inicializa árvore de coordenadas. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{tree_8h_a6232f4cf02d9f0eb716ce04b113ec80f}\label{tree_8h_a6232f4cf02d9f0eb716ce04b113ec80f}} 
+int \mbox{\hyperlink{tree_8h_a6232f4cf02d9f0eb716ce04b113ec80f}{ramo\+\_\+esta\+\_\+vazio}} (\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree)
+\begin{DoxyCompactList}\small\item\em Verifica se a Árvore está vazia. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} \mbox{\hyperlink{tree_8h_ae09d1e4b99aaa215eaaa9c1196ab3d4c}{inicializa\+\_\+ramo}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} x, \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree)
+\begin{DoxyCompactList}\small\item\em Inicializa árvore de coordenadas. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} \mbox{\hyperlink{tree_8h_a8217e8ca562e7469b74c533098a39f0b}{tsm\+\_\+\+Carlo}} (\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree, \mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, int repeticoes)
+\begin{DoxyCompactList}\small\item\em Procura a melhor jogada. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} \mbox{\hyperlink{tree_8h_a741f5cf71c1bd8fdef92d0bc732a4540}{cria\+\_\+folhas}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree)
+\begin{DoxyCompactList}\small\item\em Procura o melhor ramo para expandir a árvore. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Funções que manipulam a árvore 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tree_8h_a741f5cf71c1bd8fdef92d0bc732a4540}\label{tree_8h_a741f5cf71c1bd8fdef92d0bc732a4540}} 
+\index{tree.h@{tree.h}!cria\_folhas@{cria\_folhas}}
+\index{cria\_folhas@{cria\_folhas}!tree.h@{tree.h}}
+\doxysubsubsection{\texorpdfstring{cria\_folhas()}{cria\_folhas()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} cria\+\_\+folhas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}}}]{tree }\end{DoxyParamCaption})}
+
+
+
+Procura o melhor ramo para expandir a árvore. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & Árvore de coordenadas @estado Estado do jogo Procura os ramos com melhores jogadas, e expande a árvore nesse sentido \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tree_8h_a91ff9a8606dee21935cf792210665a46}\label{tree_8h_a91ff9a8606dee21935cf792210665a46}} 
+\index{tree.h@{tree.h}!inicializa\_raiz@{inicializa\_raiz}}
+\index{inicializa\_raiz@{inicializa\_raiz}!tree.h@{tree.h}}
+\doxysubsubsection{\texorpdfstring{inicializa\_raiz()}{inicializa\_raiz()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} inicializa\+\_\+raiz (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Inicializa árvore de coordenadas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Coordenada atual Insere a coordenada atual na lista de jogadas passadas, e inicializa os restantes parâmetros com N\+U\+LL \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tree_8h_ae09d1e4b99aaa215eaaa9c1196ab3d4c}\label{tree_8h_ae09d1e4b99aaa215eaaa9c1196ab3d4c}} 
+\index{tree.h@{tree.h}!inicializa\_ramo@{inicializa\_ramo}}
+\index{inicializa\_ramo@{inicializa\_ramo}!tree.h@{tree.h}}
+\doxysubsubsection{\texorpdfstring{inicializa\_ramo()}{inicializa\_ramo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} inicializa\+\_\+ramo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{x,  }\item[{\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}}}]{tree }\end{DoxyParamCaption})}
+
+
+
+Inicializa árvore de coordenadas. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Coordenada do jogador \\
+\hline
+{\em tree} & Árvore de coordenadas @estado Estado do jogo Adiciona uma nova coordenada à lista de jogadas passadas e liga o novo ramo à árvore anterior \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tree_8h_a8217e8ca562e7469b74c533098a39f0b}\label{tree_8h_a8217e8ca562e7469b74c533098a39f0b}} 
+\index{tree.h@{tree.h}!tsm\_Carlo@{tsm\_Carlo}}
+\index{tsm\_Carlo@{tsm\_Carlo}!tree.h@{tree.h}}
+\doxysubsubsection{\texorpdfstring{tsm\_Carlo()}{tsm\_Carlo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tsm\+\_\+\+Carlo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}}}]{tree,  }\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{int}]{repeticoes }\end{DoxyParamCaption})}
+
+
+
+Procura a melhor jogada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & Árvore de coordenadas @estado Estado do jogo @repeticoes Número de vezes que a função irá ser utilizada recursivamente Para obter a melhor jogada utiliza a eurística \char`\"{}\+Tree search Montecarlo\char`\"{} \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,68 @@
+\hypertarget{logica_8h}{}\doxysection{logica.\+h File Reference}
+\label{logica_8h}\index{logica.h@{logica.h}}
+{\ttfamily \#include \char`\"{}tree.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dados.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{logica_8h_a18466405be1e034cb8d98702e014bf3a}{quem\+\_\+ganha}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} jogadas\+\_\+passadas)
+\begin{DoxyCompactList}\small\item\em Verifica se algum dos jogadores ganhou. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$ \mbox{\hyperlink{logica_8h_ae6394d9f53d3ade6c8d28c76b5501676}{escolhe\+\_\+coord}} (\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$estado, \mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree)
+\begin{DoxyCompactList}\small\item\em Escolhe a melhor jogada. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{logica_8h_a2dd3d027331115e771413052cac2cbe4}{valor\+\_\+jogada}} (\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}} tree)
+\begin{DoxyCompactList}\small\item\em Atribui um valor à jogada. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Funções auxiliares à jogada do bot 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logica_8h_ae6394d9f53d3ade6c8d28c76b5501676}\label{logica_8h_ae6394d9f53d3ade6c8d28c76b5501676}} 
+\index{logica.h@{logica.h}!escolhe\_coord@{escolhe\_coord}}
+\index{escolhe\_coord@{escolhe\_coord}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{escolhe\_coord()}{escolhe\_coord()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}}$\ast$ escolhe\+\_\+coord (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}}}]{tree }\end{DoxyParamCaption})}
+
+
+
+Escolhe a melhor jogada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & Estado do jogo \\
+\hline
+{\em tree} & Árvore de coordenadas Efetua a jogada com melhor valor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logica_8h_a18466405be1e034cb8d98702e014bf3a}\label{logica_8h_a18466405be1e034cb8d98702e014bf3a}} 
+\index{logica.h@{logica.h}!quem\_ganha@{quem\_ganha}}
+\index{quem\_ganha@{quem\_ganha}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{quem\_ganha()}{quem\_ganha()}}
+{\footnotesize\ttfamily double quem\+\_\+ganha (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structESTADO}{E\+S\+T\+A\+DO}} $\ast$}]{estado,  }\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{jogadas\+\_\+passadas }\end{DoxyParamCaption})}
+
+
+
+Verifica se algum dos jogadores ganhou. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em estado} & Estado do jogo \\
+\hline
+{\em jogadas\+\_\+passadas} & Lista de jogadas passadas Devolve um double que atribui valor a essa jogada \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logica_8h_a2dd3d027331115e771413052cac2cbe4}\label{logica_8h_a2dd3d027331115e771413052cac2cbe4}} 
+\index{logica.h@{logica.h}!valor\_jogada@{valor\_jogada}}
+\index{valor\_jogada@{valor\_jogada}!logica.h@{logica.h}}
+\doxysubsubsection{\texorpdfstring{valor\_jogada()}{valor\_jogada()}}
+{\footnotesize\ttfamily double valor\+\_\+jogada (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structramo}{A\+R\+V\+O\+RE}}}]{tree }\end{DoxyParamCaption})}
+
+
+
+Atribui um valor à jogada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & Árvore de coordenadas \\
+\hline
+\end{DoxyParams}

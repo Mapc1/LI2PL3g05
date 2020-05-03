@@ -1,0 +1,189 @@
+\hypertarget{listas_8h}{}\doxysection{listas.\+h File Reference}
+\label{listas_8h}\index{listas.h@{listas.h}}
+{\ttfamily \#include \char`\"{}listas.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dados.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} \mbox{\hyperlink{listas_8h_a223c2040f83e1bc6026cb91c8e285f43}{insere\+\_\+cabeca}} (\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} x, \mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} xs)
+\begin{DoxyCompactList}\small\item\em Tipo de dados para as listas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{listas_8h_a4c10928f7acaa4e3de3760cea0dfd9c0}{lista\+\_\+esta\+\_\+vazia}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} L)
+\begin{DoxyCompactList}\small\item\em Verifica se a lista está vazia. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} \mbox{\hyperlink{listas_8h_a679a8ab5effba06a1fa87ac69c1a34b9}{cloneL}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} l)
+\begin{DoxyCompactList}\small\item\em Replica uma lista. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{listas_8h_a34e96d8a0952bacea04107f2d632ae7b}{coordenadas\+\_\+iguais}} (\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} x, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} y)
+\begin{DoxyCompactList}\small\item\em Verifica se as coordenadas são iguais. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{listas_8h_a86c32cd9a15b303b43b10ea5430ee8ae}{nao\+\_\+repete}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} l, \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} x)
+\begin{DoxyCompactList}\small\item\em Verifica se existe existe a coordenada x na lista l. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} \mbox{\hyperlink{listas_8h_af28633b451bb54820450998729a8fec6}{indice\+\_\+lista}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} lista, int indice)
+\begin{DoxyCompactList}\small\item\em Devolve uma coordenada presente num certo indice. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{listas_8h_a98ea3457430ade0bb13e546f66084c5d}{tamanhodalista}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} lista)
+\begin{DoxyCompactList}\small\item\em Calcula o tamanho de uma lista. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} \mbox{\hyperlink{listas_8h_a6cd0d76abce817f1f27b6d3c3d6a0889}{devolve\+\_\+cabeca}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} L)
+\begin{DoxyCompactList}\small\item\em Devolve a cabeça de uma lista. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} \mbox{\hyperlink{listas_8h_ae49d6c8d07db93e14e20b3bc276238df}{freeL}} (\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} l)
+\begin{DoxyCompactList}\small\item\em Liberta a memória ocupada por uma lista. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Definição das listas e das funções que as alteram 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{listas_8h_a679a8ab5effba06a1fa87ac69c1a34b9}\label{listas_8h_a679a8ab5effba06a1fa87ac69c1a34b9}} 
+\index{listas.h@{listas.h}!cloneL@{cloneL}}
+\index{cloneL@{cloneL}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{cloneL()}{cloneL()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} cloneL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{l }\end{DoxyParamCaption})}
+
+
+
+Replica uma lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & Lista a replicar Dado uma lista, cria uma igual à anterior \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a34e96d8a0952bacea04107f2d632ae7b}\label{listas_8h_a34e96d8a0952bacea04107f2d632ae7b}} 
+\index{listas.h@{listas.h}!coordenadas\_iguais@{coordenadas\_iguais}}
+\index{coordenadas\_iguais@{coordenadas\_iguais}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{coordenadas\_iguais()}{coordenadas\_iguais()}}
+{\footnotesize\ttfamily int coordenadas\+\_\+iguais (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{x,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{y }\end{DoxyParamCaption})}
+
+
+
+Verifica se as coordenadas são iguais. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Coordenada \\
+\hline
+{\em y} & Coordenada \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a6cd0d76abce817f1f27b6d3c3d6a0889}\label{listas_8h_a6cd0d76abce817f1f27b6d3c3d6a0889}} 
+\index{listas.h@{listas.h}!devolve\_cabeca@{devolve\_cabeca}}
+\index{devolve\_cabeca@{devolve\_cabeca}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{devolve\_cabeca()}{devolve\_cabeca()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} devolve\+\_\+cabeca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{L }\end{DoxyParamCaption})}
+
+
+
+Devolve a cabeça de uma lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Lista \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_ae49d6c8d07db93e14e20b3bc276238df}\label{listas_8h_ae49d6c8d07db93e14e20b3bc276238df}} 
+\index{listas.h@{listas.h}!freeL@{freeL}}
+\index{freeL@{freeL}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{freeL()}{freeL()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} freeL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{l }\end{DoxyParamCaption})}
+
+
+
+Liberta a memória ocupada por uma lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Lista \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_af28633b451bb54820450998729a8fec6}\label{listas_8h_af28633b451bb54820450998729a8fec6}} 
+\index{listas.h@{listas.h}!indice\_lista@{indice\_lista}}
+\index{indice\_lista@{indice\_lista}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{indice\_lista()}{indice\_lista()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}} indice\+\_\+lista (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{lista,  }\item[{int}]{indice }\end{DoxyParamCaption})}
+
+
+
+Devolve uma coordenada presente num certo indice. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista de coordenadas \\
+\hline
+{\em indice} & Indice da lista \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a223c2040f83e1bc6026cb91c8e285f43}\label{listas_8h_a223c2040f83e1bc6026cb91c8e285f43}} 
+\index{listas.h@{listas.h}!insere\_cabeca@{insere\_cabeca}}
+\index{insere\_cabeca@{insere\_cabeca}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{insere\_cabeca()}{insere\_cabeca()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structnodo}{L\+I\+S\+TA}} insere\+\_\+cabeca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{x,  }\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{xs }\end{DoxyParamCaption})}
+
+
+
+Tipo de dados para as listas. 
+
+Insere uma nova cabeça na lista.
+
+Insere uma nova cabeça na lista 
+\begin{DoxyParams}{Parameters}
+{\em x} & nova cabeça da lista \\
+\hline
+{\em xs} & lista\\
+\hline
+{\em x} & nova cabeça da lista \\
+\hline
+{\em xs} & lista\\
+\hline
+\end{DoxyParams}
+Tipo de dados para as listas.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & nova cabeça da lista \\
+\hline
+{\em xs} & lista \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a4c10928f7acaa4e3de3760cea0dfd9c0}\label{listas_8h_a4c10928f7acaa4e3de3760cea0dfd9c0}} 
+\index{listas.h@{listas.h}!lista\_esta\_vazia@{lista\_esta\_vazia}}
+\index{lista\_esta\_vazia@{lista\_esta\_vazia}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{lista\_esta\_vazia()}{lista\_esta\_vazia()}}
+{\footnotesize\ttfamily int lista\+\_\+esta\+\_\+vazia (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{L }\end{DoxyParamCaption})}
+
+
+
+Verifica se a lista está vazia. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em L} & Lista Devolve verdadeiro (1) se estiver vazia \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a86c32cd9a15b303b43b10ea5430ee8ae}\label{listas_8h_a86c32cd9a15b303b43b10ea5430ee8ae}} 
+\index{listas.h@{listas.h}!nao\_repete@{nao\_repete}}
+\index{nao\_repete@{nao\_repete}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{nao\_repete()}{nao\_repete()}}
+{\footnotesize\ttfamily int nao\+\_\+repete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{l,  }\item[{\mbox{\hyperlink{structCOORDENADA}{C\+O\+O\+R\+D\+E\+N\+A\+DA}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Verifica se existe existe a coordenada x na lista l. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em l} & Lista de coordenadas \\
+\hline
+{\em x} & Coordenada \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{listas_8h_a98ea3457430ade0bb13e546f66084c5d}\label{listas_8h_a98ea3457430ade0bb13e546f66084c5d}} 
+\index{listas.h@{listas.h}!tamanhodalista@{tamanhodalista}}
+\index{tamanhodalista@{tamanhodalista}!listas.h@{listas.h}}
+\doxysubsubsection{\texorpdfstring{tamanhodalista()}{tamanhodalista()}}
+{\footnotesize\ttfamily int tamanhodalista (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnodo}{L\+I\+S\+TA}}}]{lista }\end{DoxyParamCaption})}
+
+
+
+Calcula o tamanho de uma lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista de coordenadas \\
+\hline
+\end{DoxyParams}
