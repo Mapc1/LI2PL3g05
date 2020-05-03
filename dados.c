@@ -156,7 +156,7 @@ void ler_movs (ESTADO *estado, FILE *f){
 }
 
 void ler_tabuleiro (ESTADO *estado, FILE *f){
-    char c,i,o;
+    unsigned char c,i,o;
     for(i = 0; i < 8; i++)
         for(o = 0; o < 8;){
             c = fgetc(f);

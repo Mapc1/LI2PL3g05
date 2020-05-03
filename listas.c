@@ -22,6 +22,7 @@ LISTA fromArray (void *v[], int N, int tamcel) {
 
 LISTA criar_lista(){
     LISTA l = NULL;
+    return l;
 }
 
 void *devolve_cabeca(LISTA L){
