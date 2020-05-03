@@ -1,4 +1,4 @@
-# LI2-PL3-G5
+# LI2-PL3-G5 MIEI
 ## Jogo Rastros para projeto de LI2
 
 Desenvolvido por:
